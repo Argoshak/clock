@@ -37,9 +37,10 @@
             transition: all 0.5s ease;
         }
 
+        /* إصلاح شريط التنبيهات العلوي */
         .sticky-admin-alert-marquee {
-            width: 100vw;
-            position: absolute;
+            width: 100%;
+            position: fixed; 
             top: 0;
             left: 0;
             background: linear-gradient(90deg, #D50000, var(--accent), #D50000);
@@ -53,6 +54,7 @@
             display: none;
             z-index: 9999;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            box-sizing: border-box;
         }
         
         .marquee-content { display: inline-block; padding-left: 100%; animation: cosmicMarquee 20s linear infinite; }
@@ -80,10 +82,11 @@
         .broadcast-ticker { display: inline-block; padding-right: 100%; animation: ticker 25s linear infinite; }
         @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
 
+        /* تعديل موضع زر الإدارة بشكل افتراضي */
         .admin-gate-btn {
-            position: fixed; top: 20px; left: 15px; width: auto; padding: 10px 18px;
+            position: fixed; top: 60px; left: 15px; width: auto; padding: 10px 18px;
             background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff;
-            border-radius: 10px; font-size: 0.8rem; cursor: pointer; z-index: 999999; transition: 0.3s; backdrop-filter: blur(5px);
+            border-radius: 10px; font-size: 0.8rem; cursor: pointer; z-index: 9999; transition: 0.3s; backdrop-filter: blur(5px);
         }
         .admin-gate-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px var(--primary);}
 
@@ -142,7 +145,6 @@
         .holiday-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1.05rem; color: #ECEFF1; flex-wrap: wrap; gap: 10px;}
         .holiday-countdown { color: #fff; font-weight: bold; background: var(--accent); padding: 3px 10px; border-radius: 12px; text-shadow: none; box-shadow: 0 2px 8px rgba(255, 23, 68, 0.5);}
 
-        /* حل مشكلة الجدول في الشاشات الصغيرة */
         .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; }
         .concept-table { width: 100%; border-collapse: collapse; text-align: right; font-size: 1rem; min-width: 500px; }
         .concept-table th, .concept-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -163,31 +165,44 @@
         .admin-buttons-wrapper { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
         .admin-buttons-wrapper button { flex: 1; min-width: 200px; padding: 15px; font-size: 1.1rem; }
 
-        /* 📱 Media Queries (تجاوب الهاتف) */
+        /* 📱 Media Queries (إصلاح وتجاوب الهاتف بالكامل) */
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            .dashboard { grid-template-columns: 1fr; margin-top: 70px; gap: 15px; }
-            .hero-card { padding: 35px 20px 25px 20px; } /* مساحة إضافية بالأعلى للعداد */
+            body { 
+                padding: 10px; 
+                padding-top: 60px; /* نزول إجباري لحماية العناصر من الشريط العلوي */
+            }
+            
+            .dashboard { 
+                grid-template-columns: 1fr; 
+                margin-top: 40px; 
+                gap: 15px; 
+            }
+            
+            .hero-card { 
+                padding: 35px 20px 25px 20px; 
+                margin-top: 10px;
+            }
+            
             .card { padding: 20px 15px; }
             
-            /* تصغير الخطوط العملاقة */
-            .big-day { font-size: 4.5rem; }
-            .month-year { font-size: 1.4rem; }
+            /* تصغير الخطوط العملاقة لمنع تدمير الصندوق */
+            .big-day { font-size: 4rem; }
+            .month-year { font-size: 1.2rem; }
             #clock { font-size: 1.5rem !important; }
-            #sDayName { font-size: 1.4rem !important; }
-            #mainDisplayTitle { font-size: 1.2rem !important; margin-top: 30px !important; } /* إبعاد العنوان عن العداد */
+            #sDayName { font-size: 1.3rem !important; }
+            #mainDisplayTitle { font-size: 1.1rem !important; margin-top: 35px !important; } 
             
-            /* تعديل الأزرار والعدادات */
+            /* تعديل الأزرار والعدادات لتفادي التداخل */
             .user-counter { top: 15px; right: 15px; font-size: 0.8rem; padding: 6px 12px; }
-            .admin-gate-btn { top: 15px; left: 10px; padding: 8px 12px; font-size: 0.75rem; }
+            .admin-gate-btn { top: 60px; left: 10px; padding: 8px 12px; font-size: 0.75rem; }
             
-            /* تحويل الشبكات لتكون عمودية */
-            .stat-grid { grid-template-columns: 1fr; }
+            /* تحويل الشبكات لتكون عمودية ومريحة للعين */
+            .stat-grid { grid-template-columns: 1fr; gap: 10px; }
             .theme-btn-grid { grid-template-columns: repeat(2, 1fr); }
             .admin-buttons-wrapper { flex-direction: column; }
             .admin-buttons-wrapper button { width: 100%; }
             
-            /* تعديل الأحداث */
+            /* تعديل الأجندة والأحداث */
             .holiday-item { justify-content: flex-start; align-items: center; }
             .holiday-countdown { margin-right: auto; }
         }
@@ -446,7 +461,7 @@
         document.getElementById('adminFooterIn').value = config.footerText || "";
         document.getElementById('colorPrimary').value = config.cPrimary;
         document.getElementById('colorSecondary').value = config.cSecondary;
-        document.getElementById('colorAccent').value = config.cAccent;
+        document.getElementById('colorAccent').value = config.colorAccent; // تم تعديل الاسم ليتوافق مع الحفظ البسيط
         document.getElementById('colorBg').value = config.cBg;
 
         const mArr = config.customMonths || defaultMonths; mArr.forEach((m, i) => { document.getElementById(`mIn_${i}`).value = m; });

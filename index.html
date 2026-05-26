@@ -99,7 +99,19 @@
             100% { transform: translateX(-100%); } 
         }
 
-        .dashboard { max-width: 1100px; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; z-index: 1; margin-top: 20px; }
+        /* 🔒 تعديل الواجهة الرئيسية: مخفية افتراضياً لحل مشكلة الهواتف */
+        .dashboard { 
+            max-width: 1100px; 
+            width: 100%; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            z-index: 1; 
+            margin-top: 20px; 
+            opacity: 0; 
+            pointer-events: none; 
+            transition: opacity 0.4s ease; 
+        }
 
         /* شاشة الصيانة */
         #maintenanceScreen {
@@ -432,7 +444,7 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database().ref("system_config");
     let isAdminLoggedIn = false;
-    let isFirstLoad = true; // متغير لمعرفة التحميل الأول
+    let isFirstLoad = true; 
     
     const defaultSystemData = {
         currentPassword: 'argos', savedTitle: 'منظومة الوقت الكونية المعربة', savedNotice: '', savedEpochYear: 2012, footerText: 'جميع الحقوق محفوظة © منظومة الوقت الكونية',
@@ -451,12 +463,19 @@
         if(data) { config = {...config, ...data}; applySystemData(); } 
         else { db.set(defaultSystemData); }
 
-        // 🌟 إخفاء شاشة التحميل فوراً بنعومة بمجرد جلب أول حزمة بيانات صحيحة من الفايربيس
+        // ✨ التحديث الذكي: إخفاء شاشة التحميل وإظهار الواجهة الرئيسية معاً بنعومة فور وصول البيانات
         if(isFirstLoad) {
             const loader = document.getElementById('appLoader');
             if(loader) {
                 loader.style.opacity = '0';
                 setTimeout(() => loader.style.display = 'none', 400);
+            }
+            
+            /* 🔓 جلب الـ dashboard وإظهارها فوراً للهاتف */
+            const dashboard = document.querySelector('.dashboard');
+            if(dashboard) {
+                dashboard.style.opacity = '1';
+                dashboard.style.pointerEvents = 'auto';
             }
             isFirstLoad = false;
         }

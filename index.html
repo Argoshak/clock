@@ -32,12 +32,18 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            padding-top: 40px;
             overflow-x: hidden;
             position: relative;
-            transition: all 0.5s ease;
+            transition: all 0.4s ease;
         }
 
-        /* إصلاح شريط التنبيهات العلوي */
+        /* نزول تلقائي لعناصر الصفحة عند ظهور شريط التنبيهات */
+        body.has-alert {
+            padding-top: 80px;
+        }
+
+        /* تحديث شريط التنبيهات العلوي ليعمل بشكل مثالي على كل الشاشات */
         .sticky-admin-alert-marquee {
             width: 100%;
             position: fixed; 
@@ -47,26 +53,34 @@
             color: white;
             padding: 12px 0;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             box-shadow: 0 4px 20px rgba(255, 23, 68, 0.5);
             overflow: hidden;
             white-space: nowrap;
             display: none;
-            z-index: 9999;
+            z-index: 100000;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
             box-sizing: border-box;
         }
         
-        .marquee-content { display: inline-block; padding-left: 100%; animation: cosmicMarquee 20s linear infinite; }
-        @keyframes cosmicMarquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+        /* حركة أنميشن مخصصة للغة العربية تضمن ظهور النص كاملاً واختفائه بانسيابية */
+        .marquee-content { 
+            display: inline-block; 
+            animation: cosmicMarquee 25s linear infinite;
+        }
+        @keyframes cosmicMarquee { 
+            0% { transform: translateX(100vw); } 
+            100% { transform: translateX(-100%); } 
+        }
 
-        .dashboard, .admin-gate-btn { margin-top: 40px; }
+        /* تم فصل زر الإدارة عن المرجن لتجنب اختفائه */
+        .dashboard { max-width: 1100px; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; z-index: 1; margin-top: 20px; }
 
         #maintenanceScreen {
             position: fixed; top:0; left:0; width:100vw; height:100vh;
             background: rgba(10, 10, 18, 0.95);
             backdrop-filter: blur(10px);
-            z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; display: none;
+            z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; display: none;
         }
         .maintenance-gear { font-size: 6rem; animation: spin 4s linear infinite; margin-bottom: 20px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -82,16 +96,26 @@
         .broadcast-ticker { display: inline-block; padding-right: 100%; animation: ticker 25s linear infinite; }
         @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
 
-        /* تعديل موضع زر الإدارة بشكل افتراضي */
+        /* تنسيق زر الإدارة الثابت على الكمبيوتر */
         .admin-gate-btn {
-            position: fixed; top: 60px; left: 15px; width: auto; padding: 10px 18px;
-            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff;
-            border-radius: 10px; font-size: 0.8rem; cursor: pointer; z-index: 9999; transition: 0.3s; backdrop-filter: blur(5px);
+            position: fixed; 
+            top: 70px; 
+            left: 20px; 
+            width: auto; 
+            padding: 10px 18px;
+            background: rgba(0,0,0,0.75); 
+            border: 1px solid var(--primary); 
+            color: var(--primary);
+            border-radius: 10px; 
+            font-size: 0.85rem; 
+            cursor: pointer; 
+            z-index: 99999; 
+            transition: 0.3s; 
+            backdrop-filter: blur(5px);
+            font-weight: bold;
         }
-        .admin-gate-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px var(--primary);}
+        .admin-gate-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary);}
 
-        .dashboard { max-width: 1100px; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; z-index: 1;}
-        
         .hero-card, .card {
             background: var(--card-bg);
             backdrop-filter: blur(25px); 
@@ -109,7 +133,7 @@
         .admin-panel {
             grid-column: 1 / -1;
             background: #11111A; border: 2px solid var(--primary); box-shadow: 0 0 40px rgba(0, 229, 255, 0.3);
-            display: none; z-index: 9999999; position: relative;
+            display: none; z-index: 1000000; position: relative;
         }
         .admin-section-title { font-size: 1.1rem; color: var(--primary); margin: 25px 0 12px 0; font-weight: bold; border-right: 4px solid var(--accent); padding-right: 10px; background: rgba(0,0,0,0.3); padding: 8px 10px;}
         .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 10px; }
@@ -165,44 +189,58 @@
         .admin-buttons-wrapper { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
         .admin-buttons-wrapper button { flex: 1; min-width: 200px; padding: 15px; font-size: 1.1rem; }
 
-        /* 📱 Media Queries (إصلاح وتجاوب الهاتف بالكامل) */
+        /* 📱 تحسينات الهواتف الكاملة والجذرية لمنع أي اختفاء أو تداخل */
         @media (max-width: 768px) {
             body { 
-                padding: 10px; 
-                padding-top: 60px; /* نزول إجباري لحماية العناصر من الشريط العلوي */
+                padding: 10px !important; 
+                padding-top: 65px !important; 
+            }
+            body.has-alert {
+                padding-top: 85px !important;
             }
             
             .dashboard { 
                 grid-template-columns: 1fr; 
-                margin-top: 40px; 
+                margin-top: 20px; 
                 gap: 15px; 
             }
             
             .hero-card { 
-                padding: 35px 20px 25px 20px; 
-                margin-top: 10px;
+                padding: 45px 15px 25px 15px; 
             }
             
             .card { padding: 20px 15px; }
             
-            /* تصغير الخطوط العملاقة لمنع تدمير الصندوق */
-            .big-day { font-size: 4rem; }
-            .month-year { font-size: 1.2rem; }
-            #clock { font-size: 1.5rem !important; }
-            #sDayName { font-size: 1.3rem !important; }
-            #mainDisplayTitle { font-size: 1.1rem !important; margin-top: 35px !important; } 
+            /* حماية الخطوط من الخروج خارج الصندوق */
+            .big-day { font-size: 4.5rem; }
+            .month-year { font-size: 1.3rem; }
+            #clock { font-size: 1.6rem !important; }
+            #sDayName { font-size: 1.4rem !important; }
+            #mainDisplayTitle { font-size: 1.1rem !important; margin-top: 25px !important; } 
             
-            /* تعديل الأزرار والعدادات لتفادي التداخل */
-            .user-counter { top: 15px; right: 15px; font-size: 0.8rem; padding: 6px 12px; }
-            .admin-gate-btn { top: 60px; left: 10px; padding: 8px 12px; font-size: 0.75rem; }
+            /* تحويل زر الإدارة ليكون زراً عائماً فائق الوضوح أسفل الشاشة */
+            .admin-gate-btn { 
+                position: fixed;
+                top: auto !important;
+                bottom: 25px !important; 
+                left: 25px !important; 
+                right: auto !important;
+                padding: 14px 22px; 
+                font-size: 0.9rem;
+                background: rgba(10, 10, 18, 0.9);
+                border: 2px solid var(--primary);
+                border-radius: 50px;
+                box-shadow: 0 4px 20px var(--primary);
+                z-index: 100001; /* يظهر فوق كل شيء بصورة مستقلة */
+            }
             
-            /* تحويل الشبكات لتكون عمودية ومريحة للعين */
+            .user-counter { top: 15px; right: 15px; font-size: 0.8rem; padding: 5px 10px; }
+            
             .stat-grid { grid-template-columns: 1fr; gap: 10px; }
             .theme-btn-grid { grid-template-columns: repeat(2, 1fr); }
             .admin-buttons-wrapper { flex-direction: column; }
             .admin-buttons-wrapper button { width: 100%; }
             
-            /* تعديل الأجندة والأحداث */
             .holiday-item { justify-content: flex-start; align-items: center; }
             .holiday-countdown { margin-right: auto; }
         }
@@ -412,8 +450,13 @@
         
         const alertBar = document.getElementById('stickyAlertBar');
         if(config.popUpAlert && config.popUpAlert.trim() !== "") {
-            document.getElementById('marqueeText').innerText = config.popUpAlert; alertBar.style.display = 'block';
-        } else { alertBar.style.display = 'none'; }
+            document.getElementById('marqueeText').innerText = config.popUpAlert; 
+            alertBar.style.display = 'block';
+            document.body.classList.add('has-alert');
+        } else { 
+            alertBar.style.display = 'none'; 
+            document.body.classList.remove('has-alert');
+        }
 
         document.getElementById('dictionaryCardBox').style.display = config.vDict === 'hide' ? 'none' : 'block';
         document.getElementById('converterCardBox').style.display = config.vConv === 'hide' ? 'none' : 'block';
@@ -461,7 +504,7 @@
         document.getElementById('adminFooterIn').value = config.footerText || "";
         document.getElementById('colorPrimary').value = config.cPrimary;
         document.getElementById('colorSecondary').value = config.cSecondary;
-        document.getElementById('colorAccent').value = config.colorAccent; // تم تعديل الاسم ليتوافق مع الحفظ البسيط
+        document.getElementById('colorAccent').value = config.cAccent; 
         document.getElementById('colorBg').value = config.cBg;
 
         const mArr = config.customMonths || defaultMonths; mArr.forEach((m, i) => { document.getElementById(`mIn_${i}`).value = m; });

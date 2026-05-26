@@ -4,20 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">منظومة الوقت الكونية المعربة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <style>
+        /* 🎨 نظام الألوان والشفافية الجديد (Glassmorphism) */
         :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --accent: #ff007a;
-            --bg: #030712;
-            --card-bg: rgba(17, 24, 39, 0.7);
+            --primary: #00E5FF; /* سيان ساطع جداً للتباين */
+            --secondary: #7C4DFF; /* بنفسجي مشع */
+            --accent: #FF1744; /* أحمر إنذار */
+            --bg: #0A0A12; /* أسود فضائي */
+            --card-bg: rgba(15, 15, 25, 0.75); /* خلفية زجاجية داكنة جداً لدعم وضوح النص */
+            --text-main: #FFFFFF; /* أبيض ناصع */
+            --text-muted: #B0BEC5; /* رمادي فاتح مريح */
+            --font-main: 'Segoe UI', Tahoma, sans-serif;
         }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: var(--bg);
-            color: white;
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -26,453 +35,343 @@
             padding: 20px;
             overflow-x: hidden;
             position: relative;
-            transition: background 0.5s ease;
+            transition: all 0.5s ease;
         }
 
-        /* 🚨 شريط الإشعار الإداري المتحرك الجديد كلياً في أعلى الشاشة */
         .sticky-admin-alert-marquee {
             width: 100vw;
             position: absolute;
             top: 0;
             left: 0;
-            background: linear-gradient(90deg, #b91c1c, var(--accent), #b91c1c);
+            background: linear-gradient(90deg, #D50000, var(--accent), #D50000);
             color: white;
             padding: 12px 0;
             font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 20px rgba(255, 0, 122, 0.4);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.2rem;
+            box-shadow: 0 4px 20px rgba(255, 23, 68, 0.5);
             overflow: hidden;
             white-space: nowrap;
             display: none;
             z-index: 9999;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
         
-        .marquee-content {
-            display: inline-block;
-            padding-left: 100%;
-            animation: cosmicMarquee 20s linear infinite;
-        }
+        .marquee-content { display: inline-block; padding-left: 100%; animation: cosmicMarquee 20s linear infinite; }
+        @keyframes cosmicMarquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
 
-        @keyframes cosmicMarquee {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
-        }
+        .dashboard, .admin-gate-btn { margin-top: 40px; }
 
-        .dashboard, .admin-gate-btn {
-            margin-top: 40px; 
-        }
-
-        /* وضع الصيانة */
         #maintenanceScreen {
-            position: fixed;
-            top:0; left:0; width:100vw; height:100vh;
-            background: radial-gradient(circle, #1e1b4b, #030712);
-            z-index: 99999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            display: none;
+            position: fixed; top:0; left:0; width:100vw; height:100vh;
+            background: rgba(10, 10, 18, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; display: none;
         }
-        .maintenance-gear { font-size: 5rem; animation: spin 4s linear infinite; margin-bottom: 20px; }
+        .maintenance-gear { font-size: 6rem; animation: spin 4s linear infinite; margin-bottom: 20px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* شريط البث التناظري المتحرك الداخلي */
         .system-broadcast {
-            width: 100%;
-            max-width: 1100px;
-            background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.15), transparent);
-            border-left: 4px solid var(--primary);
-            border-right: 4px solid var(--primary);
-            padding: 12px;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            display: none;
-            overflow: hidden;
-            white-space: nowrap;
+            width: 100%; max-width: 1100px;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--primary);
+            padding: 12px; text-align: center; border-radius: 12px; margin-bottom: 15px; font-weight: bold; display: none; overflow: hidden; white-space: nowrap; color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
         }
-        .broadcast-ticker {
-            display: inline-block;
-            padding-right: 100%;
-            animation: ticker 25s linear infinite;
-        }
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(100%, 0, 0); }
-        }
+        .broadcast-ticker { display: inline-block; padding-right: 100%; animation: ticker 25s linear infinite; }
+        @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
 
         .admin-gate-btn {
-            position: fixed;
-            top: 50px;
-            left: 15px;
-            width: auto;
-            padding: 8px 15px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            color: rgba(255,255,255,0.3);
-            border-radius: 8px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            z-index: 999999;
-            transition: 0.3s;
+            position: fixed; top: 50px; left: 15px; width: auto; padding: 10px 18px;
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff;
+            border-radius: 10px; font-size: 0.8rem; cursor: pointer; z-index: 999999; transition: 0.3s; backdrop-filter: blur(5px);
         }
-        .admin-gate-btn:hover { background: rgba(0, 210, 255, 0.1); color: var(--primary); border-color: var(--primary); }
+        .admin-gate-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px var(--primary);}
 
-        .dashboard {
-            max-width: 1100px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .hero-card {
-            grid-column: 1 / -1;
+        .dashboard { max-width: 1100px; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; z-index: 1;}
+        
+        .hero-card, .card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 40px;
-            text-align: center;
+            backdrop-filter: blur(25px); /* تأثير الزجاج */
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 50px rgba(0, 210, 255, 0.2);
-            position: relative;
-        }
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
             border-radius: 25px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             transition: 0.3s;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .hero-card { grid-column: 1 / -1; padding: 40px; text-align: center; border-top: 2px solid var(--primary); }
+        .card { padding: 25px; }
+        .card:hover { transform: translateY(-5px); border-color: var(--secondary); box-shadow: 0 10px 40px rgba(124, 77, 255, 0.3); }
         .col-span-all { grid-column: 1 / -1; }
         
         .admin-panel {
             grid-column: 1 / -1;
-            background: linear-gradient(135deg, rgba(7, 11, 22, 0.99), rgba(15, 23, 42, 0.99));
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 50px rgba(0, 210, 255, 0.4);
-            display: none;
-            z-index: 9999999;
-            position: relative;
+            background: #11111A; border: 2px solid var(--primary); box-shadow: 0 0 40px rgba(0, 229, 255, 0.3);
+            display: none; z-index: 9999999; position: relative;
         }
-        .admin-section-title { font-size: 0.95rem; color: var(--accent); margin: 20px 0 8px 0; font-weight: bold; border-right: 4px solid var(--accent); padding-right: 8px;}
-        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 5px; }
-        .admin-box { background: rgba(0,0,0,0.5); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-        .admin-box label { display: block; font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px; }
+        .admin-section-title { font-size: 1.1rem; color: var(--primary); margin: 25px 0 12px 0; font-weight: bold; border-right: 4px solid var(--accent); padding-right: 10px; background: rgba(0,0,0,0.3); padding: 8px 10px;}
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 10px; }
+        .admin-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .admin-box label { display: block; font-size: 0.9rem; color: #E0E0E0; margin-bottom: 8px; font-weight: bold;}
 
-        .big-day { font-size: 7rem; font-weight: 900; line-height: 1; margin: 10px 0; background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .month-year { font-size: 2rem; opacity: 0.8; letter-spacing: 1px; }
-        h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        h4 { color: var(--primary); margin: 0 0 10px 0; display: flex; align-items: center; gap: 8px; font-size: 1.3rem; text-shadow: 0 0 10px rgba(0,210,255,0.3); }
+        .big-day { font-size: 7.5rem; font-weight: 900; line-height: 1; margin: 10px 0; color: #fff; text-shadow: 0 0 30px var(--primary); }
+        .month-year { font-size: 2.2rem; color: var(--text-muted); font-weight: bold;}
+        h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; font-size: 1.4rem;}
+        h4 { color: var(--primary); margin: 0 0 15px 0; font-size: 1.5rem; }
 
-        .day-flow { background: #111827; border-radius: 10px; padding: 12px; margin-top: 15px; border: 1px solid #1f2937; }
-        .flow-bar-bg { background: #1f2937; height: 6px; border-radius: 3px; overflow: hidden; margin-top: 8px; }
-        .flow-bar-fill { background: var(--primary); height: 100%; width: 0%; transition: 1s linear; }
+        .day-flow { background: rgba(0,0,0,0.5); border-radius: 10px; padding: 15px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .flow-bar-bg { background: #263238; height: 10px; border-radius: 5px; overflow: hidden; margin-top: 10px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);}
+        .flow-bar-fill { background: linear-gradient(90deg, var(--secondary), var(--primary)); height: 100%; width: 0%; transition: 1s linear; box-shadow: 0 0 10px var(--primary);}
 
-        .progress-circle { width: 100px; height: 100px; border-radius: 50%; border: 8px solid #1f2937; border-top: 8px solid var(--accent); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem; }
-        input, button, textarea, select { width: 100%; padding: 11px; border-radius: 12px; border: none; margin-top: 8px; font-size: 0.95rem; box-sizing: border-box; }
-        input, textarea, select { background: #111827; color: white; border: 1px solid #374151; text-align: center; }
-        textarea { text-align: right; resize: vertical; font-family: inherit; }
-        button { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        button:hover { filter: brightness(1.2); }
-        .btn-accent { background: linear-gradient(45deg, var(--accent), #b91c1c); }
-        .btn-warn { background: linear-gradient(45deg, #f59e0b, #b45309); }
-        .btn-dark { background: #1f2937; border: 1px solid #374151; color: #d1d5db; }
+        .progress-circle { width: 110px; height: 110px; border-radius: 50%; border: 8px solid rgba(255,255,255,0.1); border-top: 8px solid var(--accent); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.3rem; color: #fff; text-shadow: 0 0 10px var(--accent);}
         
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .stat-box { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; font-size: 0.9rem; }
-        .stat-val { display: block; font-size: 1.2rem; color: var(--primary); font-weight: bold; }
+        input, button, textarea, select { width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px; font-size: 1rem; box-sizing: border-box; outline: none; transition: 0.3s; font-family: inherit;}
+        input, textarea, select { background: #1E1E2C; color: #FFF; border: 1px solid #3F3F5A; text-align: center; }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 229, 255, 0.4); background: #232336;}
+        
+        button { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #fff; font-weight: bold; cursor: pointer; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); font-size: 1.1rem;}
+        button:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .btn-accent { background: linear-gradient(45deg, var(--accent), #B71C1C); }
+        .btn-warn { background: linear-gradient(45deg, #FF8F00, #E65100); }
+        .btn-dark { background: #263238; border: 1px solid #455A64; color: #FFF; }
+        
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .stat-box { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; font-size: 1rem; color: var(--text-muted); text-align: center; border: 1px solid rgba(255,255,255,0.05);}
+        .stat-val { display: block; font-size: 1.5rem; color: #fff; font-weight: bold; margin-top: 8px; text-shadow: 0 0 8px var(--primary);}
 
-        .holiday-list { list-style: none; padding: 0; margin: 10px 0 0 0; text-align: right; }
-        .holiday-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
-        .holiday-countdown { color: var(--accent); font-weight: bold; }
+        .holiday-list { list-style: none; padding: 0; margin: 15px 0 0 0; text-align: right; }
+        .holiday-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1.05rem; color: #ECEFF1;}
+        .holiday-countdown { color: #fff; font-weight: bold; background: var(--accent); padding: 3px 10px; border-radius: 12px; text-shadow: none; box-shadow: 0 2px 8px rgba(255, 23, 68, 0.5);}
 
-        .concept-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; font-size: 0.9rem; }
-        .concept-table th, .concept-table td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .concept-table th { color: var(--primary); font-weight: bold; }
-        .concept-table tr:hover { background: rgba(255,255,255,0.02); }
+        .concept-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; font-size: 1rem; }
+        .concept-table th, .concept-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .concept-table th { color: var(--primary); font-weight: bold; background: rgba(0,0,0,0.4); border-radius: 8px 8px 0 0;}
+        .concept-table tr:hover td { background: rgba(255,255,255,0.05); color: #fff;}
 
-        .cosmic-quote { margin-top: 25px; font-style: italic; color: #94a3b8; font-size: 0.95rem; text-shadow: 0 0 5px rgba(255,255,255,0.1); display: none;}
-        .user-counter { position: absolute; top: 15px; right: 20px; font-size: 0.8rem; color: #6b7280; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);}
-        .counter-dot { display: inline-block; width: 7px; height: 7px; background: #10b981; border-radius: 50%; margin-left: 5px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+        .cosmic-quote { margin-top: 30px; font-style: italic; color: var(--primary); font-size: 1.2rem; text-shadow: 0 0 8px rgba(0, 229, 255, 0.3); display: none;}
+        .user-counter { position: absolute; top: 20px; right: 25px; font-size: 0.9rem; color: #FFF; background: rgba(0,0,0,0.6); padding: 8px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;}
+        .counter-dot { display: inline-block; width: 10px; height: 10px; background: #00E676; border-radius: 50%; margin-left: 8px; animation: pulse 1s infinite; box-shadow: 0 0 8px #00E676;}
+        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
 
-        .theme-btn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 5px; }
-        .theme-btn { padding: 6px; font-size: 0.8rem; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; }
-        .flex-box { display: flex; gap: 5px; }
+        .theme-btn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+        .theme-btn { padding: 8px; font-size: 0.9rem; border-radius: 6px; border: none; font-weight: bold; color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.5);}
+        
+        .sys-footer { text-align: center; padding: 20px; margin-top: 40px; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; z-index: 1;}
     </style>
 </head>
 <body>
 
 <div id="maintenanceScreen">
     <div class="maintenance-gear">⚙️</div>
-    <h1 style="color: var(--primary);">المنظومة في وضع الصيانة والتحديث الفلكي</h1>
-    <p style="color: #94a3b8; max-width: 500px; padding: 0 20px;">يقوم المسؤول الكوني الآن بإعادة معايرة وتعديل شفرات السحابة المركزية. سنعود للبث المباشر فور انتهاء المعايرة.</p>
+    <h1 style="color: var(--primary); font-size: 2.5rem; text-shadow: 0 0 20px var(--primary);">النظام في وضع الصيانة</h1>
 </div>
 
-<div id="stickyAlertBar" class="sticky-admin-alert-marquee">
-    <div id="marqueeText" class="marquee-content">💬 رسالة إدارية عاجلة ومتحركة...</div>
-</div>
+<div id="stickyAlertBar" class="sticky-admin-alert-marquee"><div id="marqueeText" class="marquee-content"></div></div>
 
-<button class="admin-gate-btn" onclick="triggerAdminAccess()">⚙️ لوحة التحكم المطلقة (السحابية)</button>
+<button class="admin-gate-btn" onclick="triggerAdminAccess()">⚙️ اللوحة الإدارية</button>
 
 <div id="broadcastBar" class="system-broadcast"><div id="tickerText" class="broadcast-ticker"></div></div>
 
 <div class="dashboard">
     <div id="adminPanel" class="card admin-panel">
-        <h4>🛠️ غرفه التحكم الإمبراطورية الكبرى بالسحابة (تحكم شامل بكل منحى)</h4>
+        <h4 style="text-align: center; font-size: 1.8rem; text-shadow: 0 0 15px var(--primary);">⚙️ غرفة التحكم الإمبراطورية الشاملة</h4>
         
-        <div class="admin-section-title">🔒 أمن النظام وإجراءات الطوارئ الفورية</div>
+        <div class="admin-section-title">🔒 أمن النظام وحالة البث</div>
         <div class="admin-grid">
-            <div class="admin-box">
-                <label>وضع الصيانة الكوني (قفل الموقع):</label>
-                <select id="adminMaintenanceIn">
-                    <option value="off">🟢 البث المباشر يعمل (مفتوح للجميع)</option>
-                    <option value="on">🔴 قفل الصيانة نشط (مغلق عن العامة)</option>
-                </select>
-            </div>
-            <div class="admin-box">
-                <label>🚀 اكتب النص هنا ليتحرك ويمر عبر الشاشة بالكامل (اتركه فارغاً لإخفائه):</label>
-                <input type="text" id="adminAlertIn" placeholder="اكتب نص شريط الإعلان الإداري المتحرك...">
-            </div>
-            <div class="admin-box">
-                <label>شفرة النفاذ السرية الحالية للوحة:</label>
-                <input type="text" id="adminPassIn">
-            </div>
+            <div class="admin-box"><label>وضع الصيانة:</label><select id="adminMaintenanceIn"><option value="off">🟢 بث مباشر للجميع</option><option value="on">🔴 مغلق للصيانة</option></select></div>
+            <div class="admin-box"><label>شريط الأخبار العاجلة (العلوي):</label><input type="text" id="adminAlertIn" placeholder="نص متحرك أحمر..."></div>
+            <div class="admin-box"><label>الرقم السري للوحة:</label><input type="text" id="adminPassIn"></div>
         </div>
 
-        <div class="admin-section-title">👁️ إخفاء وإظهار أجزاء المنصة (Visibility Controls)</div>
+        <div class="admin-section-title">🖼️ مرئيات النظام المتقدمة (الخطوط والخلفيات)</div>
         <div class="admin-grid">
             <div class="admin-box">
-                <label>قاموس شفرات ومفاهيم النظام (الجدول السفلي):</label>
-                <select id="vDictIn">
-                    <option value="show">إظهار القاموس للجميع</option>
-                    <option value="hide">إخفاء القاموس تماماً</option>
+                <label>نوع الخط (Typography):</label>
+                <select id="adminFontIn">
+                    <option value="'Segoe UI', Tahoma, sans-serif">الخط الافتراضي (Segoe)</option>
+                    <option value="'Cairo', sans-serif">خط كايرو (Cairo)</option>
+                    <option value="'Tajawal', sans-serif">خط تجوال (Tajawal)</option>
+                    <option value="'Almarai', sans-serif">خط المراعي (Almarai)</option>
                 </select>
             </div>
             <div class="admin-box">
-                <label>المحول والمستكشف الفلكي (صندوق الأبراء):</label>
-                <select id="vConvIn">
-                    <option value="show">إظهار المحول للجميع</option>
-                    <option value="hide">إخفاء المحول تماماً</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="admin-section-title">🎨 مرئيات النظام المتقدمة، الخلفية وهيكل البطاقات</div>
-        <div class="admin-grid">
-            <div class="admin-box">
-                <label>اسم المنصة بالكامل:</label>
-                <input type="text" id="adminTitleIn">
+                <label>رابط صورة الخلفية (اتركه فارغاً للون مصمت):</label>
+                <input type="text" id="adminBgImageIn" placeholder="https://example.com/image.jpg">
             </div>
             <div class="admin-box">
-                <label>سرعة حركة شريط الأخبار العاجلة السفلي (بالثواني):</label>
-                <input type="range" id="adminTickerSpeed" min="5" max="50" value="25" title="كلما قل الوقت زادت السرعة">
-            </div>
-            <div class="admin-box">
-                <label>التحكم بالألوان والسمات الجاهزة:</label>
+                <label>الألوان الجاهزة (التباين العالي):</label>
                 <div class="theme-btn-grid">
-                    <button class="theme-btn" style="background:#00d2ff; color:#000;" onclick="setTheme('#00d2ff','#3a7bd5','#ff007a','#030712')">إمبراطوري</button>
-                    <button class="theme-btn" style="background:#a855f7; color:#fff;" onclick="setTheme('#a855f7','#6366f1','#ec4899','#090514')">سديم</button>
-                    <button class="theme-btn" style="background:#10b981; color:#000;" onclick="setTheme('#10b981','#059669','#f59e0b','#02150f')">تيتانيوم</button>
-                    <button class="theme-btn" style="background:#ef4444; color:#fff;" onclick="setTheme('#ef4444','#f97316','#facc15','#1a0505')">ناري</button>
+                    <button class="theme-btn" style="background:#00E5FF; color:#000;" onclick="setTheme('#00E5FF','#7C4DFF','#FF1744','#0A0A12')">نيون</button>
+                    <button class="theme-btn" style="background:#00E676; color:#000;" onclick="setTheme('#00E676','#1DE9B6','#FF3D00','#051A11')">طبيعة</button>
+                    <button class="theme-btn" style="background:#FF9100; color:#000;" onclick="setTheme('#FF9100','#FF3D00','#FFEA00','#1A0A00')">نار</button>
+                    <button class="theme-btn" style="background:#D500F9; color:#fff;" onclick="setTheme('#D500F9','#651FFF','#FF1744','#12001A')">مجرة</button>
                 </div>
-                <div class="flex-box" style="margin-top: 5px;">
+                <div style="display: flex; gap: 5px; margin-top: 10px;">
                     <input type="color" id="colorPrimary" title="الأساسي">
                     <input type="color" id="colorSecondary" title="المساعد">
                     <input type="color" id="colorAccent" title="التنبيه">
-                    <input type="color" id="colorBg" title="لون الخلفية الكلي">
+                    <input type="color" id="colorBg" title="لون الخلفية (في حال عدم وجود صورة)">
                 </div>
             </div>
         </div>
 
-        <div class="admin-section-title">✍️ مبرمج أسماء الشهور الـ 12 الكونية (تغيير منحى المصطلحات بالكامل)</div>
+        <div class="admin-section-title">⏱️ إعدادات الوقت والتخطيط</div>
+        <div class="admin-grid">
+            <div class="admin-box"><label>صيغة الساعة (Clock Format):</label><select id="adminClockFmt"><option value="24">نظام 24 ساعة</option><option value="12">نظام 12 ساعة (ص/م)</option></select></div>
+            <div class="admin-box"><label>إظهار/إخفاء القاموس (أسفل):</label><select id="vDictIn"><option value="show">إظهار</option><option value="hide">إخفاء</option></select></div>
+            <div class="admin-box"><label>إظهار/إخفاء المحول:</label><select id="vConvIn"><option value="show">إظهار</option><option value="hide">إخفاء</option></select></div>
+            <div class="admin-box"><label>نص تذييل الموقع (Footer):</label><input type="text" id="adminFooterIn" placeholder="حقوق النشر..."></div>
+        </div>
+
+        <div class="admin-section-title">✍️ أسماء الشهور الـ 12 الكونية</div>
         <div class="admin-grid" id="monthsInputsGrid"></div>
 
-        <div class="admin-section-title">✍️ مبرمج أسماء أيام الأسبوع الـ 7</div>
+        <div class="admin-section-title">✍️ أسماء أيام الأسبوع الـ 7</div>
         <div class="admin-grid" id="daysInputsGrid"></div>
+        
+        <div class="admin-section-title">🌌 أسماء الأبراج / الكوكبات الفلكية الـ 12</div>
+        <div class="admin-grid" id="zodiacInputsGrid"></div>
 
-        <div class="admin-section-title">🪐 حقبة التأسيس الفلكية والملاحظات والحدث</div>
+        <div class="admin-section-title">🪐 بيانات المنصة، التأسيس والأحداث</div>
         <div class="admin-grid">
-            <div class="admin-box">
-                <label>حكمة اليوم الكونية العميقة:</label>
-                <input type="text" id="adminQuoteIn">
-            </div>
-            <div class="admin-box">
-                <label>عدد المتصلين الافتراضي بالنظام:</label>
-                <input type="number" id="adminUsersIn">
-            </div>
-            <div class="admin-box">
-                <label>سنة بداية العهد والتأسيس للتقويم:</label>
-                <input type="number" id="epochYearIn">
-            </div>
-            <div class="admin-box">
-                <label>بث رسالة فورية (شريط متحرك داخلي):</label>
-                <textarea id="adminNoticeIn" rows="1"></textarea>
-            </div>
+            <div class="admin-box"><label>اسم المنصة:</label><input type="text" id="adminTitleIn"></div>
+            <div class="admin-box"><label>حكمة اليوم الكونية:</label><input type="text" id="adminQuoteIn"></div>
+            <div class="admin-box"><label>سنة التأسيس:</label><input type="number" id="epochYearIn"></div>
+            <div class="admin-box"><label>عدد المتصلين (وهمي/ثابت):</label><input type="number" id="adminUsersIn"></div>
+        </div>
+        <div class="admin-grid">
+            <div class="admin-box"><label>رسالة الشريط الداخلي:</label><input type="text" id="adminNoticeIn"></div>
+            <div class="admin-box"><label>سرعة الشريط (ثواني):</label><input type="number" id="adminTickerSpeed"></div>
         </div>
 
         <div class="admin-grid">
-            <div class="admin-box">
-                <label>اسم وتاريخ الحدث 1:</label>
-                <input type="text" id="h1Name"><input type="date" id="h1Date">
-            </div>
-            <div class="admin-box">
-                <label>اسم وتاريخ الحدث 2:</label>
-                <input type="text" id="h2Name"><input type="date" id="h2Date">
-            </div>
-            <div class="admin-box">
-                <label>اسم وتاريخ الحدث 3:</label>
-                <input type="text" id="h3Name"><input type="date" id="h3Date">
-            </div>
+            <div class="admin-box"><label>حدث 1:</label><input type="text" id="h1Name"><input type="date" id="h1Date"></div>
+            <div class="admin-box"><label>حدث 2:</label><input type="text" id="h2Name"><input type="date" id="h2Date"></div>
+            <div class="admin-box"><label>حدث 3:</label><input type="text" id="h3Name"><input type="date" id="h3Date"></div>
         </div>
 
-        <div style="display: flex; gap: 10px; margin-top: 25px; flex-wrap: wrap;">
-            <button style="flex: 2;" onclick="saveAdminChanges()">💾 بث وحفظ التغيرات السحابية المطلقة للجميع</button>
-            <button class="btn-warn" style="flex: 1;" onclick="resetToFactory()">🔄 تصفير وإعادة تعيين كلي</button>
-            <button class="btn-dark" style="flex: 1;" onclick="lockAdminPanel()">🔒 تسجيل الخروج والقفل</button>
+        <div style="display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap;">
+            <button style="flex: 2; padding: 15px; font-size: 1.2rem;" onclick="saveAdminChanges()">💾 بث وحفظ كافة الإعدادات</button>
+            <button class="btn-warn" style="flex: 1;" onclick="resetToFactory()">🔄 إعادة تعيين (مصنع)</button>
+            <button class="btn-dark" style="flex: 1;" onclick="lockAdminPanel()">🔒 إغلاق اللوحة</button>
         </div>
     </div>
 
     <div class="hero-card">
-        <div class="user-counter"><span class="counter-dot"></span>المتصلون بالمنظومة الآن: <span id="liveUsersCount">1</span></div>
-        <h2 id="mainDisplayTitle" style="margin: 0 0 10px 0; font-size: 1.4rem; font-weight: 400; color: rgba(255,255,255,0.6);">منظومة الوقت الكونية المعربة</h2>
-        <div id="clock" style="font-family: monospace; font-size: 1.2rem; opacity: 0.6; margin-bottom: 10px;">00:00:00</div>
-        <div id="sDayName" style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">--</div>
+        <div class="user-counter"><span class="counter-dot"></span>متصل الآن: <span id="liveUsersCount">1</span></div>
+        <h2 id="mainDisplayTitle" style="margin: 0 0 10px 0; font-size: 1.6rem; font-weight: bold; color: var(--text-muted);"></h2>
+        <div id="clock" style="font-family: monospace; font-size: 2rem; color: #fff; margin-bottom: 10px; text-shadow: 0 0 10px var(--primary);">00:00:00</div>
+        <div id="sDayName" style="font-size: 1.8rem; font-weight: bold; color: var(--primary);">--</div>
         <div id="sMainDay" class="big-day">00</div>
         <div id="sMonthYear" class="month-year">-- -- --</div>
         
         <div class="day-flow">
-            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; opacity: 0.7;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: #ECEFF1; font-weight: bold;">
                 <span id="dayFlowHours">متبقي -- ساعة</span>
-                <span id="dayFlowPerc">انقضى 0% من اليوم</span>
+                <span id="dayFlowPerc">انقضى 0%</span>
             </div>
             <div class="flow-bar-bg"><div id="dayFlowFill" class="flow-bar-fill"></div></div>
         </div>
-        
-        <div id="cosmicQuoteDisplay" class="cosmic-quote">"لا يوجد حدود للزمن عندما تكون متصلاً بالسماء"</div>
+        <div id="cosmicQuoteDisplay" class="cosmic-quote"></div>
     </div>
 
     <div class="card">
         <h3>📊 تقدم الدورة السنوية</h3>
         <div class="progress-circle" id="yearPerc">0%</div>
         <div class="stat-grid">
-            <div class="stat-box">تبقى على نهاية الدورة<span id="daysLeft" class="stat-val">--</span> أيام</div>
-            <div class="stat-box">اكتمل من العام الحالي<span id="percVal" class="stat-val">--</span></div>
+            <div class="stat-box">المتبقي<span id="daysLeft" class="stat-val">--</span> يوم</div>
+            <div class="stat-box">اكتمل<span id="percVal" class="stat-val">--</span></div>
         </div>
     </div>
 
     <div class="card" id="converterCardBox">
-        <h3>✨ المحول والمستكشف الفلكي</h3>
+        <h3>✨ المحول الفلكي والأبراج</h3>
         <div id="zodiacInfo" style="text-align: center; margin-bottom: 15px;">
-            <span id="zSign" style="font-size: 2.5rem;">⏳</span>
-            <div id="zName" style="font-weight: bold; color: var(--accent);">--</div>
+            <span id="zSign" style="font-size: 3rem; text-shadow: 0 0 15px rgba(255,255,255,0.3);">⏳</span>
+            <div id="zName" style="font-weight: bold; color: var(--primary); font-size: 1.4rem; margin-top: 5px;">--</div>
         </div>
         <input type="date" id="gIn">
-        <button onclick="convert()">تحويل للنظام المشفر</button>
-        <div id="res" style="margin-top:10px; text-align:center; color: var(--primary); font-size: 0.85rem; line-height: 1.4;"></div>
+        <button onclick="convert()" style="margin-top: 15px;">تحويل للنظام الكوني</button>
+        <div id="res" style="margin-top:15px; text-align:center; color: #fff; font-size: 1rem; line-height: 1.6; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; border: 1px solid var(--secondary);">النتيجة...</div>
     </div>
 
     <div class="card">
-        <h3>📅 الأجندة الزمنية الكونية</h3>
+        <h3>📅 الأجندة والأحداث</h3>
         <ul class="holiday-list">
-            <div class="holiday-item"><span>انطلاق النظام (الأيام الكلية):</span> <span id="totalDaysCalc" style="color:var(--primary); font-weight:bold;">--</span></div>
-            <div class="holiday-item"><span id="lblH1">رأس الدورة السنوية القادمة:</span> <span id="cd1" class="holiday-countdown">-- يوم</span></div>
-            <div class="holiday-item"><span id="lblH2">الاعتدال الفلكي القادم:</span> <span id="cd2" class="holiday-countdown">-- يوم</span></div>
-            <div class="holiday-item"><span id="lblH3">الانقلاب الصيفي القادم:</span> <span id="cd3" class="holiday-countdown">-- يوم</span></div>
+            <div class="holiday-item"><span>الأيام الكلية منذ التأسيس:</span> <span id="totalDaysCalc" style="color:var(--primary); font-weight:bold;">--</span></div>
+            <div class="holiday-item"><span id="lblH1">الحدث 1:</span> <span id="cd1" class="holiday-countdown">--</span></div>
+            <div class="holiday-item"><span id="lblH2">الحدث 2:</span> <span id="cd2" class="holiday-countdown">--</span></div>
+            <div class="holiday-item"><span id="lblH3">الحدث 3:</span> <span id="cd3" class="holiday-countdown">--</span></div>
         </ul>
     </div>
 
     <div class="card col-span-all" id="dictionaryCardBox">
-        <h3>📖 قاموس شفرات ومفاهيم النظام الزمني</h3>
+        <h3>📖 قاموس شفرات النظام الزمني</h3>
         <table class="concept-table">
-            <thead>
-                <tr>
-                    <th>المصطلح الحالي بالمنظومة</th>
-                    <th>المقابل الميلادي المألوف</th>
-                    <th>الأصل والرمزية الفلكية للاسم</th>
-                </tr>
-            </thead>
+            <thead><tr><th>المصطلح بالمنظومة</th><th>الرقم / الترتيب</th><th>الوصف الكوني</th></tr></thead>
             <tbody id="tableDictionaryBody"></tbody>
         </table>
     </div>
 </div>
 
+<div class="sys-footer" id="sysFooterDisplay">جميع الحقوق محفوظة © منظومة الوقت الكونية</div>
+
 <script>
-    // الأسماء الكونية الافتراضية الثابتة لمنع الحذف العشوائي
     const defaultMonths = ["إيلاريون", "زيفيروس", "أوريون", "تيتانيوم", "فاليريان", "كاليستو", "سولاريس", "نوفيلا", "سيريديان", "أوميكرون", "هيدرا", "فينكس"];
     const defaultDays = ["سول", "لونا", "مارا", "ميرك", "ثورن", "فينا", "سات"];
-    const monthDescriptions = ["يناير (من 23) وبداية الضوء البارد", "فبراير ورياح الغرب اللطيفة", "مارس وحزام كوكبة الجبار النجمية", "أبريل وعنصر الصلابة والقوة للربيع", "مايو والازدهار العشبي الفلكي", "يونيو وقمر المشتري الأكثر سحراً", "يوليو والطاقة الشمسية والوهج الأقصى", "أغسطس والمستعر الأعظم الساطع بالمجرة", "سبتمبر والإيقاع الطبيعي المتزن للنهار", "أكتوبر والرتبة النجمية في السماء العميقة", "نوفمبر وأكبر كوكبة ممتدة بالسماء", "ديسمبر وطائر العنقاء وولادة الدورة"];
-    const dayDescriptions = ["يوم الشمس (Sol)", "يوم القمر (Luna)", "يوم المريخ والحديد", "يوم عطارد والسرعة الفلكية", "يوم الرعد والقوة الكونية", "يوم الجمال والوئام (فينوس)", "يوم زحل ونهاية الحلقة الزمنية"];
+    const defaultZodiacs = ["الجدي", "الدلو", "الحوت", "الحمل", "الثور", "الجوزاء", "السرطان", "الأسد", "العذراء", "الميزان", "العقرب", "القوس"];
+    const zodiacSymbols = ["♑","♒","♓","♈","♉","♊","♋","♌","♍","♎","♏","♐"];
+    const monthDescriptions = ["الضوء البارد","رياح الغرب","الجبار","الصلابة","الازدهار","السحر","الطاقة الأقصى","المستعر الأعظم","الاتزان","الرتبة النجمية","التمدد","العنقاء وولادة الدورة"];
+    const dayDescriptions = ["يوم الشمس","يوم القمر","المريخ","عطارد","المشتري/الرعد","الزهرة","زحل والنهاية"];
 
-    let monthsHtml = '';
-    defaultMonths.forEach((m, idx) => { monthsHtml += `<div class="admin-box"><label>الشهر ${idx+1}:</label><input type="text" id="mIn_${idx}"></div>`; });
-    document.getElementById('monthsInputsGrid').innerHTML = monthsHtml;
+    document.getElementById('monthsInputsGrid').innerHTML = defaultMonths.map((m, i) => `<div class="admin-box"><label>الشهر ${i+1}:</label><input type="text" id="mIn_${i}"></div>`).join('');
+    document.getElementById('daysInputsGrid').innerHTML = defaultDays.map((d, i) => `<div class="admin-box"><label>اليوم ${i+1}:</label><input type="text" id="dIn_${i}"></div>`).join('');
+    document.getElementById('zodiacInputsGrid').innerHTML = defaultZodiacs.map((z, i) => `<div class="admin-box"><label>البرج ${i+1} ${zodiacSymbols[i]}:</label><input type="text" id="zIn_${i}"></div>`).join('');
 
-    let daysHtml = '';
-    defaultDays.forEach((d, idx) => { daysHtml += `<div class="admin-box"><label>اليوم ${idx+1}:</label><input type="text" id="dIn_${idx}"></div>`; });
-    document.getElementById('daysInputsGrid').innerHTML = daysHtml;
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyAmXr7haZsHNSefR6AHwPTO98tvLLJXBFA", 
-        databaseURL: "https://cosmic-clock-13345-default-rtdb.firebaseio.com" 
-    };
-
+    const firebaseConfig = { apiKey: "AIzaSyAmXr7haZsHNSefR6AHwPTO98tvLLJXBFA", databaseURL: "https://cosmic-clock-13345-default-rtdb.firebaseio.com" };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database().ref("system_config");
-
     let isAdminLoggedIn = false;
-    let config = {
-        currentPassword: 'argos123', savedTitle: 'منظومة الوقت الكونية المعربة', savedNotice: '', savedEpochYear: 2012,
-        cPrimary: '#00d2ff', cSecondary: '#3a7bd5', cAccent: '#ff007a', cBg: '#030712',
+    
+    const defaultSystemData = {
+        currentPassword: 'argos', savedTitle: 'منظومة الوقت الكونية المعربة', savedNotice: '', savedEpochYear: 2012, footerText: 'جميع الحقوق محفوظة © منظومة الوقت الكونية',
+        cPrimary: '#00E5FF', cSecondary: '#7C4DFF', cAccent: '#FF1744', cBg: '#0A0A12', bgImage: '', fontStyle: "'Cairo', sans-serif", clockFormat: "12",
         maintenanceMode: 'off', popUpAlert: '', cosmicQuote: '', usersCount: 1, tickerSpeed: 25, vDict: 'show', vConv: 'show',
-        customMonths: defaultMonths, customDays: defaultDays,
-        h1N: 'رأس الدورة السنوية القادمة', h1D: new Date(new Date().getFullYear()+1, 0, 23).toISOString().split('T')[0],
-        h2N: 'الاعتدال الفلكي القادم', h2D: new Date(new Date().getFullYear(), 2, 21).toISOString().split('T')[0],
-        h3N: 'الانقلاب الصيفي القادم', h3D: new Date(new Date().getFullYear(), 5, 21).toISOString().split('T')[0]
+        customMonths: defaultMonths, customDays: defaultDays, customZodiacs: defaultZodiacs,
+        h1N: 'رأس الدورة', h1D: new Date(new Date().getFullYear()+1, 0, 23).toISOString().split('T')[0],
+        h2N: 'الاعتدال الفلكي', h2D: new Date(new Date().getFullYear(), 2, 21).toISOString().split('T')[0],
+        h3N: 'الانقلاب الصيفي', h3D: new Date(new Date().getFullYear(), 5, 21).toISOString().split('T')[0]
     };
+
+    let config = {...defaultSystemData};
 
     db.on('value', (snapshot) => {
         const data = snapshot.val();
-        if(data) {
-            config = {...config, ...data};
-            applySystemData();
-        } else {
-            // 🛡️ إذا مسحت السحابة بالكامل، نقوم برفع القيم الافتراضية فوراً حتى لا يظهر الموقع فارغاً!
-            db.set(config);
-        }
+        if(data) { config = {...config, ...data}; applySystemData(); } 
+        else { db.set(defaultSystemData); }
     });
 
     function applySystemData() {
-        if (config.maintenanceMode === 'on' && !isAdminLoggedIn) {
-            document.getElementById('maintenanceScreen').style.display = 'flex';
-        } else {
-            document.getElementById('maintenanceScreen').style.display = 'none';
-        }
-
+        document.getElementById('maintenanceScreen').style.display = (config.maintenanceMode === 'on' && !isAdminLoggedIn) ? 'flex' : 'none';
+        
         const alertBar = document.getElementById('stickyAlertBar');
-        const marqueeText = document.getElementById('marqueeText');
         if(config.popUpAlert && config.popUpAlert.trim() !== "") {
-            marqueeText.innerText = config.popUpAlert;
-            alertBar.style.display = 'block';
-        } else {
-            alertBar.style.display = 'none';
-        }
+            document.getElementById('marqueeText').innerText = config.popUpAlert; alertBar.style.display = 'block';
+        } else { alertBar.style.display = 'none'; }
 
         document.getElementById('dictionaryCardBox').style.display = config.vDict === 'hide' ? 'none' : 'block';
         document.getElementById('converterCardBox').style.display = config.vConv === 'hide' ? 'none' : 'block';
+        document.getElementById('sysFooterDisplay').innerText = config.footerText || '';
 
         document.documentElement.style.setProperty('--primary', config.cPrimary);
         document.documentElement.style.setProperty('--secondary', config.cSecondary);
         document.documentElement.style.setProperty('--accent', config.cAccent);
         document.documentElement.style.setProperty('--bg', config.cBg);
-        document.documentElement.style.setProperty('--card-bg', config.cPrimary + '11');
-        document.body.style.background = `radial-gradient(circle at top right, ${config.cSecondary}33, ${config.cBg})`;
+        document.documentElement.style.setProperty('--font-main', config.fontStyle || "'Segoe UI', Tahoma, sans-serif");
+        
+        if (config.bgImage && config.bgImage.trim() !== "") {
+            document.body.style.backgroundImage = `url('${config.bgImage}')`;
+        } else {
+            document.body.style.backgroundImage = 'none';
+        }
 
         document.getElementById('pageTitle').innerText = config.savedTitle;
         document.getElementById('mainDisplayTitle').innerText = config.savedTitle;
@@ -481,19 +380,16 @@
             document.getElementById('tickerText').innerText = config.savedNotice;
             document.getElementById('tickerText').style.animationDuration = `${config.tickerSpeed || 25}s`;
             document.getElementById('broadcastBar').style.display = 'block';
-        } else {
-            document.getElementById('broadcastBar').style.display = 'none';
-        }
+        } else { document.getElementById('broadcastBar').style.display = 'none'; }
 
         if(config.cosmicQuote) {
             document.getElementById('cosmicQuoteDisplay').innerText = `"${config.cosmicQuote}"`;
             document.getElementById('cosmicQuoteDisplay').style.display = 'block';
-        } else {
-            document.getElementById('cosmicQuoteDisplay').style.display = 'none';
-        }
+        } else { document.getElementById('cosmicQuoteDisplay').style.display = 'none'; }
 
         document.getElementById('liveUsersCount').innerText = (config.usersCount || 1).toLocaleString('en');
 
+        // Populate Admin Fields
         document.getElementById('adminTitleIn').value = config.savedTitle;
         document.getElementById('adminPassIn').value = config.currentPassword;
         document.getElementById('adminNoticeIn').value = config.savedNotice;
@@ -505,181 +401,122 @@
         document.getElementById('adminTickerSpeed').value = config.tickerSpeed || 25;
         document.getElementById('vDictIn').value = config.vDict || 'show';
         document.getElementById('vConvIn').value = config.vConv || 'show';
+        document.getElementById('adminClockFmt').value = config.clockFormat || "12";
+        document.getElementById('adminFontIn').value = config.fontStyle || "'Segoe UI', Tahoma, sans-serif";
+        document.getElementById('adminBgImageIn').value = config.bgImage || "";
+        document.getElementById('adminFooterIn').value = config.footerText || "";
         document.getElementById('colorPrimary').value = config.cPrimary;
         document.getElementById('colorSecondary').value = config.cSecondary;
         document.getElementById('colorAccent').value = config.cAccent;
         document.getElementById('colorBg').value = config.cBg;
 
-        const monthsArr = config.customMonths || defaultMonths;
-        monthsArr.forEach((m, idx) => { document.getElementById(`mIn_${idx}`).value = m; });
-
-        const daysArr = config.customDays || defaultDays;
-        daysArr.forEach((d, idx) => { document.getElementById(`dIn_${idx}`).value = d; });
+        const mArr = config.customMonths || defaultMonths; mArr.forEach((m, i) => { document.getElementById(`mIn_${i}`).value = m; });
+        const dArr = config.customDays || defaultDays; dArr.forEach((d, i) => { document.getElementById(`dIn_${i}`).value = d; });
+        const zArr = config.customZodiacs || defaultZodiacs; zArr.forEach((z, i) => { document.getElementById(`zIn_${i}`).value = z; });
 
         document.getElementById('h1Name').value = config.h1N || ''; document.getElementById('h1Date').value = config.h1D || '';
         document.getElementById('h2Name').value = config.h2N || ''; document.getElementById('h2Date').value = config.h2D || '';
         document.getElementById('h3Name').value = config.h3N || ''; document.getElementById('h3Date').value = config.h3D || '';
 
-        let tableRowsHtml = '';
-        monthsArr.forEach((m, idx) => {
-            tableRowsHtml += `<tr><td><b>${m}</b></td><td>قطاع الشهر الكوني رقم ${idx+1}</td><td>${monthDescriptions[idx]}</td></tr>`;
-        });
-        daysArr.forEach((d, idx) => {
-            tableRowsHtml += `<tr style="background:rgba(0,210,255,0.02)"><td><b>دورة ${d}</b></td><td>يوم الأسبوع رقم ${idx+1}</td><td>${dayDescriptions[idx]}</td></tr>`;
-        });
-        document.getElementById('tableDictionaryBody').innerHTML = tableRowsHtml;
+        document.getElementById('tableDictionaryBody').innerHTML = 
+            mArr.map((m, i) => `<tr><td><b>${m}</b></td><td>شهر ${i+1}</td><td>${monthDescriptions[i]}</td></tr>`).join('') +
+            dArr.map((d, i) => `<tr><td><b>${d}</b></td><td>يوم ${i+1}</td><td>${dayDescriptions[i]}</td></tr>`).join('');
     }
 
-    function setTheme(p, s, a, bg) {
-        document.getElementById('colorPrimary').value = p;
-        document.getElementById('colorSecondary').value = s;
-        document.getElementById('colorAccent').value = a;
-        document.getElementById('colorBg').value = bg;
-    }
-
+    function setTheme(p, s, a, bg) { document.getElementById('colorPrimary').value = p; document.getElementById('colorSecondary').value = s; document.getElementById('colorAccent').value = a; document.getElementById('colorBg').value = bg; document.getElementById('adminBgImageIn').value = '';}
+    
     function triggerAdminAccess() {
-        const pass = prompt("أدخل شفرة النفاذ للمسؤول الكوني السحابي:");
-        if (pass === config.currentPassword) {
-            isAdminLoggedIn = true;
-            document.getElementById('adminPanel').style.display = 'block';
-            document.getElementById('maintenanceScreen').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else if(pass !== null) {
-            alert("⚠️ شفرة النفاذ خاطئة. تم رفض العبور السحابي.");
-        }
+        const p = prompt("أدخل شفرة المرور:");
+        if (p === config.currentPassword) { isAdminLoggedIn = true; document.getElementById('adminPanel').style.display = 'block'; document.getElementById('maintenanceScreen').style.display = 'none'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        else if(p !== null) { alert("⚠️ شفرة خاطئة."); }
     }
 
     function saveAdminChanges() {
-        let savedMonthsArr = [];
-        for(let i=0; i<12; i++) { savedMonthsArr.push(document.getElementById(`mIn_${i}`).value || defaultMonths[i]); }
-        let savedDaysArr = [];
-        for(let i=0; i<7; i++) { savedDaysArr.push(document.getElementById(`dIn_${i}`).value || defaultDays[i]); }
+        let m = [], d = [], z = [];
+        for(let i=0; i<12; i++) m.push(document.getElementById(`mIn_${i}`).value || defaultMonths[i]);
+        for(let i=0; i<7; i++) d.push(document.getElementById(`dIn_${i}`).value || defaultDays[i]);
+        for(let i=0; i<12; i++) z.push(document.getElementById(`zIn_${i}`).value || defaultZodiacs[i]);
 
-        const updatedData = {
-            currentPassword: document.getElementById('adminPassIn').value,
-            savedTitle: document.getElementById('adminTitleIn').value,
-            savedNotice: document.getElementById('adminNoticeIn').value,
-            cosmicQuote: document.getElementById('adminQuoteIn').value,
-            usersCount: parseInt(document.getElementById('adminUsersIn').value) || 1,
-            savedEpochYear: parseInt(document.getElementById('epochYearIn').value) || 2012,
-            maintenanceMode: document.getElementById('adminMaintenanceIn').value,
-            popUpAlert: document.getElementById('adminAlertIn').value,
-            tickerSpeed: parseInt(document.getElementById('adminTickerSpeed').value) || 25,
-            vDict: document.getElementById('vDictIn').value,
-            vConv: document.getElementById('vConvIn').value,
-            cPrimary: document.getElementById('colorPrimary').value,
-            cSecondary: document.getElementById('colorSecondary').value,
-            cAccent: document.getElementById('colorAccent').value,
-            cBg: document.getElementById('colorBg').value,
-            customMonths: savedMonthsArr,
-            customDays: savedDaysArr,
+        db.set({
+            currentPassword: document.getElementById('adminPassIn').value, savedTitle: document.getElementById('adminTitleIn').value,
+            savedNotice: document.getElementById('adminNoticeIn').value, cosmicQuote: document.getElementById('adminQuoteIn').value,
+            usersCount: parseInt(document.getElementById('adminUsersIn').value) || 1, savedEpochYear: parseInt(document.getElementById('epochYearIn').value) || 2012,
+            maintenanceMode: document.getElementById('adminMaintenanceIn').value, popUpAlert: document.getElementById('adminAlertIn').value,
+            tickerSpeed: parseInt(document.getElementById('adminTickerSpeed').value) || 25, vDict: document.getElementById('vDictIn').value,
+            vConv: document.getElementById('vConvIn').value, clockFormat: document.getElementById('adminClockFmt').value,
+            fontStyle: document.getElementById('adminFontIn').value, bgImage: document.getElementById('adminBgImageIn').value,
+            footerText: document.getElementById('adminFooterIn').value,
+            cPrimary: document.getElementById('colorPrimary').value, cSecondary: document.getElementById('colorSecondary').value,
+            cAccent: document.getElementById('colorAccent').value, cBg: document.getElementById('colorBg').value,
+            customMonths: m, customDays: d, customZodiacs: z,
             h1N: document.getElementById('h1Name').value, h1D: document.getElementById('h1Date').value,
             h2N: document.getElementById('h2Name').value, h2D: document.getElementById('h2Date').value,
             h3N: document.getElementById('h3Name').value, h3D: document.getElementById('h3Date').value
-        };
-
-        db.set(updatedData).then(() => {
-            alert("☁️ تم تحديث البيانات وشريط الإعلان السحابي بنجاح تام!");
-            lockAdminPanel();
-        }).catch(err => { alert("خطأ سحابي: " + err.message); });
+        }).then(() => { alert("☁️ تم الحفظ بنجاح!"); lockAdminPanel(); }).catch(e => alert("خطأ: " + e.message));
     }
 
-    function resetToFactory() {
-        if(confirm("⚠ هل تريد إعادة المنظومة للحالة الافتراضية؟ (سيتم استرجاع أسماء الشهور والأسابيع الأصلية فوراً)")) {
-            // إعادة التعيين الذكية: نمسح السحابة ثم نضخ فيها مصفوفات الشهور والأيام الافتراضية مباشرة لمنع حدوث الفراغ
-            const resetData = {
-                currentPassword: 'argos123', savedTitle: 'منظومة الوقت الكونية المعربة', savedNotice: '', savedEpochYear: 2012,
-                cPrimary: '#00d2ff', cSecondary: '#3a7bd5', cAccent: '#ff007a', cBg: '#030712',
-                maintenanceMode: 'off', popUpAlert: '', cosmicQuote: '', usersCount: 1, tickerSpeed: 25, vDict: 'show', vConv: 'show',
-                customMonths: defaultMonths, customDays: defaultDays,
-                h1N: 'رأس الدورة السنوية القادمة', h1D: new Date(new Date().getFullYear()+1, 0, 23).toISOString().split('T')[0],
-                h2N: 'الاعتدال الفلكي القادم', h2D: new Date(new Date().getFullYear(), 2, 21).toISOString().split('T')[0],
-                h3N: 'الانقلاب الصيفي القادم', h3D: new Date(new Date().getFullYear(), 5, 21).toISOString().split('T')[0]
-            };
-            db.set(resetData).then(() => { 
-                alert("🔄 تم استعادة الأسماء والتهيئة الافتراضية الكونية بنجاح!"); 
-                location.reload(); 
-            });
-        }
-    }
-
+    function resetToFactory() { if(confirm("⚠ سيتم مسح كل شيء واسترجاع الإعدادات الافتراضية. متأكد؟")) { db.set(defaultSystemData).then(() => location.reload()); } }
     function lockAdminPanel() { isAdminLoggedIn = false; document.getElementById('adminPanel').style.display = 'none'; applySystemData(); }
 
     function getS(date) {
-        const monthsArr = config.customMonths || defaultMonths;
-        const daysArr = config.customDays || defaultDays;
         let y = date.getFullYear() - config.savedEpochYear;
         if (date < new Date(date.getFullYear(), 0, 23)) y--;
         let d, m;
-        if (date.getDate() >= 23) {
-            d = date.getDate() - 23 + 1;
-            m = monthsArr[date.getMonth()];
-        } else {
-            const lastM = new Date(date.getFullYear(), date.getMonth(), 0);
-            d = (lastM.getDate() - 23 + 1) + date.getDate();
-            m = monthsArr[date.getMonth() === 0 ? 11 : date.getMonth() - 1];
-        }
-        return { day: d, month: m, year: y, dName: daysArr[date.getDay()] };
+        if (date.getDate() >= 23) { d = date.getDate() - 22; m = (config.customMonths || defaultMonths)[date.getMonth()]; }
+        else { const l = new Date(date.getFullYear(), date.getMonth(), 0); d = (l.getDate() - 22) + date.getDate(); m = (config.customMonths || defaultMonths)[date.getMonth() === 0 ? 11 : date.getMonth() - 1]; }
+        return { day: d, month: m, year: y, dName: (config.customDays || defaultDays)[date.getDay()] };
     }
 
     function update() {
-        const now = new Date();
-        const s = getS(now);
+        const now = new Date(); const s = getS(now);
         
-        document.getElementById('clock').innerText = now.toLocaleTimeString('en');
+        let timeStr = "";
+        if(config.clockFormat === "12") {
+            timeStr = now.toLocaleTimeString('ar', { hour12: true });
+        } else {
+            timeStr = now.toLocaleTimeString('en-GB'); // 24H
+        }
+        document.getElementById('clock').innerText = timeStr;
+        
         document.getElementById('sDayName').innerText = "دورة " + s.dName;
         document.getElementById('sMainDay').innerText = s.day.toLocaleString('en');
-        document.getElementById('sMonthYear').innerText = `قطاع ${s.month} ، حقبة ${s.year.toLocaleString('en', {useGrouping:false})}`;
+        document.getElementById('sMonthYear').innerText = `قطاع ${s.month} ، حقبة ${s.year}`;
 
-        const currentSeconds = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
-        const dayPerc = (currentSeconds / 86400) * 100;
-        document.getElementById('dayFlowFill').style.width = dayPerc + "%";
-        document.getElementById('dayFlowPerc').innerText = `انقضى ${Math.floor(dayPerc)}% من زمن (${s.dName})`;
-        document.getElementById('dayFlowHours').innerText = `متبقي ${24 - now.getHours()} ساعة فلكية`;
+        const cSec = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
+        const dP = (cSec / 86400) * 100;
+        document.getElementById('dayFlowFill').style.width = dP + "%";
+        document.getElementById('dayFlowPerc').innerText = `انقضى ${Math.floor(dP)}%`;
+        document.getElementById('dayFlowHours').innerText = `متبقي ${24 - now.getHours()} ساعة`;
 
-        const start = new Date(now.getFullYear(), 0, 23);
-        if (now < start) start.setFullYear(now.getFullYear() - 1);
-        const end = new Date(start.getFullYear() + 1, 0, 23);
-        const daysLeft = Math.floor((end - now) / 86400000);
-        const perc = ((now - start) / (end - start)) * 100;
+        const st = new Date(now.getFullYear(), 0, 23); if (now < st) st.setFullYear(now.getFullYear() - 1);
+        const en = new Date(st.getFullYear() + 1, 0, 23);
+        const dL = Math.floor((en - now) / 86400000); const p = ((now - st) / (en - st)) * 100;
 
-        document.getElementById('daysLeft').innerText = daysLeft;
-        document.getElementById('percVal').innerText = perc.toFixed(1) + "%";
-        document.getElementById('yearPerc').innerText = Math.floor(perc) + "%";
+        document.getElementById('daysLeft').innerText = dL;
+        document.getElementById('percVal').innerText = p.toFixed(1) + "%";
+        document.getElementById('yearPerc').innerText = Math.floor(p) + "%";
+        document.getElementById('totalDaysCalc').innerText = Math.floor((now - new Date(config.savedEpochYear, 0, 23)) / 86400000).toLocaleString('en');
 
-        const epoch = new Date(config.savedEpochYear, 0, 23);
-        const totalDays = Math.floor((now - epoch) / 86400000);
-        document.getElementById('totalDaysCalc').innerText = totalDays.toLocaleString('en') + " نهار كوني";
+        const setCd = (id, dStr, nStr, nId) => {
+            const diff = Math.ceil((new Date(dStr) - now) / 86400000);
+            document.getElementById(nId).innerText = (nStr || 'حدث') + ":";
+            document.getElementById(id).innerText = diff >= 0 ? diff + " يوم" : "مضى";
+        };
+        setCd('cd1', config.h1D, config.h1N, 'lblH1'); setCd('cd2', config.h2D, config.h2N, 'lblH2'); setCd('cd3', config.h3D, config.h3N, 'lblH3');
 
-        const diffH1 = Math.ceil((new Date(config.h1D) - now) / 86400000);
-        document.getElementById('lblH1').innerText = (config.h1N || 'الحدث 1') + ":";
-        document.getElementById('cd1').innerText = diffH1 >= 0 ? diffH1 + " يوم" : "مضى/انتهى";
-
-        const diffH2 = Math.ceil((new Date(config.h2D) - now) / 86400000);
-        document.getElementById('lblH2').innerText = (config.h2N || 'الحدث 2') + ":";
-        document.getElementById('cd2').innerText = diffH2 >= 0 ? diffH2 + " يوم" : "مضى/انتهى";
-
-        const diffH3 = Math.ceil((new Date(config.h3D) - now) / 86400000);
-        document.getElementById('lblH3').innerText = (config.h3N || 'الحدث 3') + ":";
-        document.getElementById('cd3').innerText = diffH3 >= 0 ? diffH3 + " يوم" : "مضى/انتهى";
-
-        const zodiacs = [{n:"الجدي",s:"♑"},{n:"الدلو",s:"♒"},{n:"الحوت",s:"♓"},{n:"الحمل",s:"♈"},{n:"الثور",s:"♉"},{n:"الجوزاء",s:"♊"},{n:"السرطان",s:"♋"},{n:"الأسد",s:"♌"},{n:"العذراء",s:"♍"},{n:"الميزان",s:"♎"},{n:"العقرب",s:"♏"},{n:"القوس",s:"♐"}];
         let zIdx = (now.getDate() < 20) ? now.getMonth() : (now.getMonth() + 1) % 12;
-        document.getElementById('zSign').innerText = zodiacs[zIdx].s;
-        document.getElementById('zName').innerText = zodiacs[zIdx].n;
+        const zArr = config.customZodiacs || defaultZodiacs;
+        document.getElementById('zSign').innerText = zodiacSymbols[zIdx];
+        document.getElementById('zName').innerText = zArr[zIdx];
     }
 
     function convert() {
-        const val = document.getElementById('gIn').value;
-        if(!val) return;
-        const targetDate = new Date(val);
-        const s = getS(targetDate);
-        const diffDays = Math.ceil(Math.abs(targetDate - new Date()) / 86400000);
-        document.getElementById('res').innerHTML = `<b>توقيت النظام: ${s.day} من ${s.month} حقبة ${s.year}</b><br>محور اليوم: ${s.dName}<br>الفارق الكوني: ${diffDays.toLocaleString('en')} يوماً`;
+        const v = document.getElementById('gIn').value; if(!v) return;
+        const d = new Date(v); const s = getS(d);
+        document.getElementById('res').innerHTML = `<b>${s.day} ${s.month} | حقبة ${s.year}</b><br><span style="color:var(--primary)">دورة: ${s.dName}</span>`;
     }
 
-    setInterval(update, 1000);
-    update();
+    setInterval(update, 1000); update();
 </script>
 
 </body>

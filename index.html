@@ -38,12 +38,11 @@
             transition: all 0.4s ease;
         }
 
-        /* نزول تلقائي لعناصر الصفحة عند ظهور شريط التنبيهات */
         body.has-alert {
             padding-top: 80px;
         }
 
-        /* تحديث شريط التنبيهات العلوي ليعمل بشكل مثالي على كل الشاشات */
+        /* شريط التنبيهات العلوي */
         .sticky-admin-alert-marquee {
             width: 100%;
             position: fixed; 
@@ -63,7 +62,6 @@
             box-sizing: border-box;
         }
         
-        /* حركة أنميشن مخصصة للغة العربية تضمن ظهور النص كاملاً واختفائه بانسيابية */
         .marquee-content { 
             display: inline-block; 
             animation: cosmicMarquee 25s linear infinite;
@@ -73,14 +71,15 @@
             100% { transform: translateX(-100%); } 
         }
 
-        /* تم فصل زر الإدارة عن المرجن لتجنب اختفائه */
         .dashboard { max-width: 1100px; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; z-index: 1; margin-top: 20px; }
 
+        /* 🛠️ تم تقليل الـ z-index لشاشة الصيانة لتصبح تحت زر التحكم */
         #maintenanceScreen {
             position: fixed; top:0; left:0; width:100vw; height:100vh;
-            background: rgba(10, 10, 18, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; display: none;
+            background: rgba(10, 10, 18, 0.97);
+            backdrop-filter: blur(15px);
+            z-index: 999990; /* أقل من زر التحكم */
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; display: none;
         }
         .maintenance-gear { font-size: 6rem; animation: spin 4s linear infinite; margin-bottom: 20px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -96,25 +95,26 @@
         .broadcast-ticker { display: inline-block; padding-right: 100%; animation: ticker 25s linear infinite; }
         @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
 
-        /* تنسيق زر الإدارة الثابت على الكمبيوتر */
+        /* 👑 تم رفع z-index لزر الإدارة ليكون في القمة دائماً ويخترق شاشة الصيانة */
         .admin-gate-btn {
             position: fixed; 
             top: 70px; 
             left: 20px; 
             width: auto; 
-            padding: 10px 18px;
-            background: rgba(0,0,0,0.75); 
-            border: 1px solid var(--primary); 
+            padding: 12px 20px;
+            background: rgba(10, 10, 18, 0.9); 
+            border: 2px solid var(--primary); 
             color: var(--primary);
             border-radius: 10px; 
-            font-size: 0.85rem; 
+            font-size: 0.9rem; 
             cursor: pointer; 
-            z-index: 99999; 
+            z-index: 999999; /* القمة المطلقة */
             transition: 0.3s; 
             backdrop-filter: blur(5px);
             font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
         }
-        .admin-gate-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary);}
+        .admin-gate-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 25px var(--primary);}
 
         .hero-card, .card {
             background: var(--card-bg);
@@ -130,6 +130,7 @@
         .card:hover { transform: translateY(-5px); border-color: var(--secondary); box-shadow: 0 10px 40px rgba(124, 77, 255, 0.3); }
         .col-span-all { grid-column: 1 / -1; }
         
+        /* لوحة التحكم تأخذ أولوية عليا عند فتحها */
         .admin-panel {
             grid-column: 1 / -1;
             background: #11111A; border: 2px solid var(--primary); box-shadow: 0 0 40px rgba(0, 229, 255, 0.3);
@@ -189,7 +190,7 @@
         .admin-buttons-wrapper { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
         .admin-buttons-wrapper button { flex: 1; min-width: 200px; padding: 15px; font-size: 1.1rem; }
 
-        /* 📱 تحسينات الهواتف الكاملة والجذرية لمنع أي اختفاء أو تداخل */
+        /* 📱 تحسينات الهواتف والـ z-index المطلق للزر العائم */
         @media (max-width: 768px) {
             body { 
                 padding: 10px !important; 
@@ -211,14 +212,13 @@
             
             .card { padding: 20px 15px; }
             
-            /* حماية الخطوط من الخروج خارج الصندوق */
             .big-day { font-size: 4.5rem; }
             .month-year { font-size: 1.3rem; }
             #clock { font-size: 1.6rem !important; }
             #sDayName { font-size: 1.4rem !important; }
             #mainDisplayTitle { font-size: 1.1rem !important; margin-top: 25px !important; } 
             
-            /* تحويل زر الإدارة ليكون زراً عائماً فائق الوضوح أسفل الشاشة */
+            /* زر الإدارة العائم للهواتف محمي بـ z-index القمة دائماً */
             .admin-gate-btn { 
                 position: fixed;
                 top: auto !important;
@@ -227,11 +227,11 @@
                 right: auto !important;
                 padding: 14px 22px; 
                 font-size: 0.9rem;
-                background: rgba(10, 10, 18, 0.9);
+                background: rgba(10, 10, 18, 0.95);
                 border: 2px solid var(--primary);
                 border-radius: 50px;
-                box-shadow: 0 4px 20px var(--primary);
-                z-index: 100001; /* يظهر فوق كل شيء بصورة مستقلة */
+                box-shadow: 0 4px 25px var(--primary);
+                z-index: 999999; /* يظل أعلى شاشة الصيانة على الهاتف أيضاً */
             }
             
             .user-counter { top: 15px; right: 15px; font-size: 0.8rem; padding: 5px 10px; }
@@ -251,6 +251,7 @@
 <div id="maintenanceScreen">
     <div class="maintenance-gear">⚙️</div>
     <h1 style="color: var(--primary); font-size: 2.5rem; text-shadow: 0 0 20px var(--primary);">النظام في وضع الصيانة</h1>
+    <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 400px; padding: 0 20px;">يجري الآن تحديث وتطوير خوادم الوقت الفلكية. يمكنك كمسؤول الدخول عبر زر الإدارة الجانبي/العائم.</p>
 </div>
 
 <div id="stickyAlertBar" class="sticky-admin-alert-marquee"><div id="marqueeText" class="marquee-content"></div></div>

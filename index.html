@@ -15,7 +15,7 @@
 
         html, body {
             max-width: 100%;
-            overflow-x: hidden; /* منع التمرير الأفقي تماماً */
+            overflow-x: hidden;
             margin: 0;
             padding: 0;
         }
@@ -60,23 +60,53 @@
         }
         @keyframes spinLoader { 100% { transform: rotate(360deg); } }
 
-        body.has-alert { padding-top: 80px; }
+        /* تعديل مساحة الجسم العلوية عند ظهور الجزيرة التفاعلية */
+        body.has-alert { padding-top: 90px; }
 
-        /* شريط التنبيهات العلوي الثابت */
+        /* 📱 شريط التنبيهات بأسلوب Dynamic Island 📱 */
         .sticky-admin-alert-marquee {
-            width: 100%;
             position: fixed; 
-            top: 0; left: 0;
-            background: linear-gradient(90deg, #D50000, var(--accent), #D50000);
-            color: white; padding: 12px 0; font-weight: bold; font-size: 1.1rem;
-            box-shadow: 0 4px 20px rgba(255, 23, 68, 0.5);
-            overflow: hidden; white-space: nowrap; display: none; z-index: 100000;
+            top: 20px; 
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000; /* أسود حالك مثل الآيفون */
+            color: #ffffff; 
+            padding: 8px 20px; 
+            font-weight: bold; 
+            font-size: 1rem;
+            border-radius: 50px; /* شكل الكبسولة */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9), 0 0 20px rgba(255, 23, 68, 0.4); /* توهج أحمر وظل عميق */
+            width: auto;
+            min-width: 280px;
+            max-width: 90%;
+            display: none; /* يتحول إلى flex بواسطة JS */
+            z-index: 100000;
+            border: 1px solid rgba(255,255,255,0.08); 
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .island-icon {
+            font-size: 1.1rem;
+            animation: pulseIsland 2s infinite;
+            filter: drop-shadow(0 0 5px var(--accent));
+        }
+        @keyframes pulseIsland { 0% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.4; transform: scale(0.9); } }
+
+        .island-text-wrapper {
+            overflow: hidden;
+            white-space: nowrap;
+            flex: 1;
+            /* قناع شفافية لجعل النص يتلاشى عند الأطراف بنعومة */
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
         
         .marquee-content { 
             display: inline-block; 
             padding-right: 100%;
-            animation: cosmicMarquee 20s linear infinite;
+            animation: cosmicMarquee 15s linear infinite;
         }
         @keyframes cosmicMarquee { 
             0% { transform: translateX(0); } 
@@ -97,10 +127,7 @@
             transition: opacity 0.4s ease; 
         }
 
-        /* جعل العناصر الكبيرة تمتد بكامل العرض في الكمبيوتر */
-        .hero-card, .admin-panel, .col-span-all {
-            grid-column: 1 / -1;
-        }
+        .hero-card, .admin-panel, .col-span-all { grid-column: 1 / -1; }
 
         #maintenanceScreen {
             position: fixed; top:0; left:0; width:100%; height:100%;
@@ -117,7 +144,7 @@
         .broadcast-ticker { display: inline-block; padding-right: 100%; animation: ticker 25s linear infinite; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(100%); } }
 
-        /* 💻 زر الإدارة: تم إصلاح مشكلة التمدد وإعطاؤه حجم ثابت */
+        /* 💻 زر الإدارة الثابت على اليسار */
         .admin-gate-btn {
             position: fixed; 
             top: 20px; 
@@ -136,11 +163,6 @@
             transition: all 0.3s ease;
         }
         .admin-gate-btn:hover { background: var(--primary); color: #000; }
-
-        /* دفع زر الإدارة للأسفل تلقائياً عند ظهور شريط التنبيهات لعدم التداخل */
-        body.has-alert .admin-gate-btn {
-            top: 65px !important; 
-        }
 
         .hero-card, .card {
             background: var(--card-bg); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
@@ -195,47 +217,27 @@
 
         /* 📱 التوافق الكامل والذكي مع الهواتف (Mobile Layout) */
         @media (max-width: 768px) {
-            body { padding: 10px !important; padding-top: 50px !important; }
-            body.has-alert { padding-top: 70px !important; }
+            body { padding: 10px !important; padding-top: 40px !important; }
+            body.has-alert { padding-top: 90px !important; } /* ترك مساحة للجزيرة التفاعلية */
             
-            .dashboard { 
-                grid-template-columns: 1fr !important; /* تحويل الشبكة لعمود واحد لتفادي الضغط */
-                gap: 15px; 
-                margin-top: 10px; 
-            }
-            
-            /* إلغاء تمدد الأعمدة في شاشات الهاتف الصغير */
-            .hero-card, .admin-panel, .col-span-all {
-                grid-column: unset !important;
-            }
-            
+            .dashboard { grid-template-columns: 1fr !important; gap: 15px; margin-top: 10px; }
+            .hero-card, .admin-panel, .col-span-all { grid-column: unset !important; }
             .hero-card { padding: 50px 15px 25px 15px; }
             .card { padding: 20px 15px; }
             
-            /* تصغير الخطوط لتناسب أبعاد شاشات الهواتف تماماً */
             .big-day { font-size: 4.5rem; margin: 5px 0;}
             .month-year { font-size: 1.3rem; }
             #clock { font-size: 1.6rem !important; margin-bottom: 5px !important;}
             #sDayName { font-size: 1.4rem !important; }
             #mainDisplayTitle { font-size: 1.1rem !important; margin-top: 15px !important; } 
             
-            /* 📱 زر الإدارة في الهاتف (عائم أسفل اليسار) */
-            .admin-gate-btn { 
-                top: auto !important; 
-                bottom: 25px !important; 
-                left: 20px !important; 
-                padding: 15px 25px !important; 
-                border-radius: 50px !important; 
-                box-shadow: 0 4px 20px var(--primary) !important; 
-            }
+            .admin-gate-btn { top: auto !important; bottom: 25px !important; left: 20px !important; padding: 15px 25px !important; border-radius: 50px !important; box-shadow: 0 4px 20px var(--primary) !important; }
             
             .user-counter { top: 15px; right: 15px; font-size: 0.8rem; padding: 5px 10px; }
             .stat-grid { grid-template-columns: 1fr; gap: 10px; }
             .theme-btn-grid { grid-template-columns: repeat(2, 1fr); }
-            
             .admin-buttons-wrapper { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
             .admin-buttons-wrapper button { width: 100%; padding: 15px; font-size: 1.1rem; }
-            
             .holiday-item { flex-direction: column; align-items: flex-start; gap: 5px;}
             .holiday-countdown { align-self: flex-end; }
         }
@@ -254,7 +256,12 @@
     <p style="color: var(--text-muted); font-size: 1rem; max-width: 90%; padding: 0 10px;">يجري الآن تحديث وتطوير خوادم الوقت الفلكية. يمكنك كمسؤول الدخول عبر زر الإدارة الجانبي/العائم.</p>
 </div>
 
-<div id="stickyAlertBar" class="sticky-admin-alert-marquee"><div id="marqueeText" class="marquee-content"></div></div>
+<div id="stickyAlertBar" class="sticky-admin-alert-marquee">
+    <div class="island-icon">🚨</div>
+    <div class="island-text-wrapper">
+        <div id="marqueeText" class="marquee-content"></div>
+    </div>
+</div>
 
 <button class="admin-gate-btn" onclick="triggerAdminAccess()">⚙️ الإدارة</button>
 
@@ -267,7 +274,7 @@
         <div class="admin-section-title">🔒 أمن النظام وحالة البث</div>
         <div class="admin-grid">
             <div class="admin-box"><label>وضع الصيانة:</label><select id="adminMaintenanceIn"><option value="off">🟢 بث مباشر للجميع</option><option value="on">🔴 مغلق للصيانة</option></select></div>
-            <div class="admin-box"><label>شريط الأخبار العاجلة (العلوي):</label><input type="text" id="adminAlertIn" placeholder="نص متحرك أحمر..."></div>
+            <div class="admin-box"><label>شريط التنبيه (Dynamic Island):</label><input type="text" id="adminAlertIn" placeholder="نص عاجل ليظهر في الكبسولة العلوية..."></div>
             <div class="admin-box"><label>الرقم السري للوحة:</label><input type="text" id="adminPassIn"></div>
         </div>
 
@@ -416,7 +423,6 @@
     const monthDescriptions = ["الضوء البارد","رياح الغرب","الجبار","الصلابة","الازدهار","السحر","الطاقة الأقصى","المستعر الأعظم","الاتزان","الرتبة النجمية","التمدد","العنقاء وولادة الدورة"];
     const dayDescriptions = ["يوم الشمس البكر","يوم طاقة القمر والملاحة","يوم الإقدام والمريخ","يوم الحكمة والاتصال","يوم الرعد والقوة","يوم الجمال والوفرة","يوم زحل ونهاية الأسبوع"];
 
-    // مصطلحات الترجمة التقليدية لكي يفهمها المستخدم
     const traditionalDaysAr = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
     const traditionalMonthsAr = ["يناير (شهر 1)", "فبراير (شهر 2)", "مارس (شهر 3)", "أبريل (شهر 4)", "مايو (شهر 5)", "يونيو (شهر 6)", "يوليو (شهر 7)", "أغسطس (شهر 8)", "سبتمبر (شهر 9)", "أكتوبر (شهر 10)", "نوفمبر (شهر 11)", "ديسمبر (شهر 12)"];
 
@@ -469,7 +475,7 @@
         const alertBar = document.getElementById('stickyAlertBar');
         if(config.popUpAlert && config.popUpAlert.trim() !== "") {
             document.getElementById('marqueeText').innerText = config.popUpAlert; 
-            alertBar.style.display = 'block';
+            alertBar.style.display = 'flex'; // تم التحويل إلى flex لدعم التصميم الجديد
             document.body.classList.add('has-alert');
         } else { 
             alertBar.style.display = 'none'; 
@@ -533,7 +539,6 @@
         document.getElementById('h2Name').value = config.h2N || ''; document.getElementById('h2Date').value = config.h2D || '';
         document.getElementById('h3Name').value = config.h3N || ''; document.getElementById('h3Date').value = config.h3D || '';
 
-        // 🔥 هنا تم إدراج الترجمة الموازية الذكية لتظهر بوضوح للزوار
         document.getElementById('tableDictionaryBody').innerHTML = 
             dArr.map((d, i) => `<tr><td><b style="color:var(--primary)">${d}</b></td><td>يعادل: <b>${traditionalDaysAr[i]}</b></td><td>${dayDescriptions[i]}</td></tr>`).join('') +
             mArr.map((m, i) => `<tr><td><b style="color:var(--secondary)">${m}</b></td><td>يعادل: <b>${traditionalMonthsAr[i]}</b></td><td>${monthDescriptions[i]}</td></tr>`).join('');

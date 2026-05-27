@@ -8,14 +8,16 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <style>
-        /* 🚨 الحل الجذري لمنع خروج العناصر عن الشاشة 🚨 */
+        /* 🚨 التحكم الشامل لمنع التشوه والخروج عن حواف الشاشة 🚨 */
         *, *::before, *::after {
             box-sizing: border-box !important;
         }
 
         html, body {
             max-width: 100%;
-            overflow-x: hidden; /* يمنع التمرير الأفقي تماماً */
+            overflow-x: hidden; /* منع التمرير الأفقي تماماً */
+            margin: 0;
+            padding: 0;
         }
 
         :root {
@@ -36,13 +38,11 @@
             background-position: center;
             background-attachment: fixed;
             color: var(--text-main);
-            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
-            padding-top: 40px;
+            padding: 40px 20px 20px 20px;
             transition: all 0.4s ease;
         }
 
@@ -83,10 +83,23 @@
             100% { transform: translateX(100%); } 
         }
 
+        /* 💻 تنسيق شبكة العرض للحاسوب والشاشات الكبيرة */
         .dashboard { 
-            max-width: 1100px; width: 100%; display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; 
-            z-index: 1; margin-top: 20px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; 
+            max-width: 1200px; 
+            width: 100%; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 25px; 
+            z-index: 1; 
+            margin-top: 20px; 
+            opacity: 0; 
+            pointer-events: none; 
+            transition: opacity 0.4s ease; 
+        }
+
+        /* جعل العناصر الكبيرة تمتد بكامل العرض في الكمبيوتر */
+        .hero-card, .admin-panel, .col-span-all {
+            grid-column: 1 / -1;
         }
 
         #maintenanceScreen {
@@ -98,29 +111,46 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .system-broadcast {
-            width: 100%; max-width: 1100px; background: rgba(0, 229, 255, 0.1); border: 1px solid var(--primary);
+            width: 100%; max-width: 1200px; background: rgba(0, 229, 255, 0.1); border: 1px solid var(--primary);
             padding: 12px; text-align: center; border-radius: 12px; margin-bottom: 15px; font-weight: bold; display: none; overflow: hidden; white-space: nowrap; color: var(--primary);
         }
         .broadcast-ticker { display: inline-block; padding-right: 100%; animation: ticker 25s linear infinite; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(100%); } }
 
-        /* زر الإدارة للكمبيوتر */
+        /* 💻 زر الإدارة: تم إصلاح مشكلة التمدد وإعطاؤه حجم ثابت */
         .admin-gate-btn {
-            position: fixed; top: 70px; left: 20px; padding: 12px 20px;
-            background: rgba(10, 10, 18, 0.9); border: 2px solid var(--primary); color: var(--primary);
-            border-radius: 10px; font-size: 0.9rem; cursor: pointer; z-index: 999999; font-weight: bold;
+            position: fixed; 
+            top: 20px; 
+            left: 20px; 
+            width: auto !important; 
+            padding: 10px 20px;
+            background: rgba(10, 10, 18, 0.95); 
+            border: 2px solid var(--primary); 
+            color: var(--primary);
+            border-radius: 8px; 
+            font-size: 1rem; 
+            cursor: pointer; 
+            z-index: 999999; 
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
         }
         .admin-gate-btn:hover { background: var(--primary); color: #000; }
 
+        /* دفع زر الإدارة للأسفل تلقائياً عند ظهور شريط التنبيهات لعدم التداخل */
+        body.has-alert .admin-gate-btn {
+            top: 65px !important; 
+        }
+
         .hero-card, .card {
             background: var(--card-bg); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px; transition: 0.3s; width: 100%; /* ضمان عدم تجاوز العرض */
+            border-radius: 25px; transition: 0.3s; width: 100%;
         }
-        .hero-card { grid-column: 1 / -1; padding: 40px; text-align: center; border-top: 2px solid var(--primary); position: relative; }
+        .hero-card { padding: 40px; text-align: center; border-top: 2px solid var(--primary); position: relative; }
         .card { padding: 25px; }
 
         .admin-panel {
-            grid-column: 1 / -1; background: #11111A; border: 2px solid var(--primary); display: none; z-index: 1000000; position: relative;
+            background: #11111A; border: 2px solid var(--primary); display: none; z-index: 1000000; position: relative;
         }
         .admin-section-title { font-size: 1.1rem; color: var(--primary); margin: 25px 0 12px 0; font-weight: bold; border-right: 4px solid var(--accent); padding-right: 10px; background: rgba(0,0,0,0.3); padding: 8px 10px;}
         .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 10px; }
@@ -163,33 +193,40 @@
         .theme-btn { padding: 8px; font-size: 0.9rem; border-radius: 6px; border: none; font-weight: bold; color: white; }
         .sys-footer { text-align: center; padding: 20px; margin-top: 40px; color: var(--text-muted); font-size: 0.9rem; width: 100%; z-index: 1;}
 
-        /* 📱 التوافق الكامل مع الهاتف (Mobile Layout) */
+        /* 📱 التوافق الكامل والذكي مع الهواتف (Mobile Layout) */
         @media (max-width: 768px) {
             body { padding: 10px !important; padding-top: 50px !important; }
             body.has-alert { padding-top: 70px !important; }
-            .dashboard { margin-top: 10px; gap: 15px; }
-            .hero-card { padding: 50px 15px 25px 15px; } /* مساحة إضافية للعداد */
+            
+            .dashboard { 
+                grid-template-columns: 1fr !important; /* تحويل الشبكة لعمود واحد لتفادي الضغط */
+                gap: 15px; 
+                margin-top: 10px; 
+            }
+            
+            /* إلغاء تمدد الأعمدة في شاشات الهاتف الصغير */
+            .hero-card, .admin-panel, .col-span-all {
+                grid-column: unset !important;
+            }
+            
+            .hero-card { padding: 50px 15px 25px 15px; }
             .card { padding: 20px 15px; }
             
-            /* تصغير الخطوط لتناسب الهاتف */
+            /* تصغير الخطوط لتناسب أبعاد شاشات الهواتف تماماً */
             .big-day { font-size: 4.5rem; margin: 5px 0;}
             .month-year { font-size: 1.3rem; }
             #clock { font-size: 1.6rem !important; margin-bottom: 5px !important;}
             #sDayName { font-size: 1.4rem !important; }
             #mainDisplayTitle { font-size: 1.1rem !important; margin-top: 15px !important; } 
             
-            /* زر الإدارة العائم المثالي للهاتف */
+            /* 📱 زر الإدارة في الهاتف (عائم أسفل اليسار) */
             .admin-gate-btn { 
-                position: fixed !important; 
                 top: auto !important; 
                 bottom: 25px !important; 
                 left: 20px !important; 
                 padding: 15px 25px !important; 
-                font-size: 1rem !important; 
-                background: rgba(10, 10, 18, 0.95) !important; 
                 border-radius: 50px !important; 
                 box-shadow: 0 4px 20px var(--primary) !important; 
-                z-index: 9999999 !important; /* لضمان عدم اختفائه أبداً */
             }
             
             .user-counter { top: 15px; right: 15px; font-size: 0.8rem; padding: 5px 10px; }
@@ -359,10 +396,10 @@
     </div>
 
     <div class="card col-span-all" id="dictionaryCardBox">
-        <h3>📖 قاموس شفرات النظام الزمني</h3>
+        <h3>📖 قاموس شفرات النظام الزمني (ومعانيها التقليدية)</h3>
         <div class="table-responsive">
             <table class="concept-table">
-                <thead><tr><th>المصطلح بالمنظومة</th><th>الرقم / الترتيب</th><th>الوصف الكوني</th></tr></thead>
+                <thead><tr><th>المصطلح الكوني الجديد</th><th>الترتيب والنظام الموازي بالعربية</th><th>الوصف والرمزية الفلكية</th></tr></thead>
                 <tbody id="tableDictionaryBody"></tbody>
             </table>
         </div>
@@ -377,7 +414,11 @@
     const defaultZodiacs = ["الجدي", "الدلو", "الحوت", "الحمل", "الثور", "الجوزاء", "السرطان", "الأسد", "العذراء", "الميزان", "العقرب", "القوس"];
     const zodiacSymbols = ["♑","♒","♓","♈","♉","♊","♋","♌","♍","♎","♏","♐"];
     const monthDescriptions = ["الضوء البارد","رياح الغرب","الجبار","الصلابة","الازدهار","السحر","الطاقة الأقصى","المستعر الأعظم","الاتزان","الرتبة النجمية","التمدد","العنقاء وولادة الدورة"];
-    const dayDescriptions = ["يوم الشمس","يوم القمر","المريخ","عطارد","المشتري/الرعد","الزهرة","زحل والنهاية"];
+    const dayDescriptions = ["يوم الشمس البكر","يوم طاقة القمر والملاحة","يوم الإقدام والمريخ","يوم الحكمة والاتصال","يوم الرعد والقوة","يوم الجمال والوفرة","يوم زحل ونهاية الأسبوع"];
+
+    // مصطلحات الترجمة التقليدية لكي يفهمها المستخدم
+    const traditionalDaysAr = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+    const traditionalMonthsAr = ["يناير (شهر 1)", "فبراير (شهر 2)", "مارس (شهر 3)", "أبريل (شهر 4)", "مايو (شهر 5)", "يونيو (شهر 6)", "يوليو (شهر 7)", "أغسطس (شهر 8)", "سبتمبر (شهر 9)", "أكتوبر (شهر 10)", "نوفمبر (شهر 11)", "ديسمبر (شهر 12)"];
 
     document.getElementById('monthsInputsGrid').innerHTML = defaultMonths.map((m, i) => `<div class="admin-box"><label>الشهر ${i+1}:</label><input type="text" id="mIn_${i}"></div>`).join('');
     document.getElementById('daysInputsGrid').innerHTML = defaultDays.map((d, i) => `<div class="admin-box"><label>اليوم ${i+1}:</label><input type="text" id="dIn_${i}"></div>`).join('');
@@ -492,9 +533,10 @@
         document.getElementById('h2Name').value = config.h2N || ''; document.getElementById('h2Date').value = config.h2D || '';
         document.getElementById('h3Name').value = config.h3N || ''; document.getElementById('h3Date').value = config.h3D || '';
 
+        // 🔥 هنا تم إدراج الترجمة الموازية الذكية لتظهر بوضوح للزوار
         document.getElementById('tableDictionaryBody').innerHTML = 
-            mArr.map((m, i) => `<tr><td><b>${m}</b></td><td>شهر ${i+1}</td><td>${monthDescriptions[i]}</td></tr>`).join('') +
-            dArr.map((d, i) => `<tr><td><b>${d}</b></td><td>يوم ${i+1}</td><td>${dayDescriptions[i]}</td></tr>`).join('');
+            dArr.map((d, i) => `<tr><td><b style="color:var(--primary)">${d}</b></td><td>يعادل: <b>${traditionalDaysAr[i]}</b></td><td>${dayDescriptions[i]}</td></tr>`).join('') +
+            mArr.map((m, i) => `<tr><td><b style="color:var(--secondary)">${m}</b></td><td>يعادل: <b>${traditionalMonthsAr[i]}</b></td><td>${monthDescriptions[i]}</td></tr>`).join('');
     }
 
     function setTheme(p, s, a, bg) { document.getElementById('colorPrimary').value = p; document.getElementById('colorSecondary').value = s; document.getElementById('colorAccent').value = a; document.getElementById('colorBg').value = bg; document.getElementById('adminBgImageIn').value = '';}

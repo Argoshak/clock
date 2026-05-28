@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title id="pageTitle">منظومة الوقت الكونية المعربة</title>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    
     <style>
         /* 🚨 إعدادات الحماية الشاملة للمظهر وتصفير الهوامش 🚨 */
         *, *::before, *::after { box-sizing: border-box !important; }
         
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         :root {
             --primary: #00E5FF; 
@@ -90,7 +91,7 @@
 
         .hero-card, .admin-panel, .col-span-all { grid-column: 1 / -1; }
 
-        /* 🛠️ شاشة وضع الصيانة الساحرة */
+        /* 🛠️ شاشة وضع الصيانة */
         #maintenanceScreen {
             position: fixed; top:0; left:0; width:100%; height:100%;
             background: rgba(4, 4, 8, 0.96); backdrop-filter: blur(20px);
@@ -108,7 +109,7 @@
         .broadcast-ticker { display: inline-block; padding-right: 100%; animation: ticker 28s linear infinite; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(100%); } }
 
-        /* ⚙️ أزرار البوابة والأجواء الثابتة الدائرية والمعاصرة */
+        /* ⚙️ أزرار البوابات والأجواء الثابتة الدائرية والمعاصرة */
         .admin-gate-btn {
             position: fixed; top: 20px; left: 24px; width: auto !important; padding: 12px 24px;
             background: rgba(10, 10, 20, 0.85); border: 1px solid rgba(0, 229, 255, 0.4); color: var(--primary);
@@ -117,6 +118,78 @@
             backdrop-filter: blur(10px);
         }
         .admin-gate-btn:hover { background: var(--primary); color: #040408; box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); transform: translateY(-2px); }
+
+        /* حاوية أزرار الحساب الذكية في الأعلى */
+        .auth-nav-container {
+            position: fixed; top: 20px; left: 140px; z-index: 999999;
+            display: flex; gap: 10px; align-items: center;
+        }
+        .auth-nav-btn {
+            width: auto !important; padding: 12px 24px; font-size: 0.95rem; font-weight: 700;
+            border-radius: 50px; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+        .nav-login-btn { background: rgba(10, 10, 20, 0.85); border: 1px solid rgba(124, 77, 255, 0.4); color: var(--secondary); }
+        .nav-login-btn:hover { background: var(--secondary); color: #fff; box-shadow: 0 0 25px rgba(124, 77, 255, 0.4); transform: translateY(-2px); }
+
+        /* ✨ التنسيق الفاخر والمطور للأفتار الدائري ليناسب واجهة الكون المتوهجة ✨ */
+        .user-avatar-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            padding: 2.5px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.25), inset 0 0 8px rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .user-avatar-wrapper:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 25px var(--primary), 0 0 12px var(--secondary);
+        }
+        .avatar-img-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid #05050d;
+            object-fit: cover;
+            display: block;
+        }
+        .avatar-letter-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #0d0d1a;
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #05050d;
+            font-family: var(--font-main);
+            text-shadow: 0 0 8px var(--primary);
+        }
+
+        .user-dropdown-menu {
+            position: absolute; top: 56px; left: 0; background: rgba(8, 8, 18, 0.97);
+            border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 16px; width: 220px; padding: 8px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 20px rgba(0, 229, 255, 0.1); display: none; flex-direction: column; gap: 4px;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: modalFadeIn 0.25s ease;
+            z-index: 1000001;
+        }
+        .dropdown-user-info {
+            padding: 10px 14px; font-size: 0.88rem; color: #fff; font-weight: 700; text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px; background: rgba(255,255,255,0.03);
+            border-radius: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .dropdown-item {
+            padding: 10px 14px; text-align: right; color: white; font-size: 0.85rem; font-weight: 600;
+            border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px;
+        }
+        .dropdown-item:hover { background: rgba(0, 229, 255, 0.12); color: var(--primary); }
 
         .ambient-btn {
             position: fixed; bottom: 30px; right: 34px; width: 60px; height: 60px;
@@ -163,7 +236,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05) !important;
         }
 
-        /* 🔐 نافذة تسجيل دخول الإدارة المدمجة المحدثة */
+        /* 🔐 نوافذ تسجيل دخول المدمجة المحدثة */
         .custom-auth-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(4, 4, 8, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -180,7 +253,16 @@
         @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes modalScaleUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* 🔧 مركز التحكم المتقدم الشامل والكامل للمسؤول */
+        /* نصوص التنقل الذكية داخل نافذة المصادقة */
+        .auth-switch-hint {
+            margin-top: 18px; font-size: 0.88rem; color: var(--text-muted); text-align: center;
+        }
+        .auth-switch-hint a {
+            color: var(--primary); cursor: pointer; text-decoration: underline; font-weight: 700; transition: color 0.3s;
+        }
+        .auth-switch-hint a:hover { color: #fff; }
+
+        /* 🔧 مركز التحكم المتقدم الشامل للمسؤول */
         .admin-panel { background: #0b0b14; border: 2px solid var(--primary); display: none; z-index: 1000000; position: relative; box-shadow: 0 30px 60px rgba(0, 229, 255, 0.15); }
         body.glass-enabled .admin-panel { background: rgba(11, 11, 20, 0.75) !important; border: 2px solid var(--primary) !important; }
         .admin-widgets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
@@ -225,6 +307,10 @@
 
         .progress-circle { width: 120px; height: 120px; border-radius: 50%; border: 8px solid rgba(255,255,255,0.04); border-top: 8px solid var(--accent); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.4rem; box-shadow: 0 0 20px rgba(255, 23, 68, 0.15); font-family: monospace; background: rgba(0,0,0,0.2); }
         
+        /* قائمة مهام الكبسولة النجمية */
+        .cosmic-task-item { display: flex; justify-content: space-between; align-items: center; padding: 11px 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; margin-bottom: 8px; transition: all 0.25s ease; }
+        .cosmic-task-item:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+
         /* أدوات ومفاتيح الإدخال والخيارات المشتركة */
         input, button, textarea, select { width: 100%; padding: 14px 18px; border-radius: 12px; border: none; margin-top: 6px; font-size: 0.95rem; outline: none; font-family: inherit; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); }
         input, textarea, select { background: #131322; color: #FFF; border: 1px solid #29293d; text-align: center; font-weight: 500; }
@@ -237,7 +323,7 @@
         .btn-dark:hover { background: #22223b; color: #fff; }
         
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .stat-box { background: rgba(0,0,0,0.3); padding: 16px; border-radius: 14px; text-align: center; border: 1px solid rgba(255,255,255,0.03);}
+        .stat-box { background: rgba(0,0,0,0.3); padding: 16px; border-radius: 14px; text-align: center; border: 1px solid rgba(255,255,255,0.03); }
         .stat-val { display: block; font-size: 1.5rem; color: #fff; font-weight: 800; margin-top: 6px; font-family: 'Tajawal', sans-serif; color: var(--primary); }
 
         .holiday-list { list-style: none; padding: 0; margin: 20px 0 0 0; }
@@ -251,7 +337,7 @@
         .concept-table th { color: var(--primary); background: rgba(0,0,0,0.5); font-weight: 700; font-size: 0.9rem; border-bottom: 1px solid rgba(0, 229, 255, 0.2); }
         .concept-table tbody tr:hover { background: rgba(255,255,255,0.01); }
 
-        /* عداد المستخدمين المتصلين السفلي بلمسة نيون خضراء */
+        /* عداد المستخدمين المتصلين السفلي */
         .user-counter { position: absolute; top: 25px; right: 30px; font-size: 0.85rem; color: #FFF; background: rgba(0,0,0,0.5); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.08); font-weight: 700; display: flex; align-items: center; gap: 8px;}
         .counter-dot { display: inline-block; width: 9px; height: 9px; background: #00E676; border-radius: 50%; animation: pulse 1.4s infinite; box-shadow: 0 0 10px #00E676; }
         @keyframes pulse { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } }
@@ -262,7 +348,7 @@
         
         .sys-footer { text-align: center; padding: 30px 20px; margin-top: 50px; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; width: 100%; z-index: 1; border-top: 1px solid rgba(255,255,255,0.04); background: rgba(5,5,13,0.4); backdrop-filter: blur(5px); }
 
-        /* 📱 تفاصيل التجاوب الفائق والتلاؤم الكامل مع الشاشات المتنقلة */
+        /* 📱 شاشات الهواتف المتنقلة */
         @media (max-width: 768px) {
             body { padding: 16px !important; padding-top: 45px !important; }
             body.has-alert { padding-top: 100px !important; } 
@@ -274,6 +360,7 @@
             .month-year { font-size: 1.5rem; }
             #clock { font-size: 1.8rem !important; }
             .admin-gate-btn { top: auto !important; bottom: 30px !important; left: 24px !important; padding: 14px 24px !important; border-radius: 50px !important; box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3) !important; font-size: 0.9rem; }
+            .auth-nav-container { top: auto !important; bottom: 30px !important; left: 145px !important; }
             .ambient-btn { bottom: 30px !important; right: 24px !important; width: 54px; height: 54px; font-size: 1.4rem; }
             .stat-grid { grid-template-columns: 1fr; gap: 12px; }
             .theme-btn-grid { grid-template-columns: repeat(2, 1fr); }
@@ -302,6 +389,10 @@
 </div>
 
 <button class="admin-gate-btn" onclick="triggerAdminAccess()">⚙️ الإدارة</button>
+
+<!-- 👑 حاوية زر الدخول أو الأفتار الذكية -->
+<div id="authNavContainer" class="auth-nav-container"></div>
+
 <button id="soundToggle" class="ambient-btn" title="تشغيل الأجواء الصوتية الفضائية" onclick="toggleAudio()">🎵</button>
 
 <audio id="ambientAudio" loop>
@@ -426,19 +517,42 @@
     </div>
 
     <div class="card">
-        <h3>🪪 استخراج الهوية الكونية (المحول)</h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;">أدخل تاريخ ولادتك الأرضي لترجمته فوراً إلى صك وهوية المنظومة الكونية الجديدة:</p>
-        <input type="date" id="gIn">
-        <button onclick="generateCosmicID()" style="margin-top: 15px; padding: 14px;">اصدار بطاقة الهوية</button>
+        <h3>🌌 رادار الطقس الكوني والرياح الشمسية</h3>
+        <div class="stat-grid" style="margin-top: 10px;">
+            <div class="stat-box">سرعة الرياح الشمسية<span id="solarWindSpeed" class="stat-val" style="color: #FFEA00;">-- كم/ث</span></div>
+            <div class="stat-box">العواصف الجيومغناطيسية<span id="geomagneticStorm" class="stat-val" style="color: #FF1744;">--</span></div>
+        </div>
+        <div style="margin-top: 22px; background: rgba(0,0,0,0.2); padding: 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.02); font-size: 0.9rem; text-align: center;">
+            🌌 نشاط شفق الأورورا: <span id="auroraVisibility" style="color: var(--primary); font-weight: 700;">جاري الرصد التزامني...</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 id="idCardMainTitle">🪪 استخراج الهوية الكونية (المحول)</h3>
+        <p id="idCardMainDesc" style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;">أدخل تاريخ ولادتك الأرضي لترجمته فوراً إلى صك وهوية المنظومة الكونية الجديدة:</p>
+        <div id="idInputContainer">
+            <input type="date" id="gIn">
+            <button onclick="generateCosmicID()" style="margin-top: 15px; padding: 14px;">اصدار بطاقة الهوية</button>
+        </div>
         
         <div id="cosmicIDResult" class="id-card-result">
             <div style="font-size: 3.2rem; margin-bottom: 8px; filter: drop-shadow(0 0 10px var(--secondary));" id="idZodiacIcon">🌌</div>
-            <div style="font-size: 1.25rem; color: var(--primary); font-weight: 700; margin-bottom: 15px; letter-spacing: 0.5px;">بطاقة مواطنة كورية</div>
+            <div style="font-size: 1.25rem; color: var(--primary); font-weight: 700; margin-bottom: 15px; letter-spacing: 0.5px;">بطاقة مواطنة كورية موثقة</div>
             <div class="id-card-row"><span>تاريخ الميلاد الكوني:</span> <span id="idBirthDate">--</span></div>
             <div class="id-card-row"><span>يوم الولادة الكوني:</span> <span id="idBirthDayName" style="color: var(--primary);">--</span></div>
             <div class="id-card-row"><span>العمر الكوني الموازي:</span> <span id="idAge">--</span></div>
             <div class="id-card-row"><span>الطالع النجمي الجديد:</span> <span id="idZodiacName" style="color: var(--secondary);">--</span></div>
         </div>
+    </div>
+
+    <div class="card">
+        <h3>✍️ كبسولة المهام والتأملات النجمية</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;">دوّن أهدافك الفلكية وتأملاتك لليوم (تُحفظ تلقائياً في متصفحك):</p>
+        <div style="display: flex; gap: 8px; align-items: center;">
+            <input type="text" id="cosmicTaskInput" placeholder="مثال: رصد النجم الثاقب الساعة 11...">
+            <button onclick="addCosmicTask()" style="width: auto; padding: 14px 22px; margin-top: 6px;">➕</button>
+        </div>
+        <ul id="cosmicTaskList" style="list-style: none; padding: 0; margin-top: 20px; max-height: 180px; overflow-y: auto;"></ul>
     </div>
 
     <div class="card">
@@ -483,6 +597,33 @@
     </div>
 </div>
 
+<!-- 👑 النافذة المحدثة بتصميم بسيط ونظيف لتبديل بين الدخول والإنشاء -->
+<div id="userAuthModal" class="custom-auth-modal">
+    <div class="modal-auth-box" style="max-width: 450px;">
+        <h3 id="userAuthTitle" style="color: var(--primary); margin-top: 0; margin-bottom: 20px;">تسجيل الدخول</h3>
+        
+        <div id="userLoginForm">
+            <input type="email" id="userLoginEmail" placeholder="البريد الإلكتروني الفلكي" style="margin-bottom: 12px;">
+            <input type="password" id="userLoginPass" placeholder="كلمة المرور السرية" style="margin-bottom: 12px;">
+            <button onclick="executeUserLogin()" style="margin-top: 10px;">دخول للمنظومة الكونية</button>
+            <div class="auth-switch-hint">ليس لديك حساب فلكي؟ <a onclick="switchUserAuthTab('register')">إنشاء حساب جديد</a></div>
+        </div>
+
+        <div id="userRegisterForm" style="display: none;">
+            <input type="text" id="userRegName" placeholder="الاسم الكوني المستعار (مثال: سيريريوس)" style="margin-bottom: 12px;">
+            <input type="email" id="userRegEmail" placeholder="البريد الإلكتروني المعتمد" style="margin-bottom: 12px;">
+            <input type="password" id="userRegPass" placeholder="كلمة المرور (6 رموز على الأقل)" style="margin-bottom: 12px;">
+            <label style="display: block; text-align: right; font-size: 0.85rem; color: var(--text-muted); margin: 8px 5px 4px 0; font-weight: 600;">تاريخ ميلادك الأرضي الأساسي:</label>
+            <input type="date" id="userRegBirth" style="margin-bottom: 12px;">
+            <button onclick="executeUserRegister()" style="margin-top: 10px;">توثيق صك الحساب الجديد</button>
+            <div class="auth-switch-hint">لديك حساب بالفعل؟ <a onclick="switchUserAuthTab('login')">تسجيل الدخول هنا</a></div>
+        </div>
+
+        <div id="userAuthError" style="color: var(--accent); font-size: 0.85rem; margin-top: 15px; font-weight: 700; min-height: 18px;"></div>
+        <button class="btn-dark" onclick="closeUserAuthModal()" style="margin-top: 18px;">إلغاء النافذة</button>
+    </div>
+</div>
+
 <div class="sys-footer" id="sysFooterDisplay">جميع الحقوق محفوظة © منظومة الوقت الكونية</div>
 
 <script>
@@ -505,12 +646,16 @@
     // إعدادات Firebase الخاصة بقاعدة البيانات
     const firebaseConfig = { apiKey: "AIzaSyAmXr7haZsHNSefR6AHwPTO98tvLLJXBFA", databaseURL: "https://cosmic-clock-13345-default-rtdb.firebaseio.com" };
     firebase.initializeApp(firebaseConfig);
+    
     const db = firebase.database().ref("system_config");
+    const auth = firebase.auth(); 
     
     let isAdminLoggedIn = false;
     let isFirstLoad = true; 
     let isDarkMode = true; 
     let isAudioPlaying = false;
+    let activeUserSession = null;
+
     const audio = document.getElementById('ambientAudio');
     const audioBtn = document.getElementById('soundToggle');
 
@@ -537,8 +682,160 @@
             const dashboard = document.querySelector('.dashboard');
             if(dashboard) { dashboard.style.opacity = '1'; dashboard.style.pointerEvents = 'auto'; }
             isFirstLoad = false;
+            loadCosmicTasks(); 
         }
     });
+
+    // 👤 مراقب الجلسة التزامني المطور لحل مشاكل الأفتار والحرف والصورة فورياً 👤
+    auth.onAuthStateChanged((user) => {
+        const authNavContainer = document.getElementById('authNavContainer');
+        if(user) {
+            activeUserSession = user;
+            
+            // قراءة حية تفاعلية من قاعدة البيانات لتفادي مشاكل تأخر بيانات الخادم
+            firebase.database().ref('users/' + user.uid).on('value', (snapshot) => {
+                const uData = snapshot.val();
+                if(uData) {
+                    displayPermanentCosmicID(uData);
+                    
+                    const currentName = uData.username || user.displayName || 'مواطن كوني';
+                    const currentPhoto = uData.photoURL || user.photoURL || '';
+                    
+                    let avatarHTML = '';
+                    if (currentPhoto && currentPhoto.trim() !== "") {
+                        avatarHTML = `<img src="${currentPhoto}" class="avatar-img-circle" alt="Profile" onerror="this.style.display='none'; document.getElementById('fallbackLetter').style.display='flex';">`;
+                    } else {
+                        const firstLetter = currentName.charAt(0).toUpperCase();
+                        avatarHTML = `<div class="avatar-letter-circle" id="fallbackLetter">${firstLetter}</div>`;
+                    }
+
+                    // حقن التصميم الجديد المتناسق والأنيق للأفتار والقائمة المنسدلة
+                    authNavContainer.innerHTML = `
+                        <div class="user-avatar-wrapper" onclick="toggleUserDropdown(event)">
+                            ${avatarHTML}
+                            <div id="userDropdownMenu" class="user-dropdown-menu">
+                                <div class="dropdown-user-info">
+                                    ${currentName}
+                                </div>
+                                <div class="dropdown-item" onclick="changeProfilePic()">🖼️ أضف صورة</div>
+                                <div class="dropdown-item" onclick="changeName()">✏️ تغيير الاسم</div>
+                                <div class="dropdown-item" onclick="changeEmail()">📧 تغيير الإيميل</div>
+                                <hr style="border-color: rgba(255,255,255,0.08); margin: 4px 0;">
+                                <div class="dropdown-item" onclick="handleUserLogout()" style="color: #FF5252;">🚪 تسجيل الخروج</div>
+                                <div class="dropdown-item" onclick="deleteAccount()" style="color: #FF1744; font-weight:700;">🗑️ احذف الحساب</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        } else {
+            activeUserSession = null;
+            authNavContainer.innerHTML = `
+                <button class="auth-nav-btn nav-login-btn" onclick="triggerUserAuthLogin()">تسجيل الدخول</button>
+            `;
+            document.getElementById('idCardMainTitle').innerText = "🪪 استخراج الهوية الكونية (المحول)";
+            document.getElementById('idCardMainDesc').style.display = "block";
+            document.getElementById('idInputContainer').style.display = "block";
+            document.getElementById('cosmicIDResult').style.display = 'none';
+        }
+    });
+
+    // 🖼️ دالة إضافة وتغيير الصورة وحفظها المباشر في قاعدة البيانات لتظهر فوراً
+    function changeProfilePic() {
+        const url = prompt("أدخل الرابط المباشر (URL) الخاص بالصورة الكونية الجديدة:");
+        if(url && auth.currentUser) {
+            auth.currentUser.updateProfile({ photoURL: url });
+            firebase.database().ref('users/' + auth.currentUser.uid).update({ photoURL: url })
+            .then(() => {
+                alert("✨ تم تحديث ورفع صورتك الفلكية بنجاح!");
+            }).catch(err => alert("خطأ: " + err.message));
+        }
+    }
+
+    // ✏️ دالة تعديل الاسم وربطها الفوري بقاعدة البيانات لإلغاء مشكلة الحرف الأول من الإيميل
+    function changeName() {
+        const newName = prompt("أدخل الاسم الكوني الجديد المستعار:");
+        if(newName && auth.currentUser) {
+            auth.currentUser.updateProfile({ displayName: newName });
+            firebase.database().ref('users/' + auth.currentUser.uid).update({ username: newName })
+            .then(() => {
+                alert("✨ تم تحديث الاسم وتعديل تشفير الحرف الأول بنجاح!");
+            }).catch(err => alert("خطأ: " + err.message));
+        }
+    }
+
+    function changeEmail() {
+        const newEmail = prompt("أدخل البريد الإلكتروني (الإيميل) الجديد:");
+        if(newEmail && auth.currentUser) {
+            auth.currentUser.updateEmail(newEmail).then(() => {
+                alert("تم تحديث البريد الإلكتروني بنجاح!");
+            }).catch(err => {
+                if (err.code === 'auth/requires-recent-login') {
+                    alert("لأسباب أمنية، يرجى تسجيل الخروج ثم الدخول مجدداً قبل تغيير الإيميل.");
+                } else {
+                    alert("خطأ: " + err.message);
+                }
+            });
+        }
+    }
+
+    function deleteAccount() {
+        if(confirm("هل أنت متأكد تماماً من رغبتك في حذف حسابك الفلكي بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء.")) {
+            const user = auth.currentUser;
+            if(user) {
+                const uid = user.uid;
+                user.delete().then(() => {
+                    firebase.database().ref('users/' + uid).remove();
+                    alert("تم حذف الحساب نهائياً، نتمنى لك رحلة كونية سعيدة.");
+                }).catch(err => {
+                    if (err.code === 'auth/requires-recent-login') {
+                        alert("لأسباب أمنية، يرجى تسجيل الخروج والدخول مجدداً قبل حذف الحساب.");
+                    } else {
+                        alert("خطأ: " + err.message);
+                    }
+                });
+            }
+        }
+    }
+
+    function toggleUserDropdown(event) {
+        event.stopPropagation();
+        const menu = document.getElementById('userDropdownMenu');
+        if (menu) {
+            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+        }
+    }
+
+    window.addEventListener('click', () => {
+        const menu = document.getElementById('userDropdownMenu');
+        if (menu) { menu.style.display = 'none'; }
+    });
+
+    function handleUserLogout() {
+        auth.signOut().catch((err) => alert('خطأ أثناء خروجك: ' + err.message));
+    }
+
+    function triggerUserAuthLogin() {
+        document.getElementById('userAuthError').innerText = "";
+        document.getElementById('userAuthModal').style.display = "flex";
+        switchUserAuthTab('login');
+    }
+
+    function closeUserAuthModal() { document.getElementById('userAuthModal').style.display = "none"; }
+
+    function switchUserAuthTab(tabType) {
+        document.getElementById('userAuthError').innerText = "";
+        const title = document.getElementById('userAuthTitle');
+        if(tabType === 'login') {
+            title.innerText = "تسجيل الدخول";
+            document.getElementById('userLoginForm').style.display = "block";
+            document.getElementById('userRegisterForm').style.display = "none";
+        } else {
+            title.innerText = "إنشاء حساب فلكي";
+            document.getElementById('userLoginForm').style.display = "none";
+            document.getElementById('userRegisterForm').style.display = "block";
+        }
+    }
 
     function applySystemData() {
         document.getElementById('maintenanceScreen').style.display = (config.maintenanceMode === 'on' && !isAdminLoggedIn) ? 'flex' : 'none';
@@ -562,7 +859,6 @@
         document.documentElement.style.setProperty('--bg', config.cBg);
         document.documentElement.style.setProperty('--font-main', config.fontStyle || "'Cairo', sans-serif");
         
-        // تطبيق فلاتر الوضع الزجاجي لـ أبل برمجياً بناءً على القيمة
         const currentGlass = config.glassMode || 'on';
         if(currentGlass === 'on') {
             document.body.classList.add('glass-enabled');
@@ -631,7 +927,7 @@
 
     function toggleAudio() {
         if(isAudioPlaying) { audio.pause(); audioBtn.innerText = "🎵"; audioBtn.classList.remove('playing'); } 
-        else { audio.play().catch(e => console.log("الصوت بانتظار تفاعل")); audioBtn.innerText = "⏸️"; audioBtn.classList.add('playing'); }
+        else { audio.play().catch(e => console.log("الصوت بانتظار تفاعل زائر")); audioBtn.innerText = "⏸️"; audioBtn.classList.add('playing'); }
         isAudioPlaying = !isAudioPlaying;
     }
 
@@ -666,9 +962,7 @@
         passInput.focus();
     }
 
-    function closeAdminModal() {
-        document.getElementById('adminAuthModal').style.display = 'none';
-    }
+    function closeAdminModal() { document.getElementById('adminAuthModal').style.display = 'none'; }
 
     function submitAdminPassword() {
         const p = document.getElementById('modalPasswordIn').value;
@@ -678,14 +972,77 @@
             document.getElementById('maintenanceScreen').style.display = 'none'; 
             closeAdminModal();
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
-        } else { 
-            alert("⚠️ الرمز السري المدخل غير صحيح."); 
-        }
+        } else { alert("⚠️ الرمز السري للمسؤول غير صحيح."); }
     }
 
-    document.getElementById('modalPasswordIn').addEventListener('keyup', function(e) {
-        if (e.key === 'Enter') { submitAdminPassword(); }
-    });
+    function executeUserRegister() {
+        const name = document.getElementById('userRegName').value.trim();
+        const email = document.getElementById('userRegEmail').value.trim();
+        const pass = document.getElementById('userRegPass').value;
+        const birth = document.getElementById('userRegBirth').value;
+        const errDisplay = document.getElementById('userAuthError');
+
+        if(!name || !email || !pass || !birth) {
+            errDisplay.innerText = "⚠️ يرجى تعبئة كافة البيانات لإصدار وثيقتك الكونية."; return;
+        }
+
+        auth.createUserWithEmailAndPassword(email, pass)
+            .then((cred) => {
+                return cred.user.updateProfile({ displayName: name }).then(() => cred);
+            })
+            .then((cred) => {
+                return firebase.database().ref('users/' + cred.user.uid).set({
+                    username: name,
+                    earthBirthDate: birth,
+                    photoURL: ""
+                });
+            })
+            .then(() => {
+                closeUserAuthModal();
+                alert(`✨ أهلاً بك يا ${name} في منظومة الوقت الكونية! تم حفظ وتوثيق حسابك بنجاح.`);
+            })
+            .catch((err) => { errDisplay.innerText = "❌ فشل الإنشاء: " + err.message; });
+    }
+
+    function executeUserLogin() {
+        const email = document.getElementById('userLoginEmail').value.trim();
+        const pass = document.getElementById('userLoginPass').value;
+        const errDisplay = document.getElementById('userAuthError');
+
+        if(!email || !pass) { errDisplay.innerText = "⚠️ يرجى إدخال البريد الإلكتروني وكلمة المرور."; return; }
+
+        auth.signInWithEmailAndPassword(email, pass)
+            .then(() => { closeUserAuthModal(); })
+            .catch((err) => { errDisplay.innerText = "❌ خطأ في المطابقة: " + err.message; });
+    }
+
+    function displayPermanentCosmicID(userData) {
+        if(!userData.earthBirthDate) return;
+        const bDate = new Date(userData.earthBirthDate);
+        const today = new Date();
+        
+        const c = calculateCosmicTime(bDate);
+        const currentC = calculateCosmicTime(today);
+        let age = currentC.year - c.year;
+        if (today.getMonth() < bDate.getMonth() || (today.getMonth() === bDate.getMonth() && today.getDate() < bDate.getDate())) { age--; }
+
+        const zArr = config.customZodiacs || defaultZodiacs;
+        const zSymArr = config.customZodiacSymbols || defaultZodiacSymbols;
+
+        document.getElementById('idCardMainTitle').innerText = `🪪 الهوية الموثقة: ${userData.username}`;
+        document.getElementById('idCardMainDesc').style.display = "none";
+        document.getElementById('idInputContainer').style.display = "none";
+
+        document.getElementById('idZodiacIcon').innerText = zSymArr[c.zodiacIdx] || "🌌";
+        document.getElementById('idBirthDate').innerText = `${c.day} ${c.month} | حقبة ${c.year}`;
+        document.getElementById('idBirthDayName').innerText = `دورة ${c.dName}`;
+        document.getElementById('idAge').innerText = `${age >= 0 ? age : 0} دورة شمسية كونية`;
+        document.getElementById('idZodiacName').innerText = zArr[c.zodiacIdx];
+
+        const idBox = document.getElementById('cosmicIDResult');
+        idBox.style.display = 'block'; idBox.style.animation = 'none';
+        setTimeout(() => idBox.style.animation = 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 10);
+    }
 
     function saveAdminChanges() {
         let m = [], d = [], z = [], zSym = [];
@@ -752,7 +1109,6 @@
         const energyPerc = Math.floor(Math.abs(Math.sin(seed) * 40) + 60);
         document.getElementById('energyValue').innerText = energyPerc + "%";
         document.getElementById('energyBarFill').style.width = energyPerc + "%";
-        document.getElementById('energyBarFill').style.background = energyPerc > 85 ? "linear-gradient(90deg, #FF3D00, var(--accent))" : (energyPerc > 72 ? "linear-gradient(90deg, #00E676, var(--primary))" : "linear-gradient(90deg, var(--secondary), #2979FF)");
     }
 
     function generateCosmicID() {
@@ -760,7 +1116,7 @@
         if(!inputVal) { alert("لطفاً، أدخل تاريخ ميلادك الأرضي أولاً."); return; }
         const bDate = new Date(inputVal);
         const today = new Date();
-        if(bDate > today) { alert("التاريخ المدخل في المستقبل! لا توجد سجلات كهرومغناطيسية له بعد."); return; }
+        if(bDate > today) { alert("التاريخ في المستقبل! لا توجد سجلات كهرومغناطيسية له بعد."); return; }
 
         const c = calculateCosmicTime(bDate);
         const currentC = calculateCosmicTime(today);
@@ -779,6 +1135,45 @@
         const idBox = document.getElementById('cosmicIDResult');
         idBox.style.display = 'block'; idBox.style.animation = 'none';
         setTimeout(() => idBox.style.animation = 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 10);
+    }
+
+    function loadCosmicTasks() {
+        const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || [];
+        const listEl = document.getElementById('cosmicTaskList');
+        if(!listEl) return;
+        listEl.innerHTML = tasks.map((t, idx) => `
+            <li class="cosmic-task-item">
+                <span style="${t.completed ? 'text-decoration: line-through; color: var(--text-muted); opacity: 0.6;' : 'color: #fff; font-weight: 600;'}">${t.text}</span>
+                <div style="display: flex; gap: 8px; width: auto; margin: 0;">
+                    <button onclick="toggleCosmicTask(${idx})" style="width:34px; height:34px; padding:0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; background: var(--primary); color:#000; margin:0; border-radius:8px;">✓</button>
+                    <button onclick="deleteCosmicTask(${idx})" style="width:34px; height:34px; padding:0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; background: var(--accent); color:#fff; margin:0; border-radius:8px;">✕</button>
+                </div>
+            </li>
+        `).join('');
+    }
+
+    function addCosmicTask() {
+        const input = document.getElementById('cosmicTaskInput');
+        if(!input || !input.value.trim()) return;
+        const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || [];
+        tasks.push({ text: input.value.trim(), completed: false });
+        localStorage.setItem('cosmic_tasks', JSON.stringify(tasks));
+        input.value = '';
+        loadCosmicTasks();
+    }
+
+    function toggleCosmicTask(idx) {
+        const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || [];
+        if(tasks[idx]) tasks[idx].completed = !tasks[idx].completed;
+        localStorage.setItem('cosmic_tasks', JSON.stringify(tasks));
+        loadCosmicTasks();
+    }
+
+    function deleteCosmicTask(idx) {
+        const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || [];
+        tasks.splice(idx, 1);
+        localStorage.setItem('cosmic_tasks', JSON.stringify(tasks));
+        loadCosmicTasks();
     }
 
     function updateRealtimeCalculations() {
@@ -816,6 +1211,18 @@
         
         updateMoonAndEnergy(now);
 
+        const calculatedSpeed = Math.floor(380 + (Math.sin(now.getSeconds() * 0.15) * 45) + (now.getMinutes() * 1.5));
+        document.getElementById('solarWindSpeed').innerText = calculatedSpeed + " كم/ث";
+        
+        let stormRating = "مستقر G0"; let stormColor = "#00E676"; let auroraStatus = "شفق خفيف مرئي عند الأقطاب العليا فقط";
+        if (calculatedSpeed > 440) { stormRating = "شديدة G3"; stormColor = "#FF1744"; auroraStatus = "انفجار أورورا أحمر مبهر! مرئي بالعين المجردة بكثافة"; } 
+        else if (calculatedSpeed > 410) { stormRating = "متوسطة G2"; stormColor = "#FF9100"; auroraStatus = "نشاط شفق أخضر متطور ممتد للقطاعات المتوسطة"; } 
+        else if (calculatedSpeed > 395) { stormRating = "خفيفة G1"; stormColor = "#FFEA00"; auroraStatus = "مؤشرات جيدة لظهور حزم ضوئية خضراء متقطعة"; }
+        
+        document.getElementById('geomagneticStorm').innerText = stormRating;
+        document.getElementById('geomagneticStorm').style.color = stormColor;
+        document.getElementById('auroraVisibility').innerText = auroraStatus;
+
         if (now.getSeconds() % 6 === 0) {
             let baseU = config.usersCount !== undefined ? config.usersCount : 15;
             if (baseU > 0) {
@@ -824,6 +1231,9 @@
             } else { document.getElementById('liveUsersCount').innerText = "0"; }
         }
     }
+
+    document.getElementById('modalPasswordIn').addEventListener('keyup', function(e) { if (e.key === 'Enter') { submitAdminPassword(); } });
+    document.getElementById('cosmicTaskInput').addEventListener('keyup', function(e) { if(e.key === 'Enter') addCosmicTask(); });
 
     setInterval(updateRealtimeCalculations, 1000);
 </script>

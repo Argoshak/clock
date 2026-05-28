@@ -132,64 +132,40 @@
         .nav-login-btn { background: rgba(10, 10, 20, 0.85); border: 1px solid rgba(124, 77, 255, 0.4); color: var(--secondary); }
         .nav-login-btn:hover { background: var(--secondary); color: #fff; box-shadow: 0 0 25px rgba(124, 77, 255, 0.4); transform: translateY(-2px); }
 
-        /* ✨ التنسيق الفاخر والمطور للأفتار الدائري ليناسب واجهة الكون المتوهجة ✨ */
+        /* ✨ التنسيق الفاخر والمطور للأفتار الدائري ✨ */
         .user-avatar-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 50%;
-            padding: 2.5px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.25), inset 0 0 8px rgba(255,255,255,0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer;
+            border-radius: 50%; padding: 2.5px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.25), inset 0 0 8px rgba(255,255,255,0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .user-avatar-wrapper:hover {
-            transform: scale(1.06);
-            box-shadow: 0 0 25px var(--primary), 0 0 12px var(--secondary);
-        }
-        .avatar-img-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 2px solid #05050d;
-            object-fit: cover;
-            display: block;
-        }
-        .avatar-letter-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: #0d0d1a;
-            color: #ffffff;
-            font-weight: 900;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #05050d;
-            font-family: var(--font-main);
-            text-shadow: 0 0 8px var(--primary);
-        }
-
-        .user-dropdown-menu {
-            position: absolute; top: 56px; left: 0; background: rgba(8, 8, 18, 0.97);
-            border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 16px; width: 220px; padding: 8px;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 20px rgba(0, 229, 255, 0.1); display: none; flex-direction: column; gap: 4px;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: modalFadeIn 0.25s ease;
-            z-index: 1000001;
-        }
-        .dropdown-user-info {
-            padding: 10px 14px; font-size: 0.88rem; color: #fff; font-weight: 700; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px; background: rgba(255,255,255,0.03);
-            border-radius: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .dropdown-item {
-            padding: 10px 14px; text-align: right; color: white; font-size: 0.85rem; font-weight: 600;
-            border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px;
-        }
+        .user-avatar-wrapper:hover { transform: scale(1.06); box-shadow: 0 0 25px var(--primary), 0 0 12px var(--secondary); }
+        .avatar-img-circle { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #05050d; object-fit: cover; display: block; }
+        .avatar-letter-circle { width: 44px; height: 44px; border-radius: 50%; background: #0d0d1a; color: #ffffff; font-weight: 900; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; border: 2px solid #05050d; text-shadow: 0 0 8px var(--primary); }
+        
+        .user-dropdown-menu { position: absolute; top: 56px; left: 0; background: rgba(8, 8, 18, 0.97); border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 16px; width: 220px; padding: 8px; box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 20px rgba(0, 229, 255, 0.1); display: none; flex-direction: column; gap: 4px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: modalFadeIn 0.25s ease; z-index: 1000001; }
+        .dropdown-user-info { padding: 10px 14px; font-size: 0.88rem; color: #fff; font-weight: 700; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px; background: rgba(255,255,255,0.03); border-radius: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .dropdown-item { padding: 10px 14px; text-align: right; color: white; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
         .dropdown-item:hover { background: rgba(0, 229, 255, 0.12); color: var(--primary); }
+
+        /* تنسيقات إدارة المستخدمين في لوحة التحكم */
+        .users-table-container { width: 100%; overflow-x: auto; margin-top: 5px; background: rgba(0, 0, 0, 0.2); border: 1px solid; border-radius: 12px; }
+        .users-table { width: 100%; border-collapse: collapse; text-align: right; font-size: 0.9rem; }
+        .users-table th { padding: 12px 10px; border-bottom: 2px solid; }
+        .users-table tr { border-bottom: 1px solid rgba(255, 255, 255, 0.04); transition: background 0.25s ease; }
+        .users-table tr:hover { background: rgba(0, 229, 255, 0.04); }
+        .users-table td { padding: 12px 10px; color: var(--text-main); }
+        .btn-user-action { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; cursor: pointer; font-weight: 700; width: auto; display: inline-block; margin-left: 6px; margin-top: 0; }
+        .btn-user-view { background: rgba(0, 229, 255, 0.1); border: 1px solid var(--primary); color: var(--primary); }
+        .btn-user-view:hover { background: var(--primary); color: #05050d; box-shadow: 0 0 15px var(--primary); }
+        .btn-user-delete { background: rgba(255, 23, 68, 0.1); border: 1px solid var(--accent); color: var(--accent); }
+        .btn-user-delete:hover { background: var(--accent); color: #fff; box-shadow: 0 0 15px var(--accent); }
+        .btn-user-ban { background: rgba(255, 145, 0, 0.1); border: 1px solid #FF9100; color: #FF9100; }
+        .btn-user-ban:hover { background: #FF9100; color: #000; box-shadow: 0 0 15px #FF9100; }
+        .btn-user-unban { background: rgba(0, 230, 118, 0.1); border: 1px solid #00E676; color: #00E676; }
+        .btn-user-unban:hover { background: #00E676; color: #000; box-shadow: 0 0 15px #00E676; }
+
+        .user-detail-row { padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; }
+        .user-detail-row strong { color: var(--secondary); }
 
         .ambient-btn {
             position: fixed; bottom: 30px; right: 34px; width: 60px; height: 60px;
@@ -390,7 +366,6 @@
 
 <button class="admin-gate-btn" onclick="triggerAdminAccess()">⚙️ الإدارة</button>
 
-<!-- 👑 حاوية زر الدخول أو الأفتار الذكية -->
 <div id="authNavContainer" class="auth-nav-container"></div>
 
 <button id="soundToggle" class="ambient-btn" title="تشغيل الأجواء الصوتية الفضائية" onclick="toggleAudio()">🎵</button>
@@ -409,7 +384,7 @@
         <div class="admin-widgets-grid">
             <div class="admin-widget-card">الشهور المعتمدة<span id="widgetMonths">12</span></div>
             <div class="admin-widget-card">أيام الأسبوع<span id="widgetDays">7</span></div>
-            <div class="admin-widget-card">الأبراض الفلكية<span id="widgetZodiacs">12</span></div>
+            <div class="admin-widget-card">الأبراج الفلكية<span id="widgetZodiacs">12</span></div>
             <div class="admin-widget-card">حالة المنظومة<span id="widgetStatus" style="color:#00E676;">نشط</span></div>
         </div>
 
@@ -477,10 +452,57 @@
         </div>
         <div class="admin-box" style="margin-top: 20px;"><label>حقوق النشر والذيل (Footer):</label><input type="text" id="adminFooterIn"></div>
 
+        <div class="admin-section-title">👥 إدارة حسابات ومواطني الكون</div>
+        
+        <h4 style="color: var(--primary); margin-top: 15px; margin-bottom: 5px;">✅ المستخدمون النشطون بالمنظومة</h4>
+        <div class="users-table-container" style="border-color: rgba(0, 229, 255, 0.15);">
+            <table class="users-table">
+                <thead>
+                    <tr style="color: var(--primary);">
+                        <th>المعرف الفلكي (UID)</th>
+                        <th>الاسم الكوني</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>الإجراءات الإدارية</th>
+                    </tr>
+                </thead>
+                <tbody id="activeUsersTableBody">
+                    <tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">جاري استدعاء السجلات...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 style="color: var(--accent); margin-top: 25px; margin-bottom: 5px;">🚫 الحسابات المحظورة والممنوعة</h4>
+        <div class="users-table-container" style="border-color: rgba(255, 23, 68, 0.15);">
+            <table class="users-table">
+                <thead>
+                    <tr style="color: var(--accent);">
+                        <th>المعرف الفلكي (UID)</th>
+                        <th>الاسم الكوني</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>إجراءات الحظر</th>
+                    </tr>
+                </thead>
+                <tbody id="bannedUsersTableBody">
+                    <tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">جاري استدعاء السجلات...</td></tr>
+                </tbody>
+            </table>
+        </div>
         <div style="display:flex; gap:15px; margin-top:30px;" class="mobile-column-btns">
             <button style="flex: 2; padding:16px;" onclick="saveAdminChanges()">💾 حفظ وتحديث المنصة فوراً</button>
             <button class="btn-warn" style="flex:1;" onclick="resetToFactory()">🔄 ضبط مصنع</button>
             <button class="btn-dark" style="flex:1;" onclick="lockAdminPanel()">🔒 إغلاق اللوحة</button>
+        </div>
+    </div>
+
+    <div id="userDetailsModal" class="custom-auth-modal" style="display: none; justify-content: center; align-items: center; z-index: 3000000;">
+        <div class="modal-auth-box" style="max-width: 550px; text-align: right; border-color: var(--primary);">
+            <h3 style="color: var(--primary); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px;">
+                👤 السجل الكوني الكامل للحساب
+            </h3>
+            <div id="userDetailsBody" style="max-height: 380px; overflow-y: auto; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6; padding-left: 5px;">
+                </div>
+            <button class="btn-dark" onclick="closeDetailsModal()" style="width: auto; padding: 10px 25px; float: left;">إغلاق السجل</button>
+            <div style="clear: both;"></div>
         </div>
     </div>
 
@@ -537,7 +559,7 @@
         
         <div id="cosmicIDResult" class="id-card-result">
             <div style="font-size: 3.2rem; margin-bottom: 8px; filter: drop-shadow(0 0 10px var(--secondary));" id="idZodiacIcon">🌌</div>
-            <div style="font-size: 1.25rem; color: var(--primary); font-weight: 700; margin-bottom: 15px; letter-spacing: 0.5px;">بطاقة مواطنة كورية موثقة</div>
+            <div style="font-size: 1.25rem; color: var(--primary); font-weight: 700; margin-bottom: 15px; letter-spacing: 0.5px;">بطاقة مواطنة كونية موثقة</div>
             <div class="id-card-row"><span>تاريخ الميلاد الكوني:</span> <span id="idBirthDate">--</span></div>
             <div class="id-card-row"><span>يوم الولادة الكوني:</span> <span id="idBirthDayName" style="color: var(--primary);">--</span></div>
             <div class="id-card-row"><span>العمر الكوني الموازي:</span> <span id="idAge">--</span></div>
@@ -597,7 +619,6 @@
     </div>
 </div>
 
-<!-- 👑 النافذة المحدثة بتصميم بسيط ونظيف لتبديل بين الدخول والإنشاء -->
 <div id="userAuthModal" class="custom-auth-modal">
     <div class="modal-auth-box" style="max-width: 450px;">
         <h3 id="userAuthTitle" style="color: var(--primary); margin-top: 0; margin-bottom: 20px;">تسجيل الدخول</h3>
@@ -655,6 +676,9 @@
     let isDarkMode = true; 
     let isAudioPlaying = false;
     let activeUserSession = null;
+    
+    // 🔥 هذا المتغير هو مفتاح حل المشكلة! (يمنع التسابق البرمجي وقت التسجيل) 🔥
+    let isRegisteringUser = false; 
 
     const audio = document.getElementById('ambientAudio');
     const audioBtn = document.getElementById('soundToggle');
@@ -686,47 +710,70 @@
         }
     });
 
-    // 👤 مراقب الجلسة التزامني المطور لحل مشاكل الأفتار والحرف والصورة فورياً 👤
+    // 👤 مراقب الجلسة التزامني المطور (يحل مشكلة الحذف والحظر والتسابق البرمجي)
     auth.onAuthStateChanged((user) => {
         const authNavContainer = document.getElementById('authNavContainer');
         if(user) {
             activeUserSession = user;
             
-            // قراءة حية تفاعلية من قاعدة البيانات لتفادي مشاكل تأخر بيانات الخادم
             firebase.database().ref('users/' + user.uid).on('value', (snapshot) => {
                 const uData = snapshot.val();
-                if(uData) {
-                    displayPermanentCosmicID(uData);
+                
+                // 1. إذا لم نجد بيانات، نتحقق أولاً هل هو في حالة "تسجيل حساب جديد الآن"؟
+                if(!uData) {
+                    if (isRegisteringUser) return; // ننتظر حتى تكتمل عملية الحفظ في السيرفر ولا نطرده
                     
-                    const currentName = uData.username || user.displayName || 'مواطن كوني';
-                    const currentPhoto = uData.photoURL || user.photoURL || '';
-                    
-                    let avatarHTML = '';
-                    if (currentPhoto && currentPhoto.trim() !== "") {
-                        avatarHTML = `<img src="${currentPhoto}" class="avatar-img-circle" alt="Profile" onerror="this.style.display='none'; document.getElementById('fallbackLetter').style.display='flex';">`;
-                    } else {
-                        const firstLetter = currentName.charAt(0).toUpperCase();
-                        avatarHTML = `<div class="avatar-letter-circle" id="fallbackLetter">${firstLetter}</div>`;
-                    }
-
-                    // حقن التصميم الجديد المتناسق والأنيق للأفتار والقائمة المنسدلة
-                    authNavContainer.innerHTML = `
-                        <div class="user-avatar-wrapper" onclick="toggleUserDropdown(event)">
-                            ${avatarHTML}
-                            <div id="userDropdownMenu" class="user-dropdown-menu">
-                                <div class="dropdown-user-info">
-                                    ${currentName}
-                                </div>
-                                <div class="dropdown-item" onclick="changeProfilePic()">🖼️ أضف صورة</div>
-                                <div class="dropdown-item" onclick="changeName()">✏️ تغيير الاسم</div>
-                                <div class="dropdown-item" onclick="changeEmail()">📧 تغيير الإيميل</div>
-                                <hr style="border-color: rgba(255,255,255,0.08); margin: 4px 0;">
-                                <div class="dropdown-item" onclick="handleUserLogout()" style="color: #FF5252;">🚪 تسجيل الخروج</div>
-                                <div class="dropdown-item" onclick="deleteAccount()" style="color: #FF1744; font-weight:700;">🗑️ احذف الحساب</div>
-                            </div>
-                        </div>
-                    `;
+                    auth.signOut().then(() => {
+                        alert("تم إزالة حسابك بشكل نهائي من السجلات. يمكنك إنشاء حساب جديد ببياناتك الآن بحرية تامة.");
+                        window.location.reload();
+                    });
+                    return;
                 }
+
+                // 2. التحقق من حالة الحظر الصريحة
+                if (uData.isBanned === true) {
+                    auth.signOut().then(() => {
+                        alert("🚫 عذراً، تم حظر هذا الحساب من قبل إدارة المنظومة.");
+                        window.location.reload();
+                    });
+                    return;
+                }
+                
+                // 3. تحديث الإيميل للمستخدمين القدامى إن كان مفقوداً
+                if (!uData.email && user.email) {
+                    firebase.database().ref('users/' + user.uid).update({ email: user.email });
+                }
+
+                displayPermanentCosmicID(uData);
+                
+                const currentName = uData.username || user.displayName || 'مواطن كوني';
+                const currentPhoto = uData.photoURL || user.photoURL || '';
+                
+                let avatarHTML = '';
+                if (currentPhoto && currentPhoto.trim() !== "") {
+                    avatarHTML = `<img src="${currentPhoto}" class="avatar-img-circle" alt="Profile" onerror="this.style.display='none'; document.getElementById('fallbackLetter').style.display='flex';">
+                                  <div class="avatar-letter-circle" id="fallbackLetter" style="display:none;">${currentName.charAt(0).toUpperCase()}</div>`;
+                } else {
+                    const firstLetter = currentName.charAt(0).toUpperCase();
+                    avatarHTML = `<div class="avatar-letter-circle">${firstLetter}</div>`;
+                }
+
+                authNavContainer.innerHTML = `
+                    <div class="user-avatar-wrapper" onclick="toggleUserDropdown(event)">
+                        ${avatarHTML}
+                        <div id="userDropdownMenu" class="user-dropdown-menu">
+                            <div class="dropdown-user-info">
+                                ${currentName}
+                            </div>
+                            <div class="dropdown-item" onclick="changeProfilePic()">🖼️ أضف صورة</div>
+                            <div class="dropdown-item" onclick="changeName()">✏️ تغيير الاسم</div>
+                            <div class="dropdown-item" onclick="changeEmail()">📧 تغيير الإيميل</div>
+                            <hr style="border-color: rgba(255,255,255,0.08); margin: 4px 0;">
+                            <div class="dropdown-item" onclick="handleUserLogout()" style="color: #FF5252;">🚪 تسجيل الخروج</div>
+                            <div class="dropdown-item" onclick="deleteAccount()" style="color: #FF1744; font-weight:700;">🗑️ احذف الحساب</div>
+                        </div>
+                    </div>
+                `;
             });
         } else {
             activeUserSession = null;
@@ -740,27 +787,25 @@
         }
     });
 
-    // 🖼️ دالة إضافة وتغيير الصورة وحفظها المباشر في قاعدة البيانات لتظهر فوراً
+    // 🖼️ دالة إضافة وتغيير الصورة 
     function changeProfilePic() {
         const url = prompt("أدخل الرابط المباشر (URL) الخاص بالصورة الكونية الجديدة:");
         if(url && auth.currentUser) {
             auth.currentUser.updateProfile({ photoURL: url });
             firebase.database().ref('users/' + auth.currentUser.uid).update({ photoURL: url })
-            .then(() => {
-                alert("✨ تم تحديث ورفع صورتك الفلكية بنجاح!");
-            }).catch(err => alert("خطأ: " + err.message));
+            .then(() => { alert("✨ تم تحديث ورفع صورتك الفلكية بنجاح!"); })
+            .catch(err => alert("خطأ: " + err.message));
         }
     }
 
-    // ✏️ دالة تعديل الاسم وربطها الفوري بقاعدة البيانات لإلغاء مشكلة الحرف الأول من الإيميل
+    // ✏️ دالة تعديل الاسم
     function changeName() {
         const newName = prompt("أدخل الاسم الكوني الجديد المستعار:");
         if(newName && auth.currentUser) {
             auth.currentUser.updateProfile({ displayName: newName });
             firebase.database().ref('users/' + auth.currentUser.uid).update({ username: newName })
-            .then(() => {
-                alert("✨ تم تحديث الاسم وتعديل تشفير الحرف الأول بنجاح!");
-            }).catch(err => alert("خطأ: " + err.message));
+            .then(() => { alert("✨ تم تحديث الاسم وتعديل تشفير الحرف الأول بنجاح!"); })
+            .catch(err => alert("خطأ: " + err.message));
         }
     }
 
@@ -768,6 +813,7 @@
         const newEmail = prompt("أدخل البريد الإلكتروني (الإيميل) الجديد:");
         if(newEmail && auth.currentUser) {
             auth.currentUser.updateEmail(newEmail).then(() => {
+                firebase.database().ref('users/' + auth.currentUser.uid).update({ email: newEmail });
                 alert("تم تحديث البريد الإلكتروني بنجاح!");
             }).catch(err => {
                 if (err.code === 'auth/requires-recent-login') {
@@ -790,9 +836,7 @@
                 }).catch(err => {
                     if (err.code === 'auth/requires-recent-login') {
                         alert("لأسباب أمنية، يرجى تسجيل الخروج والدخول مجدداً قبل حذف الحساب.");
-                    } else {
-                        alert("خطأ: " + err.message);
-                    }
+                    } else { alert("خطأ: " + err.message); }
                 });
             }
         }
@@ -801,9 +845,7 @@
     function toggleUserDropdown(event) {
         event.stopPropagation();
         const menu = document.getElementById('userDropdownMenu');
-        if (menu) {
-            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-        }
+        if (menu) { menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
     }
 
     window.addEventListener('click', () => {
@@ -835,6 +877,85 @@
             document.getElementById('userLoginForm').style.display = "none";
             document.getElementById('userRegisterForm').style.display = "block";
         }
+    }
+
+    function executeUserRegister() {
+        const name = document.getElementById('userRegName').value.trim();
+        const email = document.getElementById('userRegEmail').value.trim();
+        const pass = document.getElementById('userRegPass').value;
+        const birth = document.getElementById('userRegBirth').value;
+        const errDisplay = document.getElementById('userAuthError');
+
+        if(!name || !email || !pass || !birth) {
+            errDisplay.innerText = "⚠️ يرجى تعبئة كافة البيانات لإصدار وثيقتك الكونية."; return;
+        }
+
+        // إشعار النظام بأننا في وضع تسجيل جديد لمنع الطرد السريع
+        isRegisteringUser = true;
+
+        auth.createUserWithEmailAndPassword(email, pass)
+            .then((cred) => {
+                return cred.user.updateProfile({ displayName: name }).then(() => cred);
+            })
+            .then((cred) => {
+                // حفظ البيانات كاملة مع تأكيد أنه غير محظور افتراضياً
+                return firebase.database().ref('users/' + cred.user.uid).set({
+                    username: name,
+                    email: email,
+                    earthBirthDate: birth,
+                    photoURL: "",
+                    isBanned: false
+                });
+            })
+            .then(() => {
+                isRegisteringUser = false; // إنهاء وضع التسجيل
+                closeUserAuthModal();
+                alert(`✨ أهلاً بك يا ${name} في منظومة الوقت الكونية! تم حفظ وتوثيق حسابك بنجاح.`);
+            })
+            .catch((err) => { 
+                isRegisteringUser = false;
+                errDisplay.innerText = "❌ فشل الإنشاء: " + err.message; 
+            });
+    }
+
+    function executeUserLogin() {
+        const email = document.getElementById('userLoginEmail').value.trim();
+        const pass = document.getElementById('userLoginPass').value;
+        const errDisplay = document.getElementById('userAuthError');
+
+        if(!email || !pass) { errDisplay.innerText = "⚠️ يرجى إدخال البريد الإلكتروني وكلمة المرور."; return; }
+
+        auth.signInWithEmailAndPassword(email, pass)
+            .then(() => { closeUserAuthModal(); })
+            .catch((err) => { errDisplay.innerText = "❌ خطأ في المطابقة: " + err.message; });
+    }
+
+    function displayPermanentCosmicID(userData) {
+        if(!userData.earthBirthDate) return;
+        const bDate = new Date(userData.earthBirthDate);
+        const today = new Date();
+        
+        const c = calculateCosmicTime(bDate);
+        const currentC = calculateCosmicTime(today);
+        let age = currentC.year - c.year;
+        if (today.getMonth() < bDate.getMonth() || (today.getMonth() === bDate.getMonth() && today.getDate() < bDate.getDate())) { age--; }
+
+        const zArr = config.customZodiacs || defaultZodiacs;
+        const zSymArr = config.customZodiacSymbols || defaultZodiacSymbols;
+
+        document.getElementById('idCardMainTitle').innerText = `🪪 الهوية الموثقة: ${userData.username}`;
+        document.getElementById('idCardMainDesc').style.display = "none";
+        document.getElementById('idInputContainer').style.display = "none";
+
+        document.getElementById('idZodiacIcon').innerText = zSymArr[c.zodiacIdx] || "🌌";
+        document.getElementById('idBirthDate').innerText = `${c.day} ${c.month} | حقبة ${c.year}`;
+        document.getElementById('idBirthDayName').innerText = `دورة ${c.dName}`;
+        document.getElementById('idAge').innerText = `${age >= 0 ? age : 0} دورة شمسية كونية`;
+        document.getElementById('idZodiacName').innerText = zArr[c.zodiacIdx];
+
+        const idBox = document.getElementById('cosmicIDResult');
+        idBox.style.display = 'block'; idBox.style.animation = 'none';
+        setTimeout(() => idBox.style.animation = 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 10);
     }
 
     function applySystemData() {
@@ -972,77 +1093,149 @@
             document.getElementById('maintenanceScreen').style.display = 'none'; 
             closeAdminModal();
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            loadUsersDashboard(); // تشغيل الجلب فوراً
         } else { alert("⚠️ الرمز السري للمسؤول غير صحيح."); }
     }
 
-    function executeUserRegister() {
-        const name = document.getElementById('userRegName').value.trim();
-        const email = document.getElementById('userRegEmail').value.trim();
-        const pass = document.getElementById('userRegPass').value;
-        const birth = document.getElementById('userRegBirth').value;
-        const errDisplay = document.getElementById('userAuthError');
+    // =========================================================
+    // 👥 دوال إدارة سجلات المستخدمين للمسؤول (تم فصل الحذف عن الحظر)
+    // =========================================================
+    function loadUsersDashboard() {
+        firebase.database().ref('users').on('value', (snapshot) => {
+            const activeTbody = document.getElementById('activeUsersTableBody');
+            const bannedTbody = document.getElementById('bannedUsersTableBody');
+            if (!activeTbody || !bannedTbody) return; 
+            
+            activeTbody.innerHTML = ''; 
+            bannedTbody.innerHTML = ''; 
 
-        if(!name || !email || !pass || !birth) {
-            errDisplay.innerText = "⚠️ يرجى تعبئة كافة البيانات لإصدار وثيقتك الكونية."; return;
+            let hasActive = false;
+            let hasBanned = false;
+            
+            if (!snapshot.exists()) {
+                activeTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">لا يوجد أي مواطنين نشطين حالياً.</td></tr>`;
+                bannedTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">قائمة الحظر فارغة.</td></tr>`;
+                return;
+            }
+            
+            snapshot.forEach((childSnapshot) => {
+                const uid = childSnapshot.key;
+                const uData = childSnapshot.val();
+                
+                const name = uData.username || uData.name || 'مواطن كوني مجهول';
+                const email = uData.email || 'لا يوجد بريد مسجل';
+                const isBanned = uData.isBanned || false;
+                
+                const tr = document.createElement('tr');
+                
+                // إذا كان المستخدم محظوراً نضعه في الجدول الثاني
+                if (isBanned) {
+                    hasBanned = true;
+                    tr.innerHTML = `
+                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted); direction: ltr; text-align: right;">${uid}</td>
+                        <td style="color: var(--accent);"><strong>${name}</strong></td>
+                        <td style="color: var(--text-muted); text-decoration: line-through;">${email}</td>
+                        <td>
+                            <button class="btn-user-action btn-user-unban" onclick="unbanUser('${uid}', '${name}')">✅ فك الحظر</button>
+                            <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ حذف نهائي</button>
+                        </td>
+                    `;
+                    bannedTbody.appendChild(tr);
+                } else {
+                    // إذا كان مستخدماً نشطاً نضعه في الجدول الأول
+                    hasActive = true;
+                    tr.innerHTML = `
+                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted); direction: ltr; text-align: right;">${uid}</td>
+                        <td><strong>${name}</strong></td>
+                        <td>${email}</td>
+                        <td>
+                            <button class="btn-user-action btn-user-view" onclick="viewUserDetails('${uid}')">👁️ عرض</button>
+                            <button class="btn-user-action btn-user-ban" onclick="banUser('${uid}', '${name}')">🚫 حظر</button>
+                            <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ حذف</button>
+                        </td>
+                    `;
+                    activeTbody.appendChild(tr);
+                }
+            });
+
+            if (!hasActive) activeTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">لا يوجد أي مواطنين نشطين حالياً.</td></tr>`;
+            if (!hasBanned) bannedTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">قائمة الحظر فارغة.</td></tr>`;
+
+        }, (error) => {
+            console.error("خطأ في جلب السجلات الكونية للمستخدمين:", error);
+        });
+    }
+
+    // دالة حظر المستخدم 
+    function banUser(uid, name) {
+        if(confirm(`هل أنت متأكد من حظر المستخدم [ ${name} ]؟\nلن يتمكن من الدخول للمنظومة نهائياً.`)) {
+            firebase.database().ref('users/' + uid).update({ isBanned: true })
+            .then(() => alert(`تم إدراج [ ${name} ] في قائمة الحظر الكونية بنجاح.`))
+            .catch(err => alert("فشل الحظر: " + err.message));
         }
-
-        auth.createUserWithEmailAndPassword(email, pass)
-            .then((cred) => {
-                return cred.user.updateProfile({ displayName: name }).then(() => cred);
-            })
-            .then((cred) => {
-                return firebase.database().ref('users/' + cred.user.uid).set({
-                    username: name,
-                    earthBirthDate: birth,
-                    photoURL: ""
-                });
-            })
-            .then(() => {
-                closeUserAuthModal();
-                alert(`✨ أهلاً بك يا ${name} في منظومة الوقت الكونية! تم حفظ وتوثيق حسابك بنجاح.`);
-            })
-            .catch((err) => { errDisplay.innerText = "❌ فشل الإنشاء: " + err.message; });
     }
 
-    function executeUserLogin() {
-        const email = document.getElementById('userLoginEmail').value.trim();
-        const pass = document.getElementById('userLoginPass').value;
-        const errDisplay = document.getElementById('userAuthError');
-
-        if(!email || !pass) { errDisplay.innerText = "⚠️ يرجى إدخال البريد الإلكتروني وكلمة المرور."; return; }
-
-        auth.signInWithEmailAndPassword(email, pass)
-            .then(() => { closeUserAuthModal(); })
-            .catch((err) => { errDisplay.innerText = "❌ خطأ في المطابقة: " + err.message; });
+    // دالة فك الحظر عن المستخدم
+    function unbanUser(uid, name) {
+        if(confirm(`هل تريد فك الحظر واستعادة صلاحيات المستخدم [ ${name} ]؟`)) {
+            firebase.database().ref('users/' + uid).update({ isBanned: false })
+            .then(() => alert(`تم فك الحظر عن [ ${name} ]. يمكنه الدخول الآن.`))
+            .catch(err => alert("فشل الإلغاء: " + err.message));
+        }
     }
 
-    function displayPermanentCosmicID(userData) {
-        if(!userData.earthBirthDate) return;
-        const bDate = new Date(userData.earthBirthDate);
-        const today = new Date();
-        
-        const c = calculateCosmicTime(bDate);
-        const currentC = calculateCosmicTime(today);
-        let age = currentC.year - c.year;
-        if (today.getMonth() < bDate.getMonth() || (today.getMonth() === bDate.getMonth() && today.getDate() < bDate.getDate())) { age--; }
-
-        const zArr = config.customZodiacs || defaultZodiacs;
-        const zSymArr = config.customZodiacSymbols || defaultZodiacSymbols;
-
-        document.getElementById('idCardMainTitle').innerText = `🪪 الهوية الموثقة: ${userData.username}`;
-        document.getElementById('idCardMainDesc').style.display = "none";
-        document.getElementById('idInputContainer').style.display = "none";
-
-        document.getElementById('idZodiacIcon').innerText = zSymArr[c.zodiacIdx] || "🌌";
-        document.getElementById('idBirthDate').innerText = `${c.day} ${c.month} | حقبة ${c.year}`;
-        document.getElementById('idBirthDayName').innerText = `دورة ${c.dName}`;
-        document.getElementById('idAge').innerText = `${age >= 0 ? age : 0} دورة شمسية كونية`;
-        document.getElementById('idZodiacName').innerText = zArr[c.zodiacIdx];
-
-        const idBox = document.getElementById('cosmicIDResult');
-        idBox.style.display = 'block'; idBox.style.animation = 'none';
-        setTimeout(() => idBox.style.animation = 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 10);
+    // دالة حذف الحساب النهائي (يمسح البيانات ليتمكن من عمل حساب جديد كلياً)
+    function deleteUserAccount(uid, name) {
+        const confirmFirst = confirm(`🚨 هل أنت متأكد من حذف حساب المستخدم: [ ${name} ] نهائياً؟\nهذا سيمسح بياناته تماماً ويسمح له بإنشاء حساب جديد كلياً.`);
+        if (confirmFirst) {
+            const confirmSecond = prompt(`⚠️ لتأكيد الحذف النهائي، يرجى كتابة كلمة "حذف" في الحقل أدناه:`);
+            if (confirmSecond === 'حذف' || confirmSecond === '"حذف"') {
+                firebase.database().ref('users/' + uid).remove()
+                .then(() => { alert(`✨ نجاح العملية: تم تدمير ومسح حساب المستخدم (${name}) بالكامل.`); })
+                .catch((error) => { alert(`❌ فشلت عملية الحذف: ${error.message}`); });
+            } else {
+                alert("❌ تم إلغاء الإجراء بسبب عدم تطابق كلمة التأكيد.");
+            }
+        }
     }
+
+    function viewUserDetails(uid) {
+        firebase.database().ref('users/' + uid).once('value').then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                const body = document.getElementById('userDetailsBody');
+                
+                let htmlContent = `<div style="margin-bottom: 15px; color: var(--primary); font-weight: bold; font-family: monospace; border-bottom: 1px dashed rgba(0,229,255,0.2); padding-bottom: 8px;">UID: ${uid}</div>`;
+                
+                for (let key in data) {
+                    let label = key;
+                    if (key === 'name' || key === 'username') label = 'الاسم الكوني الموثق';
+                    if (key === 'email') label = 'البريد الإلكتروني للاتصال';
+                    if (key === 'earthBirthDate') label = 'تاريخ الميلاد الأرضي للمواطن';
+                    if (key === 'photoURL') label = 'رابط الصورة الرمزية';
+                    if (key === 'isBanned') label = 'حالة الحظر';
+                    
+                    let value = data[key];
+                    if (key === 'isBanned') value = value ? 'محظور 🚫' : 'نشط وسليم ✅';
+                    
+                    if (typeof value === 'object' && value !== null) {
+                        value = `<pre style="background: rgba(0,0,0,0.4); padding: 8px; border-radius: 6px; font-family: monospace; font-size: 0.8rem; direction: ltr; margin: 5px 0; color: #00E676; border: 1px solid rgba(0,230,118,0.1);">${JSON.stringify(value, null, 2)}</pre>`;
+                        htmlContent += `<div style="padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);"><strong style="color: var(--secondary); display:block; margin-bottom:5px;">✨ ${label}:</strong> ${value}</div>`;
+                    } else {
+                        htmlContent += `<div class="user-detail-row"><strong>✨ ${label}:</strong> <span style="direction: ltr; text-align: left;">${value}</span></div>`;
+                    }
+                }
+                
+                body.innerHTML = htmlContent;
+                document.getElementById('userDetailsModal').style.display = 'flex';
+            } else {
+                alert("⚠️ تعذر العثور على أي سجلات فلكية لهذا المستخدم.");
+            }
+        }).catch(err => { alert("❌ خطأ منظومي أثناء جلب البيانات: " + err.message); });
+    }
+
+    function closeDetailsModal() { document.getElementById('userDetailsModal').style.display = 'none'; }
+    // =========================================================
 
     function saveAdminChanges() {
         let m = [], d = [], z = [], zSym = [];

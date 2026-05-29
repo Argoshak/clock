@@ -198,18 +198,45 @@
         .card { padding: 35px; }
 
         /* 🍏 نظام فلاتر وضع زجاج أبل المطور للمنظومة (Apple Glassmorphism) */
-        body.glass-enabled .card, body.glass-enabled .hero-card, body.glass-enabled .modal-auth-box {
+        body.glass-enabled .card, body.glass-enabled .hero-card {
             background: rgba(12, 12, 26, 0.42) !important;
             backdrop-filter: blur(25px) cubic-bezier(0.4, 0, 0.2, 1) !important;
             -webkit-backdrop-filter: blur(25px) cubic-bezier(0.4, 0, 0.2, 1) !important;
             border: 1px solid rgba(255, 255, 255, 0.11) !important;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.08);
         }
+
+        /* 🍏 تأثير الزجاج المخصص للنوافذ المنبثقة (تسجيل الدخول والإدارة) */
+        body.glass-enabled .modal-auth-box {
+            background: rgba(12, 12, 26, 0.25) !important; 
+            backdrop-filter: blur(25px) cubic-bezier(0.4, 0, 0.2, 1) !important;
+            -webkit-backdrop-filter: blur(25px) cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 5px rgba(255, 255, 255, 0.1) !important;
+        }
+
+        /* 🧊 جعل حقول الإدخال (Inputs) شفافة داخل النوافذ */
+        body.glass-enabled .modal-auth-box input {
+            background: rgba(0, 0, 0, 0.2) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
+
+        /* ✨ تأثير الإضاءة عند النقر على الحقل في النوافذ الشفافة */
+        body.glass-enabled .modal-auth-box input:focus {
+            background: rgba(0, 229, 255, 0.05) !important;
+            border-color: rgba(0, 229, 255, 0.5) !important;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2) !important;
+        }
+
         body.glass-disabled .card, body.glass-disabled .hero-card, body.glass-disabled .modal-auth-box {
             background: #0d0d19 !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
             border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+        body.glass-disabled .modal-auth-box input {
+            background: #131322 !important;
         }
 
         /* 🔐 نوافذ تسجيل دخول المدمجة المحدثة */
@@ -677,7 +704,7 @@
     let isAudioPlaying = false;
     let activeUserSession = null;
     
-    // 🔥 هذا المتغير هو مفتاح حل المشكلة! (يمنع التسابق البرمجي وقت التسجيل) 🔥
+    // 🔥 هذا المتغير يمنع التسابق البرمجي وقت التسجيل
     let isRegisteringUser = false; 
 
     const audio = document.getElementById('ambientAudio');
@@ -719,10 +746,9 @@
             firebase.database().ref('users/' + user.uid).on('value', (snapshot) => {
                 const uData = snapshot.val();
                 
-                // 1. إذا لم نجد بيانات، نتحقق أولاً هل هو في حالة "تسجيل حساب جديد الآن"؟
+                // 1. التحقق من الحذف
                 if(!uData) {
-                    if (isRegisteringUser) return; // ننتظر حتى تكتمل عملية الحفظ في السيرفر ولا نطرده
-                    
+                    if (isRegisteringUser) return; // ننتظر السيرفر ولا نطرده
                     auth.signOut().then(() => {
                         alert("تم إزالة حسابك بشكل نهائي من السجلات. يمكنك إنشاء حساب جديد ببياناتك الآن بحرية تامة.");
                         window.location.reload();
@@ -730,7 +756,7 @@
                     return;
                 }
 
-                // 2. التحقق من حالة الحظر الصريحة
+                // 2. التحقق من حالة الحظر 
                 if (uData.isBanned === true) {
                     auth.signOut().then(() => {
                         alert("🚫 عذراً، تم حظر هذا الحساب من قبل إدارة المنظومة.");
@@ -809,20 +835,34 @@
         }
     }
 
+    // 📧 دالة تغيير الإيميل المحدثة بنظام إعادة التأكيد الأمني السري (Re-Authenticate)
     function changeEmail() {
         const newEmail = prompt("أدخل البريد الإلكتروني (الإيميل) الجديد:");
-        if(newEmail && auth.currentUser) {
-            auth.currentUser.updateEmail(newEmail).then(() => {
-                firebase.database().ref('users/' + auth.currentUser.uid).update({ email: newEmail });
-                alert("تم تحديث البريد الإلكتروني بنجاح!");
-            }).catch(err => {
-                if (err.code === 'auth/requires-recent-login') {
-                    alert("لأسباب أمنية، يرجى تسجيل الخروج ثم الدخول مجدداً قبل تغيير الإيميل.");
+        if (!newEmail || !auth.currentUser) return;
+
+        auth.currentUser.updateEmail(newEmail).then(() => {
+            firebase.database().ref('users/' + auth.currentUser.uid).update({ email: newEmail });
+            alert("✨ تم تحديث البريد الإلكتروني بنجاح!");
+        }).catch(err => {
+            if (err.code === 'auth/requires-recent-login') {
+                const password = prompt("⚠️ لأسباب أمنية، يرجى إدخال كلمة المرور الحالية لتأكيد هويتك وتغيير الإيميل:");
+                if (password) {
+                    const credential = firebase.auth.EmailAuthProvider.credential(auth.currentUser.email, password);
+                    auth.currentUser.reauthenticateWithCredential(credential).then(() => {
+                        return auth.currentUser.updateEmail(newEmail);
+                    }).then(() => {
+                        firebase.database().ref('users/' + auth.currentUser.uid).update({ email: newEmail });
+                        alert("✨ تم تأكيد الهوية وتحديث البريد الإلكتروني بنجاح!");
+                    }).catch(reAuthErr => {
+                        alert("❌ فشل التوثيق: كلمة المرور التي أدخلتها غير صحيحة.");
+                    });
                 } else {
-                    alert("خطأ: " + err.message);
+                    alert("تم إلغاء عملية تغيير الإيميل.");
                 }
-            });
-        }
+            } else {
+                alert("❌ خطأ: " + err.message);
+            }
+        });
     }
 
     function deleteAccount() {
@@ -1098,7 +1138,7 @@
     }
 
     // =========================================================
-    // 👥 دوال إدارة سجلات المستخدمين للمسؤول (تم فصل الحذف عن الحظر)
+    // 👥 دوال إدارة سجلات المستخدمين للمسؤول 
     // =========================================================
     function loadUsersDashboard() {
         firebase.database().ref('users').on('value', (snapshot) => {
@@ -1137,7 +1177,7 @@
                         <td style="color: var(--text-muted); text-decoration: line-through;">${email}</td>
                         <td>
                             <button class="btn-user-action btn-user-unban" onclick="unbanUser('${uid}', '${name}')">✅ فك الحظر</button>
-                            <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ حذف نهائي</button>
+                            <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح كلي</button>
                         </td>
                     `;
                     bannedTbody.appendChild(tr);
@@ -1151,7 +1191,7 @@
                         <td>
                             <button class="btn-user-action btn-user-view" onclick="viewUserDetails('${uid}')">👁️ عرض</button>
                             <button class="btn-user-action btn-user-ban" onclick="banUser('${uid}', '${name}')">🚫 حظر</button>
-                            <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ حذف</button>
+                            <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح كلي</button>
                         </td>
                     `;
                     activeTbody.appendChild(tr);
@@ -1184,14 +1224,14 @@
         }
     }
 
-    // دالة حذف الحساب النهائي (يمسح البيانات ليتمكن من عمل حساب جديد كلياً)
+    // دالة حذف الحساب النهائي (مسح فقط من الداتا بيز)
     function deleteUserAccount(uid, name) {
-        const confirmFirst = confirm(`🚨 هل أنت متأكد من حذف حساب المستخدم: [ ${name} ] نهائياً؟\nهذا سيمسح بياناته تماماً ويسمح له بإنشاء حساب جديد كلياً.`);
+        const confirmFirst = confirm(`🚨 هل أنت متأكد من مسح بيانات المستخدم: [ ${name} ] نهائياً؟\nهذا سيمسح بياناته تماماً، وإذا أردت إلغاء إيميله كلياً يجب حذفه من لوحة Firebase Authentication يدوياً.`);
         if (confirmFirst) {
-            const confirmSecond = prompt(`⚠️ لتأكيد الحذف النهائي، يرجى كتابة كلمة "حذف" في الحقل أدناه:`);
-            if (confirmSecond === 'حذف' || confirmSecond === '"حذف"') {
+            const confirmSecond = prompt(`⚠️ لتأكيد المسح، يرجى كتابة كلمة "مسح" في الحقل أدناه:`);
+            if (confirmSecond === 'مسح' || confirmSecond === '"مسح"') {
                 firebase.database().ref('users/' + uid).remove()
-                .then(() => { alert(`✨ نجاح العملية: تم تدمير ومسح حساب المستخدم (${name}) بالكامل.`); })
+                .then(() => { alert(`✨ نجاح العملية: تم تدمير ومسح حساب المستخدم (${name}) بالكامل من قاعدة البيانات.`); })
                 .catch((error) => { alert(`❌ فشلت عملية الحذف: ${error.message}`); });
             } else {
                 alert("❌ تم إلغاء الإجراء بسبب عدم تطابق كلمة التأكيد.");

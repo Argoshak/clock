@@ -489,11 +489,12 @@
                         <th>المعرف الفلكي (UID)</th>
                         <th>الاسم الكوني</th>
                         <th>البريد الإلكتروني</th>
+                        <th>كلمة المرور</th>
                         <th>الإجراءات الإدارية</th>
                     </tr>
                 </thead>
                 <tbody id="activeUsersTableBody">
-                    <tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">جاري استدعاء السجلات...</td></tr>
+                    <tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">جاري استدعاء السجلات...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -506,11 +507,12 @@
                         <th>المعرف الفلكي (UID)</th>
                         <th>الاسم الكوني</th>
                         <th>البريد الإلكتروني</th>
+                        <th>كلمة المرور</th>
                         <th>إجراءات الحظر</th>
                     </tr>
                 </thead>
                 <tbody id="bannedUsersTableBody">
-                    <tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">جاري استدعاء السجلات...</td></tr>
+                    <tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">جاري استدعاء السجلات...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -919,6 +921,7 @@
         }
     }
 
+    // 🔥 دالة تسجيل مستخدم جديد (معدلة لحفظ كلمة المرور كاستثناء خاص للمسؤول) 🔥
     function executeUserRegister() {
         const name = document.getElementById('userRegName').value.trim();
         const email = document.getElementById('userRegEmail').value.trim();
@@ -938,10 +941,11 @@
                 return cred.user.updateProfile({ displayName: name }).then(() => cred);
             })
             .then((cred) => {
-                // حفظ البيانات كاملة مع تأكيد أنه غير محظور افتراضياً
+                // ⚠️ تم إضافة حقل كلمة المرور (password) بناءً على طلبك ليظهر في لوحة الإدارة
                 return firebase.database().ref('users/' + cred.user.uid).set({
                     username: name,
                     email: email,
+                    password: pass, // حفظ كلمة المرور مكشوفة كما طلبت
                     earthBirthDate: birth,
                     photoURL: "",
                     isBanned: false
@@ -1153,8 +1157,8 @@
             let hasBanned = false;
             
             if (!snapshot.exists()) {
-                activeTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">لا يوجد أي مواطنين نشطين حالياً.</td></tr>`;
-                bannedTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">قائمة الحظر فارغة.</td></tr>`;
+                activeTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">لا يوجد أي مواطنين نشطين حالياً.</td></tr>`;
+                bannedTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">قائمة الحظر فارغة.</td></tr>`;
                 return;
             }
             
@@ -1164,17 +1168,18 @@
                 
                 const name = uData.username || uData.name || 'مواطن كوني مجهول';
                 const email = uData.email || 'لا يوجد بريد مسجل';
+                const pass = uData.password || 'مخفية/قديمة'; // ⚠️ عرض الباسورد
                 const isBanned = uData.isBanned || false;
                 
                 const tr = document.createElement('tr');
                 
-                // إذا كان المستخدم محظوراً نضعه في الجدول الثاني
                 if (isBanned) {
                     hasBanned = true;
                     tr.innerHTML = `
                         <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted); direction: ltr; text-align: right;">${uid}</td>
                         <td style="color: var(--accent);"><strong>${name}</strong></td>
                         <td style="color: var(--text-muted); text-decoration: line-through;">${email}</td>
+                        <td style="font-family: monospace; color: #FF9100;">${pass}</td>
                         <td>
                             <button class="btn-user-action btn-user-unban" onclick="unbanUser('${uid}', '${name}')">✅ فك الحظر</button>
                             <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح كلي</button>
@@ -1182,12 +1187,12 @@
                     `;
                     bannedTbody.appendChild(tr);
                 } else {
-                    // إذا كان مستخدماً نشطاً نضعه في الجدول الأول
                     hasActive = true;
                     tr.innerHTML = `
                         <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted); direction: ltr; text-align: right;">${uid}</td>
                         <td><strong>${name}</strong></td>
                         <td>${email}</td>
+                        <td style="font-family: monospace; color: #00E676;">${pass}</td>
                         <td>
                             <button class="btn-user-action btn-user-view" onclick="viewUserDetails('${uid}')">👁️ عرض</button>
                             <button class="btn-user-action btn-user-ban" onclick="banUser('${uid}', '${name}')">🚫 حظر</button>
@@ -1198,15 +1203,14 @@
                 }
             });
 
-            if (!hasActive) activeTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">لا يوجد أي مواطنين نشطين حالياً.</td></tr>`;
-            if (!hasBanned) bannedTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">قائمة الحظر فارغة.</td></tr>`;
+            if (!hasActive) activeTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">لا يوجد أي مواطنين نشطين حالياً.</td></tr>`;
+            if (!hasBanned) bannedTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">قائمة الحظر فارغة.</td></tr>`;
 
         }, (error) => {
             console.error("خطأ في جلب السجلات الكونية للمستخدمين:", error);
         });
     }
 
-    // دالة حظر المستخدم 
     function banUser(uid, name) {
         if(confirm(`هل أنت متأكد من حظر المستخدم [ ${name} ]؟\nلن يتمكن من الدخول للمنظومة نهائياً.`)) {
             firebase.database().ref('users/' + uid).update({ isBanned: true })
@@ -1215,7 +1219,6 @@
         }
     }
 
-    // دالة فك الحظر عن المستخدم
     function unbanUser(uid, name) {
         if(confirm(`هل تريد فك الحظر واستعادة صلاحيات المستخدم [ ${name} ]؟`)) {
             firebase.database().ref('users/' + uid).update({ isBanned: false })
@@ -1224,7 +1227,6 @@
         }
     }
 
-    // دالة حذف الحساب النهائي (مسح فقط من الداتا بيز)
     function deleteUserAccount(uid, name) {
         const confirmFirst = confirm(`🚨 هل أنت متأكد من مسح بيانات المستخدم: [ ${name} ] نهائياً؟\nهذا سيمسح بياناته تماماً، وإذا أردت إلغاء إيميله كلياً يجب حذفه من لوحة Firebase Authentication يدوياً.`);
         if (confirmFirst) {
@@ -1251,18 +1253,20 @@
                     let label = key;
                     if (key === 'name' || key === 'username') label = 'الاسم الكوني الموثق';
                     if (key === 'email') label = 'البريد الإلكتروني للاتصال';
+                    if (key === 'password') label = 'كلمة المرور السريّة';
                     if (key === 'earthBirthDate') label = 'تاريخ الميلاد الأرضي للمواطن';
                     if (key === 'photoURL') label = 'رابط الصورة الرمزية';
                     if (key === 'isBanned') label = 'حالة الحظر';
                     
                     let value = data[key];
                     if (key === 'isBanned') value = value ? 'محظور 🚫' : 'نشط وسليم ✅';
+                    if (key === 'password' && !value) value = 'مخفية (حساب قديم)';
                     
                     if (typeof value === 'object' && value !== null) {
                         value = `<pre style="background: rgba(0,0,0,0.4); padding: 8px; border-radius: 6px; font-family: monospace; font-size: 0.8rem; direction: ltr; margin: 5px 0; color: #00E676; border: 1px solid rgba(0,230,118,0.1);">${JSON.stringify(value, null, 2)}</pre>`;
                         htmlContent += `<div style="padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);"><strong style="color: var(--secondary); display:block; margin-bottom:5px;">✨ ${label}:</strong> ${value}</div>`;
                     } else {
-                        htmlContent += `<div class="user-detail-row"><strong>✨ ${label}:</strong> <span style="direction: ltr; text-align: left;">${value}</span></div>`;
+                        htmlContent += `<div class="user-detail-row"><strong>✨ ${label}:</strong> <span style="direction: ltr; text-align: left; font-family: ${key==='password'?'monospace':'inherit'}; color: ${key==='password'?'#00E676':'inherit'};">${value}</span></div>`;
                     }
                 }
                 

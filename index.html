@@ -206,27 +206,27 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.08);
         }
 
-        /* 🍏 تأثير الزجاج المخصص للنوافذ المنبثقة (تسجيل الدخول والإدارة) */
+        /* 🍏 التأثير الزجاجي للنوافذ المنبثقة وحقول الإدخال */
         body.glass-enabled .modal-auth-box {
-            background: rgba(12, 12, 26, 0.25) !important; 
-            backdrop-filter: blur(25px) cubic-bezier(0.4, 0, 0.2, 1) !important;
-            -webkit-backdrop-filter: blur(25px) cubic-bezier(0.4, 0, 0.2, 1) !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 5px rgba(255, 255, 255, 0.1) !important;
+            background: rgba(12, 12, 26, 0.45) !important; /* خلفية زجاجية شفافة */
+            backdrop-filter: blur(25px) !important;
+            -webkit-backdrop-filter: blur(25px) !important;
+            border: 1px solid rgba(0, 229, 255, 0.2) !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 5px rgba(255, 255, 255, 0.1) !important;
         }
 
-        /* 🧊 جعل حقول الإدخال (Inputs) شفافة داخل النوافذ */
         body.glass-enabled .modal-auth-box input {
-            background: rgba(0, 0, 0, 0.2) !important;
+            background: rgba(0, 0, 0, 0.3) !important; /* حقول إدخال شفافة */
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
             color: #ffffff !important;
+            backdrop-filter: blur(5px) !important;
+            -webkit-backdrop-filter: blur(5px) !important;
         }
 
-        /* ✨ تأثير الإضاءة عند النقر على الحقل في النوافذ الشفافة */
         body.glass-enabled .modal-auth-box input:focus {
-            background: rgba(0, 229, 255, 0.05) !important;
-            border-color: rgba(0, 229, 255, 0.5) !important;
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2) !important;
+            background: rgba(0, 229, 255, 0.08) !important; /* إضاءة زجاجية عند التحديد */
+            border-color: rgba(0, 229, 255, 0.6) !important;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.25) !important;
         }
 
         body.glass-disabled .card, body.glass-disabled .hero-card, body.glass-disabled .modal-auth-box {
@@ -239,10 +239,11 @@
             background: #131322 !important;
         }
 
-        /* 🔐 نوافذ تسجيل دخول المدمجة المحدثة */
+        /* 🔐 التعتيم الخلفي للنوافذ (خففناه لتظهر شفافية الزجاج) */
         .custom-auth-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(4, 4, 8, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(5, 5, 13, 0.45); /* تعتيم خفيف لتوضيح الشفافية */
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             z-index: 2000005; display: none; align-items: center; justify-content: center;
             animation: modalFadeIn 0.3s ease;
         }
@@ -317,7 +318,6 @@
         /* أدوات ومفاتيح الإدخال والخيارات المشتركة */
         input, button, textarea, select { width: 100%; padding: 14px 18px; border-radius: 12px; border: none; margin-top: 6px; font-size: 0.95rem; outline: none; font-family: inherit; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); }
         input, textarea, select { background: #131322; color: #FFF; border: 1px solid #29293d; text-align: center; font-weight: 500; }
-        input:focus, textarea:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 12px rgba(0, 229, 255, 0.25); background: #18182c; }
         button { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         button:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0, 229, 255, 0.2); }
         button:active { transform: scale(0.98); }

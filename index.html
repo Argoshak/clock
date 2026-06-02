@@ -266,6 +266,13 @@
         }
         .auth-switch-hint a:hover { color: #fff; }
 
+        /* زر المتابعة بجوجل المخصص */
+        .btn-google {
+            background: #ffffff; color: #1a1a2e; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px; box-shadow: 0 4px 15px rgba(255,255,255,0.1); width: 100%; border-radius: 12px; padding: 14px 18px; border: none; font-size: 0.95rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .btn-google:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,255,255,0.2); }
+        .btn-google:active { transform: scale(0.98); }
+
         /* 🔧 مركز التحكم المتقدم الشامل للمسؤول */
         .admin-panel { background: #0b0b14; border: 2px solid var(--primary); display: none; z-index: 1000000; position: relative; box-shadow: 0 30px 60px rgba(0, 229, 255, 0.15); }
         body.glass-enabled .admin-panel { background: rgba(11, 11, 20, 0.75) !important; border: 2px solid var(--primary) !important; }
@@ -656,6 +663,13 @@
             <input type="email" id="userLoginEmail" placeholder="البريد الإلكتروني الفلكي" style="margin-bottom: 12px;">
             <input type="password" id="userLoginPass" placeholder="كلمة المرور السرية" style="margin-bottom: 12px;">
             <button onclick="executeUserLogin()" style="margin-top: 10px;">دخول للمنظومة الكونية</button>
+            
+            <div style="display: flex; align-items: center; margin: 15px 0;"><hr style="flex: 1; border-color: rgba(255,255,255,0.1);"><span style="padding: 0 10px; font-size: 0.8rem; color: var(--text-muted);">أو</span><hr style="flex: 1; border-color: rgba(255,255,255,0.1);"></div>
+            <button class="btn-google" onclick="signInWithGoogle()">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;">
+                المتابعة باستخدام Google
+            </button>
+
             <div class="auth-switch-hint">ليس لديك حساب فلكي؟ <a onclick="switchUserAuthTab('register')">إنشاء حساب جديد</a></div>
         </div>
 
@@ -666,6 +680,13 @@
             <label style="display: block; text-align: right; font-size: 0.85rem; color: var(--text-muted); margin: 8px 5px 4px 0; font-weight: 600;">تاريخ ميلادك الأرضي الأساسي:</label>
             <input type="date" id="userRegBirth" style="margin-bottom: 12px;">
             <button onclick="executeUserRegister()" style="margin-top: 10px;">توثيق صك الحساب الجديد</button>
+            
+            <div style="display: flex; align-items: center; margin: 15px 0;"><hr style="flex: 1; border-color: rgba(255,255,255,0.1);"><span style="padding: 0 10px; font-size: 0.8rem; color: var(--text-muted);">أو</span><hr style="flex: 1; border-color: rgba(255,255,255,0.1);"></div>
+            <button class="btn-google" onclick="signInWithGoogle()">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;">
+                التسجيل باستخدام Google
+            </button>
+
             <div class="auth-switch-hint">لديك حساب بالفعل؟ <a onclick="switchUserAuthTab('login')">تسجيل الدخول هنا</a></div>
         </div>
 
@@ -706,7 +727,7 @@
     let isAudioPlaying = false;
     let activeUserSession = null;
     
-    // 🔥 هذا المتغير يمنع التسابق البرمجي وقت التسجيل
+    // 🔥 يمنع التسابق البرمجي وقت التسجيل
     let isRegisteringUser = false; 
 
     const audio = document.getElementById('ambientAudio');
@@ -739,7 +760,7 @@
         }
     });
 
-    // 👤 مراقب الجلسة التزامني المطور (يحل مشكلة الحذف والحظر والتسابق البرمجي)
+    // 👤 مراقب الجلسة التزامني المطور
     auth.onAuthStateChanged((user) => {
         const authNavContainer = document.getElementById('authNavContainer');
         if(user) {
@@ -748,9 +769,8 @@
             firebase.database().ref('users/' + user.uid).on('value', (snapshot) => {
                 const uData = snapshot.val();
                 
-                // 1. التحقق من الحذف
                 if(!uData) {
-                    if (isRegisteringUser) return; // ننتظر السيرفر ولا نطرده
+                    if (isRegisteringUser) return;
                     auth.signOut().then(() => {
                         alert("تم إزالة حسابك بشكل نهائي من السجلات. يمكنك إنشاء حساب جديد ببياناتك الآن بحرية تامة.");
                         window.location.reload();
@@ -758,7 +778,6 @@
                     return;
                 }
 
-                // 2. التحقق من حالة الحظر 
                 if (uData.isBanned === true) {
                     auth.signOut().then(() => {
                         alert("🚫 عذراً، تم حظر هذا الحساب من قبل إدارة المنظومة.");
@@ -767,7 +786,6 @@
                     return;
                 }
                 
-                // 3. تحديث الإيميل للمستخدمين القدامى إن كان مفقوداً
                 if (!uData.email && user.email) {
                     firebase.database().ref('users/' + user.uid).update({ email: user.email });
                 }
@@ -815,7 +833,6 @@
         }
     });
 
-    // 🖼️ دالة إضافة وتغيير الصورة 
     function changeProfilePic() {
         const url = prompt("أدخل الرابط المباشر (URL) الخاص بالصورة الكونية الجديدة:");
         if(url && auth.currentUser) {
@@ -826,7 +843,6 @@
         }
     }
 
-    // ✏️ دالة تعديل الاسم
     function changeName() {
         const newName = prompt("أدخل الاسم الكوني الجديد المستعار:");
         if(newName && auth.currentUser) {
@@ -837,7 +853,6 @@
         }
     }
 
-    // 📧 دالة تغيير الإيميل المحدثة بنظام إعادة التأكيد الأمني السري (Re-Authenticate)
     function changeEmail() {
         const newEmail = prompt("أدخل البريد الإلكتروني (الإيميل) الجديد:");
         if (!newEmail || !auth.currentUser) return;
@@ -921,7 +936,65 @@
         }
     }
 
-    // 🔥 دالة تسجيل مستخدم جديد (معدلة لحفظ كلمة المرور كاستثناء خاص للمسؤول) 🔥
+    // 🔥 المتابعة عبر جوجل 🔥
+    function signInWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const errDisplay = document.getElementById('userAuthError');
+        errDisplay.innerText = "⏳ جاري الاتصال بخوادم Google...";
+
+        // إشعار النظام بأننا في وضع تسجيل جديد لمنع الطرد السريع
+        isRegisteringUser = true;
+
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                const user = result.user;
+                
+                // نتحقق مما إذا كان المستخدم موجوداً في قاعدة البيانات
+                firebase.database().ref('users/' + user.uid).once('value')
+                .then((snapshot) => {
+                    if (!snapshot.exists()) {
+                        // مستخدم جديد يسجل لأول مرة عبر جوجل
+                        let birthDate = prompt(`أهلاً بك يا ${user.displayName}!\nيرجى إدخال تاريخ ميلادك الأرضي (سنة-شهر-يوم) لإصدار هويتك الكونية:\nمثال: 2000-12-25`);
+                        if (!birthDate) birthDate = "2000-01-01"; // تاريخ افتراضي إذا ألغى النافذة
+
+                        firebase.database().ref('users/' + user.uid).set({
+                            username: user.displayName,
+                            email: user.email,
+                            password: "مخفية (دخول عبر جوجل)",
+                            earthBirthDate: birthDate,
+                            photoURL: user.photoURL || "",
+                            isBanned: false
+                        }).then(() => {
+                            isRegisteringUser = false; // إنهاء وضع التسجيل
+                            closeUserAuthModal();
+                            alert(`✨ أهلاً بك يا ${user.displayName} في منظومة الوقت الكونية! تم حفظ وتوثيق حسابك بنجاح.`);
+                        }).catch(err => {
+                            isRegisteringUser = false;
+                            errDisplay.innerText = "❌ فشل حفظ البيانات: " + err.message;
+                        });
+                    } else {
+                        // مستخدم مسجل مسبقاً، نتحقق من الحظر
+                        isRegisteringUser = false;
+                        const uData = snapshot.val();
+                        if (uData.isBanned) {
+                            auth.signOut().then(() => {
+                                alert("🚫 عذراً، تم حظر هذا الحساب من قبل إدارة المنظومة.");
+                            });
+                        } else {
+                            closeUserAuthModal();
+                        }
+                    }
+                }).catch(err => {
+                    isRegisteringUser = false;
+                    errDisplay.innerText = "❌ خطأ في قراءة البيانات: " + err.message;
+                });
+            })
+            .catch((error) => {
+                isRegisteringUser = false;
+                errDisplay.innerText = "❌ فشل تسجيل الدخول بـ Google: " + error.message;
+            });
+    }
+
     function executeUserRegister() {
         const name = document.getElementById('userRegName').value.trim();
         const email = document.getElementById('userRegEmail').value.trim();
@@ -933,7 +1006,6 @@
             errDisplay.innerText = "⚠️ يرجى تعبئة كافة البيانات لإصدار وثيقتك الكونية."; return;
         }
 
-        // إشعار النظام بأننا في وضع تسجيل جديد لمنع الطرد السريع
         isRegisteringUser = true;
 
         auth.createUserWithEmailAndPassword(email, pass)
@@ -941,18 +1013,17 @@
                 return cred.user.updateProfile({ displayName: name }).then(() => cred);
             })
             .then((cred) => {
-                // ⚠️ تم إضافة حقل كلمة المرور (password) بناءً على طلبك ليظهر في لوحة الإدارة
                 return firebase.database().ref('users/' + cred.user.uid).set({
                     username: name,
                     email: email,
-                    password: pass, // حفظ كلمة المرور مكشوفة كما طلبت
+                    password: pass, 
                     earthBirthDate: birth,
                     photoURL: "",
                     isBanned: false
                 });
             })
             .then(() => {
-                isRegisteringUser = false; // إنهاء وضع التسجيل
+                isRegisteringUser = false; 
                 closeUserAuthModal();
                 alert(`✨ أهلاً بك يا ${name} في منظومة الوقت الكونية! تم حفظ وتوثيق حسابك بنجاح.`);
             })
@@ -1137,13 +1208,10 @@
             document.getElementById('maintenanceScreen').style.display = 'none'; 
             closeAdminModal();
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
-            loadUsersDashboard(); // تشغيل الجلب فوراً
+            loadUsersDashboard(); 
         } else { alert("⚠️ الرمز السري للمسؤول غير صحيح."); }
     }
 
-    // =========================================================
-    // 👥 دوال إدارة سجلات المستخدمين للمسؤول 
-    // =========================================================
     function loadUsersDashboard() {
         firebase.database().ref('users').on('value', (snapshot) => {
             const activeTbody = document.getElementById('activeUsersTableBody');
@@ -1168,7 +1236,7 @@
                 
                 const name = uData.username || uData.name || 'مواطن كوني مجهول';
                 const email = uData.email || 'لا يوجد بريد مسجل';
-                const pass = uData.password || 'مخفية/قديمة'; // ⚠️ عرض الباسورد
+                const pass = uData.password || 'مخفية/قديمة';
                 const isBanned = uData.isBanned || false;
                 
                 const tr = document.createElement('tr');
@@ -1279,7 +1347,6 @@
     }
 
     function closeDetailsModal() { document.getElementById('userDetailsModal').style.display = 'none'; }
-    // =========================================================
 
     function saveAdminChanges() {
         let m = [], d = [], z = [], zSym = [];

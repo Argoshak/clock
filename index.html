@@ -239,7 +239,7 @@
             background: #131322 !important;
         }
 
-        /* 🔐 التعتيم الخلفي للنوافذ (خففناه لتظهر شفافية الزجاج) */
+        /* 🔐 التعتيم الخلفي للنوافذ */
         .custom-auth-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(5, 5, 13, 0.45); /* تعتيم خفيف لتوضيح الشفافية */
@@ -711,13 +711,21 @@
 
     // بناء شبكة المدخلات برمجياً
     document.getElementById('monthsInputsGrid').innerHTML = defaultMonths.map((m, i) => `<div class="admin-box"><label>الشهر ${i+1}:</label><input type="text" id="mIn_${i}"></div>`).join('');
-    document.getElementById('daysInputsGrid').innerHTML = defaultDays.map((d, i) => `<div class="admin-box"><label>اليوم ${i+1}:</label><input type="text" id="dIn_${i}"></div>`).join('');
+    document.getElementById('daysInputsGrid').innerHTML = defaultDays.map((d, i) => `<div class="admin-box"><label>اليوم ${i+1}:</label><input type="text id="dIn_${i}"></div>`).join('');
     document.getElementById('zodiacInputsGrid').innerHTML = defaultZodiacs.map((z, i) => `<div class="admin-box"><div style="display:flex; gap:6px;"><input type="text" id="zSymIn_${i}" style="width:60px;" placeholder="رمز"><input type="text" id="zIn_${i}" placeholder="الاسم"></div></div>`).join('');
 
-    // إعدادات Firebase الخاصة بقاعدة البيانات
-    const firebaseConfig = { apiKey: "AIzaSyAmXr7haZsHNSefR6AHwPTO98tvLLJXBFA", databaseURL: "https://cosmic-clock-13345-default-rtdb.firebaseio.com" };
-    firebase.initializeApp(firebaseConfig);
+    // إعدادات Firebase الخاصة بقاعدة البيانات مع إضافة الـ authDomain وما يلزم لتشغيل جوجل
+    const firebaseConfig = {
+        apiKey: "AIzaSyAmXr7haZsHNSefR6AHwPTO98tvLLJXBFA",
+        authDomain: "cosmic-clock-13345.firebaseapp.com",
+        databaseURL: "https://cosmic-clock-13345-default-rtdb.firebaseio.com",
+        projectId: "cosmic-clock-13345",
+        storageBucket: "cosmic-clock-13345.firebasestorage.app",
+        messagingSenderId: "390181572233",
+        appId: "1:390181572233:web:05e4db98a7173597b90058"
+    };
     
+    firebase.initializeApp(firebaseConfig);
     const db = firebase.database().ref("system_config");
     const auth = firebase.auth(); 
     

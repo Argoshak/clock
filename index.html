@@ -147,7 +147,6 @@
         .dropdown-item { padding: 10px 14px; text-align: right; color: white; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
         .dropdown-item:hover { background: rgba(0, 229, 255, 0.12); color: var(--primary); }
 
-        /* تنسيقات إدارة المستخدمين في لوحة التحكم */
         .users-table-container { width: 100%; overflow-x: auto; margin-top: 5px; background: rgba(0, 0, 0, 0.2); border: 1px solid; border-radius: 12px; }
         .users-table { width: 100%; border-collapse: collapse; text-align: right; font-size: 0.9rem; }
         .users-table th { padding: 12px 10px; border-bottom: 2px solid; }
@@ -206,9 +205,8 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.08);
         }
 
-        /* 🍏 التأثير الزجاجي للنوافذ المنبثقة وحقول الإدخال */
         body.glass-enabled .modal-auth-box {
-            background: rgba(12, 12, 26, 0.45) !important; /* خلفية زجاجية شفافة */
+            background: rgba(12, 12, 26, 0.45) !important; 
             backdrop-filter: blur(25px) !important;
             -webkit-backdrop-filter: blur(25px) !important;
             border: 1px solid rgba(0, 229, 255, 0.2) !important;
@@ -216,7 +214,7 @@
         }
 
         body.glass-enabled .modal-auth-box input {
-            background: rgba(0, 0, 0, 0.3) !important; /* حقول إدخال شفافة */
+            background: rgba(0, 0, 0, 0.3) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
             color: #ffffff !important;
             backdrop-filter: blur(5px) !important;
@@ -224,7 +222,7 @@
         }
 
         body.glass-enabled .modal-auth-box input:focus {
-            background: rgba(0, 229, 255, 0.08) !important; /* إضاءة زجاجية عند التحديد */
+            background: rgba(0, 229, 255, 0.08) !important;
             border-color: rgba(0, 229, 255, 0.6) !important;
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.25) !important;
         }
@@ -239,10 +237,84 @@
             background: #131322 !important;
         }
 
+        /* ======================================================= */
+        /* 🟩 ستايل النيوبروتاليزم العالمي (Neubrutalism Global) 🟩 */
+        /* ======================================================= */
+        body.neubrutalism, body.neubrutalism.glass-enabled {
+            background-color: #ffdeeb !important; /* لون فاقع للخلفية */
+            background-image: none !important;
+            color: #000 !important;
+        }
+        body.neubrutalism .card, body.neubrutalism .hero-card, body.neubrutalism .admin-panel, body.neubrutalism .modal-auth-box {
+            background-color: #ffffff !important;
+            border: 4px solid #000000 !important;
+            border-radius: 0px !important;
+            box-shadow: 8px 8px 0px #000000 !important;
+            color: #000 !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        body.neubrutalism * {
+            text-shadow: none !important;
+        }
+        body.neubrutalism h2, body.neubrutalism h3, body.neubrutalism h4, body.neubrutalism p, body.neubrutalism span, body.neubrutalism label, body.neubrutalism div {
+            color: #000 !important;
+        }
+        body.neubrutalism input, body.neubrutalism select, body.neubrutalism textarea {
+            background: #ffffff !important;
+            color: #000 !important;
+            border: 3px solid #000000 !important;
+            border-radius: 0px !important;
+            box-shadow: 4px 4px 0px #000000 !important;
+            font-weight: 800;
+        }
+        body.neubrutalism input:focus, body.neubrutalism select:focus {
+            transform: translate(-2px, -2px) !important;
+            box-shadow: 6px 6px 0px #000000 !important;
+        }
+        body.neubrutalism button, body.neubrutalism .btn-google, body.neubrutalism .admin-gate-btn {
+            background-color: #bcff6f !important;
+            color: #000000 !important;
+            border: 3px solid #000000 !important;
+            border-radius: 0px !important;
+            box-shadow: 4px 4px 0px #000000 !important;
+            font-weight: 900 !important;
+            transition: transform 0.1s, box-shadow 0.1s !important;
+        }
+        body.neubrutalism button:active, body.neubrutalism .btn-google:active, body.neubrutalism .admin-gate-btn:active {
+            transform: translate(4px, 4px) !important;
+            box-shadow: 0px 0px 0px #000000 !important;
+        }
+        body.neubrutalism .flow-bar-fill, body.neubrutalism .energy-bar-fill {
+            background: #000 !important;
+            border-radius: 0 !important;
+        }
+        body.neubrutalism .flow-bar-bg, body.neubrutalism .energy-bar-bg {
+            border: 2px solid #000 !important;
+            border-radius: 0 !important;
+            background: #fff !important;
+            box-shadow: 4px 4px 0px #000000 !important;
+        }
+        body.neubrutalism .progress-circle {
+            border: 6px solid #000 !important;
+            border-top: 6px solid #bcff6f !important;
+            border-radius: 0 !important;
+            background: #fff !important;
+            box-shadow: 6px 6px 0 #000 !important;
+        }
+        body.neubrutalism .users-table th {
+            border-bottom: 4px solid #000 !important;
+            background: #bcff6f !important;
+        }
+        body.neubrutalism .users-table td {
+            border-bottom: 2px solid #000 !important;
+        }
+        /* ======================================================= */
+
         /* 🔐 التعتيم الخلفي للنوافذ */
         .custom-auth-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 13, 0.45); /* تعتيم خفيف لتوضيح الشفافية */
+            background: rgba(5, 5, 13, 0.45); 
             backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             z-index: 2000005; display: none; align-items: center; justify-content: center;
             animation: modalFadeIn 0.3s ease;
@@ -257,16 +329,10 @@
         @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes modalScaleUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* نصوص التنقل الذكية داخل نافذة المصادقة */
-        .auth-switch-hint {
-            margin-top: 18px; font-size: 0.88rem; color: var(--text-muted); text-align: center;
-        }
-        .auth-switch-hint a {
-            color: var(--primary); cursor: pointer; text-decoration: underline; font-weight: 700; transition: color 0.3s;
-        }
+        .auth-switch-hint { margin-top: 18px; font-size: 0.88rem; color: var(--text-muted); text-align: center; }
+        .auth-switch-hint a { color: var(--primary); cursor: pointer; text-decoration: underline; font-weight: 700; transition: color 0.3s; }
         .auth-switch-hint a:hover { color: #fff; }
 
-        /* زر المتابعة بجوجل المخصص */
         .btn-google {
             background: #ffffff; color: #1a1a2e; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px; box-shadow: 0 4px 15px rgba(255,255,255,0.1); width: 100%; border-radius: 12px; padding: 14px 18px; border: none; font-size: 0.95rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
@@ -425,6 +491,15 @@
         <div class="admin-section-title">🔒 أمن النظام والمظهر العام 
             <button onclick="toggleLightDarkMode()" style="width:auto; font-size:0.8rem; padding:6px 14px; margin:0;" class="btn-dark">🌓 تبديل المظهر السريع</button>
         </div>
+        
+        <div class="admin-grid" style="margin-bottom: 20px;">
+            <div class="admin-box" style="grid-column: 1 / -1; background: rgba(255,23,68,0.1); border-color: var(--accent);">
+                <label style="color: var(--accent); font-size: 1rem;">🎨 التحكم في ستايل الموقع الشامل (Neubrutalism):</label>
+                <button id="adminNeoBtn" onclick="toggleNeoStyleGlobal()" style="background: #bcff6f; color: #000; border: 3px solid #000; box-shadow: 4px 4px 0 #000; font-weight: 900; font-size: 1.1rem; padding: 15px;">تفعيل ستايل Neubrutalism لجميع الزوار ✨</button>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 12px; text-align: center;">عند تفعيل هذا الخيار، سيتغير تصميم الموقع بالكامل (الخلفية، الحواف، الظلال) لجميع المستخدمين في نفس اللحظة.</p>
+            </div>
+        </div>
+
         <div class="admin-grid">
             <div class="admin-box"><label>حالة البث والصيانة:</label><select id="adminMaintenanceIn"><option value="off">🟢 بث مباشر للجميع</option><option value="on">🔴 مغلق للصيانة</option></select></div>
             <div class="admin-box"><label>تنسيق الوقت الكوني:</label><select id="adminClockFmt"><option value="12">12 ساعة (صباحاً/مساءً)</option><option value="24">24 ساعة (نظام فلكي)</option></select></div>
@@ -709,7 +784,7 @@
     const traditionalDaysAr = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
     const traditionalMonthsAr = ["يناير (1)", "فبراير (2)", "مارس (3)", "أبريل (4)", "مايو (5)", "يونيو (6)", "يوليو (7)", "أغسطس (8)", "سبتمبر (9)", "أكتوبر (10)", "نوفمبر (11)", "ديسمبر (12)"];
 
-    // بناء شبكة المدخلات برمجياً (تم إصلاح الخطأ المطبعي هنا)
+    // بناء شبكة المدخلات برمجياً
     document.getElementById('monthsInputsGrid').innerHTML = defaultMonths.map((m, i) => `<div class="admin-box"><label>الشهر ${i+1}:</label><input type="text" id="mIn_${i}"></div>`).join('');
     document.getElementById('daysInputsGrid').innerHTML = defaultDays.map((d, i) => `<div class="admin-box"><label>اليوم ${i+1}:</label><input type="text" id="dIn_${i}"></div>`).join('');
     document.getElementById('zodiacInputsGrid').innerHTML = defaultZodiacs.map((z, i) => `<div class="admin-box"><div style="display:flex; gap:6px;"><input type="text" id="zSymIn_${i}" style="width:60px;" placeholder="رمز"><input type="text" id="zIn_${i}" placeholder="الاسم"></div></div>`).join('');
@@ -734,8 +809,6 @@
     let isDarkMode = true; 
     let isAudioPlaying = false;
     let activeUserSession = null;
-    
-    // 🔥 يمنع التسابق البرمجي وقت التسجيل
     let isRegisteringUser = false; 
 
     const audio = document.getElementById('ambientAudio');
@@ -744,7 +817,7 @@
     const defaultSystemData = {
         currentPassword: 'argos', savedTitle: 'منظومة الوقت الكونية المعربة', savedNotice: '', savedEpochYear: 2012, footerText: 'جميع الحقوق محفوظة © منظومة الوقت الكونية',
         cPrimary: '#00E5FF', cSecondary: '#7C4DFF', cAccent: '#FF1744', cBg: '#05050d', bgImage: '', fontStyle: "'Cairo', sans-serif", clockFormat: "12",
-        maintenanceMode: 'off', popUpAlert: '', cosmicQuote: '', usersCount: 15, tickerSpeed: 25, vDict: 'show', vConv: 'show', glassMode: 'on',
+        maintenanceMode: 'off', neoMode: 'off', popUpAlert: '', cosmicQuote: '', usersCount: 15, tickerSpeed: 25, glassMode: 'on',
         customMonths: defaultMonths, customDays: defaultDays, customZodiacs: defaultZodiacs, customZodiacSymbols: defaultZodiacSymbols,
         h1N: 'رأس الدورة الكونية', h1D: new Date(new Date().getFullYear()+1, 0, 23).toISOString().split('T')[0],
         h2N: 'الاعتدال الفلكي الربيعي', h2D: new Date(new Date().getFullYear(), 2, 21).toISOString().split('T')[0],
@@ -768,7 +841,6 @@
         }
     });
 
-    // 👤 مراقب الجلسة التزامني المطور
     auth.onAuthStateChanged((user) => {
         const authNavContainer = document.getElementById('authNavContainer');
         if(user) {
@@ -816,9 +888,7 @@
                     <div class="user-avatar-wrapper" onclick="toggleUserDropdown(event)">
                         ${avatarHTML}
                         <div id="userDropdownMenu" class="user-dropdown-menu">
-                            <div class="dropdown-user-info">
-                                ${currentName}
-                            </div>
+                            <div class="dropdown-user-info">${currentName}</div>
                             <div class="dropdown-item" onclick="changeProfilePic()">🖼️ أضف صورة</div>
                             <div class="dropdown-item" onclick="changeName()">✏️ تغيير الاسم</div>
                             <div class="dropdown-item" onclick="changeEmail()">📧 تغيير الإيميل</div>
@@ -831,9 +901,7 @@
             });
         } else {
             activeUserSession = null;
-            authNavContainer.innerHTML = `
-                <button class="auth-nav-btn nav-login-btn" onclick="triggerUserAuthLogin()">تسجيل الدخول</button>
-            `;
+            authNavContainer.innerHTML = `<button class="auth-nav-btn nav-login-btn" onclick="triggerUserAuthLogin()">تسجيل الدخول</button>`;
             document.getElementById('idCardMainTitle').innerText = "🪪 استخراج الهوية الكونية (المحول)";
             document.getElementById('idCardMainDesc').style.display = "block";
             document.getElementById('idInputContainer').style.display = "block";
@@ -846,7 +914,7 @@
         if(url && auth.currentUser) {
             auth.currentUser.updateProfile({ photoURL: url });
             firebase.database().ref('users/' + auth.currentUser.uid).update({ photoURL: url })
-            .then(() => { alert("✨ تم تحديث ورفع صورتك الفلكية بنجاح!"); })
+            .then(() => alert("✨ تم تحديث صورتك بنجاح!"))
             .catch(err => alert("خطأ: " + err.message));
         }
     }
@@ -856,52 +924,40 @@
         if(newName && auth.currentUser) {
             auth.currentUser.updateProfile({ displayName: newName });
             firebase.database().ref('users/' + auth.currentUser.uid).update({ username: newName })
-            .then(() => { alert("✨ تم تحديث الاسم وتعديل تشفير الحرف الأول بنجاح!"); })
+            .then(() => alert("✨ تم تحديث الاسم بنجاح!"))
             .catch(err => alert("خطأ: " + err.message));
         }
     }
 
     function changeEmail() {
-        const newEmail = prompt("أدخل البريد الإلكتروني (الإيميل) الجديد:");
+        const newEmail = prompt("أدخل البريد الإلكتروني الجديد:");
         if (!newEmail || !auth.currentUser) return;
 
         auth.currentUser.updateEmail(newEmail).then(() => {
             firebase.database().ref('users/' + auth.currentUser.uid).update({ email: newEmail });
-            alert("✨ تم تحديث البريد الإلكتروني بنجاح!");
+            alert("✨ تم تحديث الإيميل بنجاح!");
         }).catch(err => {
             if (err.code === 'auth/requires-recent-login') {
-                const password = prompt("⚠️ لأسباب أمنية، يرجى إدخال كلمة المرور الحالية لتأكيد هويتك وتغيير الإيميل:");
+                const password = prompt("⚠️ يرجى إدخال كلمة المرور الحالية لتأكيد هويتك:");
                 if (password) {
                     const credential = firebase.auth.EmailAuthProvider.credential(auth.currentUser.email, password);
-                    auth.currentUser.reauthenticateWithCredential(credential).then(() => {
-                        return auth.currentUser.updateEmail(newEmail);
-                    }).then(() => {
+                    auth.currentUser.reauthenticateWithCredential(credential).then(() => auth.currentUser.updateEmail(newEmail)).then(() => {
                         firebase.database().ref('users/' + auth.currentUser.uid).update({ email: newEmail });
-                        alert("✨ تم تأكيد الهوية وتحديث البريد الإلكتروني بنجاح!");
-                    }).catch(reAuthErr => {
-                        alert("❌ فشل التوثيق: كلمة المرور التي أدخلتها غير صحيحة.");
-                    });
-                } else {
-                    alert("تم إلغاء عملية تغيير الإيميل.");
+                        alert("✨ تم تحديث الإيميل بنجاح!");
+                    }).catch(() => alert("❌ كلمة المرور غير صحيحة."));
                 }
-            } else {
-                alert("❌ خطأ: " + err.message);
-            }
+            } else { alert("❌ خطأ: " + err.message); }
         });
     }
 
     function deleteAccount() {
-        if(confirm("هل أنت متأكد تماماً من رغبتك في حذف حسابك الفلكي بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء.")) {
+        if(confirm("هل أنت متأكد من مسح حسابك؟ لا يمكن التراجع.")) {
             const user = auth.currentUser;
             if(user) {
-                const uid = user.uid;
-                user.delete().then(() => {
-                    firebase.database().ref('users/' + uid).remove();
-                    alert("تم حذف الحساب نهائياً، نتمنى لك رحلة كونية سعيدة.");
-                }).catch(err => {
-                    if (err.code === 'auth/requires-recent-login') {
-                        alert("لأسباب أمنية، يرجى تسجيل الخروج والدخول مجدداً قبل حذف الحساب.");
-                    } else { alert("خطأ: " + err.message); }
+                user.delete().then(() => firebase.database().ref('users/' + user.uid).remove())
+                .catch(err => {
+                    if (err.code === 'auth/requires-recent-login') alert("الرجاء تسجيل الدخول مجدداً لحذف الحساب.");
+                    else alert("خطأ: " + err.message);
                 });
             }
         }
@@ -910,24 +966,16 @@
     function toggleUserDropdown(event) {
         event.stopPropagation();
         const menu = document.getElementById('userDropdownMenu');
-        if (menu) { menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
+        if (menu) menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
     }
 
     window.addEventListener('click', () => {
         const menu = document.getElementById('userDropdownMenu');
-        if (menu) { menu.style.display = 'none'; }
+        if (menu) menu.style.display = 'none';
     });
 
-    function handleUserLogout() {
-        auth.signOut().catch((err) => alert('خطأ أثناء خروجك: ' + err.message));
-    }
-
-    function triggerUserAuthLogin() {
-        document.getElementById('userAuthError').innerText = "";
-        document.getElementById('userAuthModal').style.display = "flex";
-        switchUserAuthTab('login');
-    }
-
+    function handleUserLogout() { auth.signOut().catch(err => alert('خطأ: ' + err.message)); }
+    function triggerUserAuthLogin() { document.getElementById('userAuthError').innerText = ""; document.getElementById('userAuthModal').style.display = "flex"; switchUserAuthTab('login'); }
     function closeUserAuthModal() { document.getElementById('userAuthModal').style.display = "none"; }
 
     function switchUserAuthTab(tabType) {
@@ -944,63 +992,30 @@
         }
     }
 
-    // 🔥 المتابعة عبر جوجل 🔥
     function signInWithGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
         const errDisplay = document.getElementById('userAuthError');
-        errDisplay.innerText = "⏳ جاري الاتصال بخوادم Google...";
-
-        // إشعار النظام بأننا في وضع تسجيل جديد لمنع الطرد السريع
+        errDisplay.innerText = "⏳ جاري الاتصال...";
         isRegisteringUser = true;
 
-        auth.signInWithPopup(provider)
-            .then((result) => {
-                const user = result.user;
-                
-                // نتحقق مما إذا كان المستخدم موجوداً في قاعدة البيانات
-                firebase.database().ref('users/' + user.uid).once('value')
-                .then((snapshot) => {
-                    if (!snapshot.exists()) {
-                        // مستخدم جديد يسجل لأول مرة عبر جوجل
-                        let birthDate = prompt(`أهلاً بك يا ${user.displayName}!\nيرجى إدخال تاريخ ميلادك الأرضي (سنة-شهر-يوم) لإصدار هويتك الكونية:\nمثال: 2000-12-25`);
-                        if (!birthDate) birthDate = "2000-01-01"; // تاريخ افتراضي إذا ألغى النافذة
-
-                        firebase.database().ref('users/' + user.uid).set({
-                            username: user.displayName,
-                            email: user.email,
-                            password: "مخفية (دخول عبر جوجل)",
-                            earthBirthDate: birthDate,
-                            photoURL: user.photoURL || "",
-                            isBanned: false
-                        }).then(() => {
-                            isRegisteringUser = false; // إنهاء وضع التسجيل
-                            closeUserAuthModal();
-                            alert(`✨ أهلاً بك يا ${user.displayName} في منظومة الوقت الكونية! تم حفظ وتوثيق حسابك بنجاح.`);
-                        }).catch(err => {
-                            isRegisteringUser = false;
-                            errDisplay.innerText = "❌ فشل حفظ البيانات: " + err.message;
-                        });
-                    } else {
-                        // مستخدم مسجل مسبقاً، نتحقق من الحظر
-                        isRegisteringUser = false;
-                        const uData = snapshot.val();
-                        if (uData.isBanned) {
-                            auth.signOut().then(() => {
-                                alert("🚫 عذراً، تم حظر هذا الحساب من قبل إدارة المنظومة.");
-                            });
-                        } else {
-                            closeUserAuthModal();
-                        }
-                    }
-                }).catch(err => {
+        auth.signInWithPopup(provider).then((result) => {
+            const user = result.user;
+            firebase.database().ref('users/' + user.uid).once('value').then((snapshot) => {
+                if (!snapshot.exists()) {
+                    let birthDate = prompt(`يرجى إدخال تاريخ ميلادك الأرضي (سنة-شهر-يوم):\nمثال: 2000-12-25`);
+                    if (!birthDate) birthDate = "2000-01-01";
+                    firebase.database().ref('users/' + user.uid).set({
+                        username: user.displayName, email: user.email, password: "مخفية (دخول بـ Google)", earthBirthDate: birthDate, photoURL: user.photoURL || "", isBanned: false
+                    }).then(() => {
+                        isRegisteringUser = false; closeUserAuthModal(); alert(`✨ أهلاً بك يا ${user.displayName}!`);
+                    }).catch(err => { isRegisteringUser = false; errDisplay.innerText = "❌ خطأ: " + err.message; });
+                } else {
                     isRegisteringUser = false;
-                    errDisplay.innerText = "❌ خطأ في قراءة البيانات: " + err.message;
-                });
-            })
-            .catch((error) => {
-                isRegisteringUser = false;
-                errDisplay.innerText = "❌ فشل تسجيل الدخول بـ Google: " + error.message;
+                    if (snapshot.val().isBanned) auth.signOut().then(() => alert("🚫 الحساب محظور."));
+                    else closeUserAuthModal();
+                }
             });
+        }).catch(err => { isRegisteringUser = false; errDisplay.innerText = "❌ خطأ: " + err.message; });
     }
 
     function executeUserRegister() {
@@ -1010,58 +1025,32 @@
         const birth = document.getElementById('userRegBirth').value;
         const errDisplay = document.getElementById('userAuthError');
 
-        if(!name || !email || !pass || !birth) {
-            errDisplay.innerText = "⚠️ يرجى تعبئة كافة البيانات لإصدار وثيقتك الكونية."; return;
-        }
-
+        if(!name || !email || !pass || !birth) { errDisplay.innerText = "⚠️ يرجى تعبئة كافة البيانات."; return; }
         isRegisteringUser = true;
 
-        auth.createUserWithEmailAndPassword(email, pass)
-            .then((cred) => {
-                return cred.user.updateProfile({ displayName: name }).then(() => cred);
-            })
-            .then((cred) => {
-                return firebase.database().ref('users/' + cred.user.uid).set({
-                    username: name,
-                    email: email,
-                    password: pass, 
-                    earthBirthDate: birth,
-                    photoURL: "",
-                    isBanned: false
-                });
-            })
-            .then(() => {
-                isRegisteringUser = false; 
-                closeUserAuthModal();
-                alert(`✨ أهلاً بك يا ${name} في منظومة الوقت الكونية! تم حفظ وتوثيق حسابك بنجاح.`);
-            })
-            .catch((err) => { 
-                isRegisteringUser = false;
-                errDisplay.innerText = "❌ فشل الإنشاء: " + err.message; 
-            });
+        auth.createUserWithEmailAndPassword(email, pass).then(cred => cred.user.updateProfile({ displayName: name }).then(() => cred))
+        .then(cred => firebase.database().ref('users/' + cred.user.uid).set({
+            username: name, email: email, password: pass, earthBirthDate: birth, photoURL: "", isBanned: false
+        })).then(() => {
+            isRegisteringUser = false; closeUserAuthModal(); alert(`✨ أهلاً بك يا ${name}!`);
+        }).catch(err => { isRegisteringUser = false; errDisplay.innerText = "❌ خطأ: " + err.message; });
     }
 
     function executeUserLogin() {
         const email = document.getElementById('userLoginEmail').value.trim();
         const pass = document.getElementById('userLoginPass').value;
-        const errDisplay = document.getElementById('userAuthError');
-
-        if(!email || !pass) { errDisplay.innerText = "⚠️ يرجى إدخال البريد الإلكتروني وكلمة المرور."; return; }
-
-        auth.signInWithEmailAndPassword(email, pass)
-            .then(() => { closeUserAuthModal(); })
-            .catch((err) => { errDisplay.innerText = "❌ خطأ في المطابقة: " + err.message; });
+        if(!email || !pass) { document.getElementById('userAuthError').innerText = "⚠️ أدخل البيانات."; return; }
+        auth.signInWithEmailAndPassword(email, pass).then(() => closeUserAuthModal()).catch(err => document.getElementById('userAuthError').innerText = "❌ خطأ: " + err.message);
     }
 
     function displayPermanentCosmicID(userData) {
         if(!userData.earthBirthDate) return;
         const bDate = new Date(userData.earthBirthDate);
         const today = new Date();
-        
         const c = calculateCosmicTime(bDate);
         const currentC = calculateCosmicTime(today);
         let age = currentC.year - c.year;
-        if (today.getMonth() < bDate.getMonth() || (today.getMonth() === bDate.getMonth() && today.getDate() < bDate.getDate())) { age--; }
+        if (today.getMonth() < bDate.getMonth() || (today.getMonth() === bDate.getMonth() && today.getDate() < bDate.getDate())) age--;
 
         const zArr = config.customZodiacs || defaultZodiacs;
         const zSymArr = config.customZodiacSymbols || defaultZodiacSymbols;
@@ -1069,7 +1058,6 @@
         document.getElementById('idCardMainTitle').innerText = `🪪 الهوية الموثقة: ${userData.username}`;
         document.getElementById('idCardMainDesc').style.display = "none";
         document.getElementById('idInputContainer').style.display = "none";
-
         document.getElementById('idZodiacIcon').innerText = zSymArr[c.zodiacIdx] || "🌌";
         document.getElementById('idBirthDate').innerText = `${c.day} ${c.month} | حقبة ${c.year}`;
         document.getElementById('idBirthDayName').innerText = `دورة ${c.dName}`;
@@ -1078,7 +1066,7 @@
 
         const idBox = document.getElementById('cosmicIDResult');
         idBox.style.display = 'block'; idBox.style.animation = 'none';
-        setTimeout(() => idBox.style.animation = 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 10);
+        setTimeout(() => idBox.style.animation = 'popIn 0.5s', 10);
     }
 
     function applySystemData() {
@@ -1090,47 +1078,45 @@
         document.getElementById('widgetDays').innerText = (config.customDays || defaultDays).length;
         document.getElementById('widgetZodiacs').innerText = (config.customZodiacs || defaultZodiacs).length;
 
-        const alertBar = document.getElementById('stickyAlertBar');
         if(config.popUpAlert && config.popUpAlert.trim() !== "") {
-            document.getElementById('marqueeText').innerText = config.popUpAlert; alertBar.style.display = 'flex'; document.body.classList.add('has-alert');
-        } else { alertBar.style.display = 'none'; document.body.classList.remove('has-alert'); }
+            document.getElementById('marqueeText').innerText = config.popUpAlert; document.getElementById('stickyAlertBar').style.display = 'flex'; document.body.classList.add('has-alert');
+        } else { document.getElementById('stickyAlertBar').style.display = 'none'; document.body.classList.remove('has-alert'); }
 
         document.getElementById('sysFooterDisplay').innerText = config.footerText || '';
-
         document.documentElement.style.setProperty('--primary', config.cPrimary);
         document.documentElement.style.setProperty('--secondary', config.cSecondary);
         document.documentElement.style.setProperty('--accent', config.cAccent);
         document.documentElement.style.setProperty('--bg', config.cBg);
         document.documentElement.style.setProperty('--font-main', config.fontStyle || "'Cairo', sans-serif");
         
-        const currentGlass = config.glassMode || 'on';
-        if(currentGlass === 'on') {
-            document.body.classList.add('glass-enabled');
-            document.body.classList.remove('glass-disabled');
+        if (config.bgImage && config.bgImage.trim() !== "") document.body.style.backgroundImage = `url('${config.bgImage}')`; 
+        else document.body.style.backgroundImage = 'none';
+
+        // 🟩 تطبيق أو إزالة النيوبروتاليزم من القاعدة مباشرة
+        if(config.neoMode === 'on') {
+            document.body.classList.add('neubrutalism');
+            if(document.getElementById('adminNeoBtn')) document.getElementById('adminNeoBtn').innerText = 'إلغاء ستايل Neubrutalism 🛑';
         } else {
-            document.body.classList.add('glass-disabled');
-            document.body.classList.remove('glass-enabled');
+            document.body.classList.remove('neubrutalism');
+            if(document.getElementById('adminNeoBtn')) document.getElementById('adminNeoBtn').innerText = 'تفعيل ستايل Neubrutalism ✨';
         }
 
-        if (config.bgImage && config.bgImage.trim() !== "") { document.body.style.backgroundImage = `url('${config.bgImage}')`; } 
-        else { document.body.style.backgroundImage = 'none'; }
+        // 🍏 تطبيق أو إزالة الزجاجيات
+        if(config.glassMode === 'on') { document.body.classList.add('glass-enabled'); document.body.classList.remove('glass-disabled'); } 
+        else { document.body.classList.add('glass-disabled'); document.body.classList.remove('glass-enabled'); }
 
         document.getElementById('pageTitle').innerText = config.savedTitle;
         document.getElementById('mainDisplayTitle').innerText = config.savedTitle;
         
-        if(config.savedNotice) {
-            document.getElementById('tickerText').innerText = config.savedNotice;
-            document.getElementById('tickerText').style.animationDuration = `${config.tickerSpeed || 25}s`;
-            document.getElementById('broadcastBar').style.display = 'block';
-        } else { document.getElementById('broadcastBar').style.display = 'none'; }
+        if(config.savedNotice) { document.getElementById('tickerText').innerText = config.savedNotice; document.getElementById('tickerText').style.animationDuration = `${config.tickerSpeed || 25}s`; document.getElementById('broadcastBar').style.display = 'block'; } 
+        else document.getElementById('broadcastBar').style.display = 'none';
 
-        if(config.cosmicQuote) {
-            document.getElementById('cosmicQuoteDisplay').innerText = `"${config.cosmicQuote}"`;
-            document.getElementById('cosmicQuoteDisplay').style.display = 'block';
-        } else { document.getElementById('cosmicQuoteDisplay').style.display = 'none'; }
+        if(config.cosmicQuote) { document.getElementById('cosmicQuoteDisplay').innerText = `"${config.cosmicQuote}"`; document.getElementById('cosmicQuoteDisplay').style.display = 'block'; } 
+        else document.getElementById('cosmicQuoteDisplay').style.display = 'none';
 
         document.getElementById('liveUsersCount').innerText = (config.usersCount !== undefined ? config.usersCount : 15).toLocaleString('en');
 
+        // ملء إعدادات الإدارة
         if(document.getElementById('adminTitleIn')) document.getElementById('adminTitleIn').value = config.savedTitle;
         if(document.getElementById('adminPassIn')) document.getElementById('adminPassIn').value = config.currentPassword;
         if(document.getElementById('adminNoticeIn')) document.getElementById('adminNoticeIn').value = config.savedNotice;
@@ -1141,7 +1127,7 @@
         if(document.getElementById('adminAlertIn')) document.getElementById('adminAlertIn').value = config.popUpAlert || '';
         if(document.getElementById('adminTickerSpeed')) document.getElementById('adminTickerSpeed').value = config.tickerSpeed || 25;
         if(document.getElementById('adminClockFmt')) document.getElementById('adminClockFmt').value = config.clockFormat || "12";
-        if(document.getElementById('adminGlassModeIn')) document.getElementById('adminGlassModeIn').value = currentGlass;
+        if(document.getElementById('adminGlassModeIn')) document.getElementById('adminGlassModeIn').value = config.glassMode || 'on';
         if(document.getElementById('adminFontIn')) document.getElementById('adminFontIn').value = config.fontStyle || "'Cairo', sans-serif";
         if(document.getElementById('adminBgImageIn')) document.getElementById('adminBgImageIn').value = config.bgImage || "";
         if(document.getElementById('adminFooterIn')) document.getElementById('adminFooterIn').value = config.footerText || "";
@@ -1153,10 +1139,7 @@
         const mArr = config.customMonths || defaultMonths; mArr.forEach((m, i) => { if(document.getElementById(`mIn_${i}`)) document.getElementById(`mIn_${i}`).value = m; });
         const dArr = config.customDays || defaultDays; dArr.forEach((d, i) => { if(document.getElementById(`dIn_${i}`)) document.getElementById(`dIn_${i}`).value = d; });
         const zArr = config.customZodiacs || defaultZodiacs; const zSymArr = config.customZodiacSymbols || defaultZodiacSymbols;
-        zArr.forEach((z, i) => { 
-            if(document.getElementById(`zIn_${i}`)) document.getElementById(`zIn_${i}`).value = z; 
-            if(document.getElementById(`zSymIn_${i}`)) document.getElementById(`zSymIn_${i}`).value = zSymArr[i] || defaultZodiacSymbols[i]; 
-        });
+        zArr.forEach((z, i) => { if(document.getElementById(`zIn_${i}`)) document.getElementById(`zIn_${i}`).value = z; if(document.getElementById(`zSymIn_${i}`)) document.getElementById(`zSymIn_${i}`).value = zSymArr[i] || defaultZodiacSymbols[i]; });
 
         if(document.getElementById('h1Name')) document.getElementById('h1Name').value = config.h1N || ''; if(document.getElementById('h1Date')) document.getElementById('h1Date').value = config.h1D || '';
         if(document.getElementById('h2Name')) document.getElementById('h2Name').value = config.h2N || ''; if(document.getElementById('h2Date')) document.getElementById('h2Date').value = config.h2D || '';
@@ -1167,6 +1150,14 @@
             mArr.map((m, i) => `<tr><td><b style="color:var(--secondary)">${m}</b></td><td>يوازن: <b>${traditionalMonthsAr[i]}</b></td><td>${monthDescriptions[i]}</td></tr>`).join('');
             
         updateRealtimeCalculations();
+    }
+
+    // 🟩 دالة تبديل النيوبروتاليزم عالمياً وحفظها بقاعدة البيانات
+    function toggleNeoStyleGlobal() {
+        const newState = config.neoMode === 'on' ? 'off' : 'on';
+        db.update({ neoMode: newState }).then(() => {
+            alert(newState === 'on' ? "تم تفعيل ستايل Neubrutalism على كامل الموقع لجميع الزوار! ✨" : "تم إلغاء ستايل Neubrutalism والعودة للوضع الكوني. 🛑");
+        });
     }
 
     function toggleAudio() {
@@ -1193,31 +1184,17 @@
         }
     }
 
-    function setTheme(p, s, a, bg) { 
-        document.getElementById('colorPrimary').value = p; document.getElementById('colorSecondary').value = s; 
-        document.getElementById('colorAccent').value = a; document.getElementById('colorBg').value = bg; 
-    }
+    function setTheme(p, s, a, bg) { document.getElementById('colorPrimary').value = p; document.getElementById('colorSecondary').value = s; document.getElementById('colorAccent').value = a; document.getElementById('colorBg').value = bg; }
     
-    function triggerAdminAccess() {
-        const modal = document.getElementById('adminAuthModal');
-        const passInput = document.getElementById('modalPasswordIn');
-        modal.style.display = 'flex';
-        passInput.value = '';
-        passInput.focus();
-    }
-
+    function triggerAdminAccess() { document.getElementById('adminAuthModal').style.display = 'flex'; document.getElementById('modalPasswordIn').value = ''; document.getElementById('modalPasswordIn').focus(); }
     function closeAdminModal() { document.getElementById('adminAuthModal').style.display = 'none'; }
 
     function submitAdminPassword() {
         const p = document.getElementById('modalPasswordIn').value;
         if (p === config.currentPassword) { 
-            isAdminLoggedIn = true; 
-            document.getElementById('adminPanel').style.display = 'block'; 
-            document.getElementById('maintenanceScreen').style.display = 'none'; 
-            closeAdminModal();
-            window.scrollTo({ top: 0, behavior: 'smooth' }); 
-            loadUsersDashboard(); 
-        } else { alert("⚠️ الرمز السري للمسؤول غير صحيح."); }
+            isAdminLoggedIn = true; document.getElementById('adminPanel').style.display = 'block'; document.getElementById('maintenanceScreen').style.display = 'none'; 
+            closeAdminModal(); window.scrollTo({ top: 0, behavior: 'smooth' }); loadUsersDashboard(); 
+        } else alert("⚠️ الرمز السري للمسؤول غير صحيح.");
     }
 
     function loadUsersDashboard() {
@@ -1226,94 +1203,42 @@
             const bannedTbody = document.getElementById('bannedUsersTableBody');
             if (!activeTbody || !bannedTbody) return; 
             
-            activeTbody.innerHTML = ''; 
-            bannedTbody.innerHTML = ''; 
-
-            let hasActive = false;
-            let hasBanned = false;
+            activeTbody.innerHTML = ''; bannedTbody.innerHTML = ''; 
+            let hasActive = false, hasBanned = false;
             
             if (!snapshot.exists()) {
-                activeTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">لا يوجد أي مواطنين نشطين حالياً.</td></tr>`;
-                bannedTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">قائمة الحظر فارغة.</td></tr>`;
+                activeTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px;">لا يوجد مواطنين حالياً.</td></tr>`;
+                bannedTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px;">قائمة الحظر فارغة.</td></tr>`;
                 return;
             }
             
             snapshot.forEach((childSnapshot) => {
-                const uid = childSnapshot.key;
-                const uData = childSnapshot.val();
-                
-                const name = uData.username || uData.name || 'مواطن كوني مجهول';
-                const email = uData.email || 'لا يوجد بريد مسجل';
-                const pass = uData.password || 'مخفية/قديمة';
-                const isBanned = uData.isBanned || false;
-                
+                const uid = childSnapshot.key, uData = childSnapshot.val();
+                const name = uData.username || uData.name || 'مجهول', email = uData.email || 'بدون إيميل', pass = uData.password || 'مخفية', isBanned = uData.isBanned || false;
                 const tr = document.createElement('tr');
                 
                 if (isBanned) {
                     hasBanned = true;
-                    tr.innerHTML = `
-                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted); direction: ltr; text-align: right;">${uid}</td>
-                        <td style="color: var(--accent);"><strong>${name}</strong></td>
-                        <td style="color: var(--text-muted); text-decoration: line-through;">${email}</td>
-                        <td style="font-family: monospace; color: #FF9100;">${pass}</td>
-                        <td>
-                            <button class="btn-user-action btn-user-unban" onclick="unbanUser('${uid}', '${name}')">✅ فك الحظر</button>
-                            <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح كلي</button>
-                        </td>
-                    `;
+                    tr.innerHTML = `<td>${uid}</td><td style="color: var(--accent);">${name}</td><td style="text-decoration: line-through;">${email}</td><td>${pass}</td>
+                    <td><button class="btn-user-action btn-user-unban" onclick="unbanUser('${uid}', '${name}')">✅ فك الحظر</button> <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح كلي</button></td>`;
                     bannedTbody.appendChild(tr);
                 } else {
                     hasActive = true;
-                    tr.innerHTML = `
-                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted); direction: ltr; text-align: right;">${uid}</td>
-                        <td><strong>${name}</strong></td>
-                        <td>${email}</td>
-                        <td style="font-family: monospace; color: #00E676;">${pass}</td>
-                        <td>
-                            <button class="btn-user-action btn-user-view" onclick="viewUserDetails('${uid}')">👁️ عرض</button>
-                            <button class="btn-user-action btn-user-ban" onclick="banUser('${uid}', '${name}')">🚫 حظر</button>
-                            <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح كلي</button>
-                        </td>
-                    `;
+                    tr.innerHTML = `<td>${uid}</td><td>${name}</td><td>${email}</td><td style="color: #00E676;">${pass}</td>
+                    <td><button class="btn-user-action btn-user-view" onclick="viewUserDetails('${uid}')">👁️ عرض</button> <button class="btn-user-action btn-user-ban" onclick="banUser('${uid}', '${name}')">🚫 حظر</button> <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح</button></td>`;
                     activeTbody.appendChild(tr);
                 }
             });
-
-            if (!hasActive) activeTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">لا يوجد أي مواطنين نشطين حالياً.</td></tr>`;
-            if (!hasBanned) bannedTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">قائمة الحظر فارغة.</td></tr>`;
-
-        }, (error) => {
-            console.error("خطأ في جلب السجلات الكونية للمستخدمين:", error);
+            if (!hasActive) activeTbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">لا يوجد مواطنين نشطين حالياً.</td></tr>`;
+            if (!hasBanned) bannedTbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">قائمة الحظر فارغة.</td></tr>`;
         });
     }
 
-    function banUser(uid, name) {
-        if(confirm(`هل أنت متأكد من حظر المستخدم [ ${name} ]؟\nلن يتمكن من الدخول للمنظومة نهائياً.`)) {
-            firebase.database().ref('users/' + uid).update({ isBanned: true })
-            .then(() => alert(`تم إدراج [ ${name} ] في قائمة الحظر الكونية بنجاح.`))
-            .catch(err => alert("فشل الحظر: " + err.message));
-        }
-    }
-
-    function unbanUser(uid, name) {
-        if(confirm(`هل تريد فك الحظر واستعادة صلاحيات المستخدم [ ${name} ]؟`)) {
-            firebase.database().ref('users/' + uid).update({ isBanned: false })
-            .then(() => alert(`تم فك الحظر عن [ ${name} ]. يمكنه الدخول الآن.`))
-            .catch(err => alert("فشل الإلغاء: " + err.message));
-        }
-    }
-
+    function banUser(uid, name) { if(confirm(`تأكيد حظر [ ${name} ]؟`)) firebase.database().ref('users/' + uid).update({ isBanned: true }).then(() => alert(`تم الحظر.`)); }
+    function unbanUser(uid, name) { if(confirm(`فك حظر [ ${name} ]؟`)) firebase.database().ref('users/' + uid).update({ isBanned: false }).then(() => alert(`تم فك الحظر.`)); }
     function deleteUserAccount(uid, name) {
-        const confirmFirst = confirm(`🚨 هل أنت متأكد من مسح بيانات المستخدم: [ ${name} ] نهائياً؟\nهذا سيمسح بياناته تماماً، وإذا أردت إلغاء إيميله كلياً يجب حذفه من لوحة Firebase Authentication يدوياً.`);
-        if (confirmFirst) {
-            const confirmSecond = prompt(`⚠️ لتأكيد المسح، يرجى كتابة كلمة "مسح" في الحقل أدناه:`);
-            if (confirmSecond === 'مسح' || confirmSecond === '"مسح"') {
-                firebase.database().ref('users/' + uid).remove()
-                .then(() => { alert(`✨ نجاح العملية: تم تدمير ومسح حساب المستخدم (${name}) بالكامل من قاعدة البيانات.`); })
-                .catch((error) => { alert(`❌ فشلت عملية الحذف: ${error.message}`); });
-            } else {
-                alert("❌ تم إلغاء الإجراء بسبب عدم تطابق كلمة التأكيد.");
-            }
+        if (confirm(`🚨 تأكيد مسح [ ${name} ] نهائياً؟`)) {
+            if (prompt(`⚠️ اكتب "مسح" للتأكيد:`) === 'مسح') firebase.database().ref('users/' + uid).remove().then(() => alert(`نجاح.`));
         }
     }
 
@@ -1321,39 +1246,17 @@
         firebase.database().ref('users/' + uid).once('value').then((snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
-                const body = document.getElementById('userDetailsBody');
-                
-                let htmlContent = `<div style="margin-bottom: 15px; color: var(--primary); font-weight: bold; font-family: monospace; border-bottom: 1px dashed rgba(0,229,255,0.2); padding-bottom: 8px;">UID: ${uid}</div>`;
-                
+                let htmlContent = `<div style="margin-bottom: 15px; color: var(--primary); font-weight: bold; border-bottom: 1px dashed rgba(0,229,255,0.2); padding-bottom: 8px;">UID: ${uid}</div>`;
                 for (let key in data) {
-                    let label = key;
-                    if (key === 'name' || key === 'username') label = 'الاسم الكوني الموثق';
-                    if (key === 'email') label = 'البريد الإلكتروني للاتصال';
-                    if (key === 'password') label = 'كلمة المرور السريّة';
-                    if (key === 'earthBirthDate') label = 'تاريخ الميلاد الأرضي للمواطن';
-                    if (key === 'photoURL') label = 'رابط الصورة الرمزية';
-                    if (key === 'isBanned') label = 'حالة الحظر';
-                    
-                    let value = data[key];
+                    let label = key, value = data[key];
                     if (key === 'isBanned') value = value ? 'محظور 🚫' : 'نشط وسليم ✅';
-                    if (key === 'password' && !value) value = 'مخفية (حساب قديم)';
-                    
-                    if (typeof value === 'object' && value !== null) {
-                        value = `<pre style="background: rgba(0,0,0,0.4); padding: 8px; border-radius: 6px; font-family: monospace; font-size: 0.8rem; direction: ltr; margin: 5px 0; color: #00E676; border: 1px solid rgba(0,230,118,0.1);">${JSON.stringify(value, null, 2)}</pre>`;
-                        htmlContent += `<div style="padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);"><strong style="color: var(--secondary); display:block; margin-bottom:5px;">✨ ${label}:</strong> ${value}</div>`;
-                    } else {
-                        htmlContent += `<div class="user-detail-row"><strong>✨ ${label}:</strong> <span style="direction: ltr; text-align: left; font-family: ${key==='password'?'monospace':'inherit'}; color: ${key==='password'?'#00E676':'inherit'};">${value}</span></div>`;
-                    }
+                    htmlContent += `<div class="user-detail-row"><strong>✨ ${label}:</strong> <span style="direction: ltr;">${value}</span></div>`;
                 }
-                
-                body.innerHTML = htmlContent;
+                document.getElementById('userDetailsBody').innerHTML = htmlContent;
                 document.getElementById('userDetailsModal').style.display = 'flex';
-            } else {
-                alert("⚠️ تعذر العثور على أي سجلات فلكية لهذا المستخدم.");
             }
-        }).catch(err => { alert("❌ خطأ منظومي أثناء جلب البيانات: " + err.message); });
+        });
     }
-
     function closeDetailsModal() { document.getElementById('userDetailsModal').style.display = 'none'; }
 
     function saveAdminChanges() {
@@ -1362,7 +1265,7 @@
         for(let i=0; i<7; i++) d.push(document.getElementById(`dIn_${i}`).value || defaultDays[i]);
         for(let i=0; i<12; i++) { z.push(document.getElementById(`zIn_${i}`).value || defaultZodiacs[i]); zSym.push(document.getElementById(`zSymIn_${i}`).value || defaultZodiacSymbols[i]); }
 
-        db.set({
+        db.update({
             currentPassword: document.getElementById('adminPassIn').value, savedTitle: document.getElementById('adminTitleIn').value,
             savedNotice: document.getElementById('adminNoticeIn').value, cosmicQuote: document.getElementById('adminQuoteIn').value,
             usersCount: parseInt(document.getElementById('adminUsersIn').value, 10) || 0, savedEpochYear: parseInt(document.getElementById('epochYearIn').value) || 2012,
@@ -1370,17 +1273,16 @@
             tickerSpeed: parseInt(document.getElementById('adminTickerSpeed').value) || 25, clockFormat: document.getElementById('adminClockFmt').value,
             glassMode: document.getElementById('adminGlassModeIn').value, fontStyle: document.getElementById('adminFontIn').value, 
             bgImage: document.getElementById('adminBgImageIn').value, footerText: document.getElementById('adminFooterIn').value, 
-            vDict: config.vDict || 'show', vConv: config.vConv || 'show',
             cPrimary: document.getElementById('colorPrimary').value, cSecondary: document.getElementById('colorSecondary').value,
             cAccent: document.getElementById('colorAccent').value, cBg: document.getElementById('colorBg').value,
             customMonths: m, customDays: d, customZodiacs: z, customZodiacSymbols: zSym,
             h1N: document.getElementById('h1Name').value, h1D: document.getElementById('h1Date').value,
             h2N: document.getElementById('h2Name').value, h2D: document.getElementById('h2Date').value,
             h3N: document.getElementById('h3Name').value, h3D: document.getElementById('h3Date').value
-        }).then(() => { alert("☁️ تم تحديث خوادم المنظومة وحفظ التعديلات المتقدمة!"); lockAdminPanel(); });
+        }).then(() => { alert("☁️ تم تحديث الخوادم وحفظ التعديلات المتقدمة بنجاح!"); lockAdminPanel(); });
     }
 
-    function resetToFactory() { if(confirm("⚠ هل أنت متأكد من مسح جميع التخصيصات والعودة لبيانات المصنع؟")) { db.set(defaultSystemData).then(() => location.reload()); } }
+    function resetToFactory() { if(confirm("⚠ مسح جميع التخصيصات والعودة لبيانات المصنع؟")) db.set(defaultSystemData).then(() => location.reload()); }
     function lockAdminPanel() { isAdminLoggedIn = false; document.getElementById('adminPanel').style.display = 'none'; applySystemData(); }
 
     function calculateCosmicTime(date) {
@@ -1398,10 +1300,8 @@
     }
 
     function updateMoonAndEnergy(date) {
-        const lp = 2551442.977; 
-        const ref = new Date(2000, 0, 6).getTime();
-        let phase = ((date.getTime() - ref) % lp) / lp;
-        if (phase < 0) phase += 1;
+        const lp = 2551442.977; const ref = new Date(2000, 0, 6).getTime();
+        let phase = ((date.getTime() - ref) % lp) / lp; if (phase < 0) phase += 1;
         const age = phase * 29.53;
         
         let icon = "🌑", title = "محاق الكوني", desc = "بداية دورة، تفرّغ للتأمل والتخطيط الشخصي الصامت.";
@@ -1426,17 +1326,14 @@
     function generateCosmicID() {
         const inputVal = document.getElementById('gIn').value;
         if(!inputVal) { alert("لطفاً، أدخل تاريخ ميلادك الأرضي أولاً."); return; }
-        const bDate = new Date(inputVal);
-        const today = new Date();
+        const bDate = new Date(inputVal); const today = new Date();
         if(bDate > today) { alert("التاريخ في المستقبل! لا توجد سجلات كهرومغناطيسية له بعد."); return; }
 
-        const c = calculateCosmicTime(bDate);
-        const currentC = calculateCosmicTime(today);
+        const c = calculateCosmicTime(bDate); const currentC = calculateCosmicTime(today);
         let age = currentC.year - c.year;
-        if (today.getMonth() < bDate.getMonth() || (today.getMonth() === bDate.getMonth() && today.getDate() < bDate.getDate())) { age--; }
+        if (today.getMonth() < bDate.getMonth() || (today.getMonth() === bDate.getMonth() && today.getDate() < bDate.getDate())) age--;
 
-        const zArr = config.customZodiacs || defaultZodiacs;
-        const zSymArr = config.customZodiacSymbols || defaultZodiacSymbols;
+        const zArr = config.customZodiacs || defaultZodiacs; const zSymArr = config.customZodiacSymbols || defaultZodiacSymbols;
 
         document.getElementById('idZodiacIcon').innerText = zSymArr[c.zodiacIdx] || "🌌";
         document.getElementById('idBirthDate').innerText = `${c.day} ${c.month} | حقبة ${c.year}`;
@@ -1446,22 +1343,14 @@
 
         const idBox = document.getElementById('cosmicIDResult');
         idBox.style.display = 'block'; idBox.style.animation = 'none';
-        setTimeout(() => idBox.style.animation = 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 10);
+        setTimeout(() => idBox.style.animation = 'popIn 0.5s', 10);
     }
 
     function loadCosmicTasks() {
         const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || [];
         const listEl = document.getElementById('cosmicTaskList');
         if(!listEl) return;
-        listEl.innerHTML = tasks.map((t, idx) => `
-            <li class="cosmic-task-item">
-                <span style="${t.completed ? 'text-decoration: line-through; color: var(--text-muted); opacity: 0.6;' : 'color: #fff; font-weight: 600;'}">${t.text}</span>
-                <div style="display: flex; gap: 8px; width: auto; margin: 0;">
-                    <button onclick="toggleCosmicTask(${idx})" style="width:34px; height:34px; padding:0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; background: var(--primary); color:#000; margin:0; border-radius:8px;">✓</button>
-                    <button onclick="deleteCosmicTask(${idx})" style="width:34px; height:34px; padding:0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; background: var(--accent); color:#fff; margin:0; border-radius:8px;">✕</button>
-                </div>
-            </li>
-        `).join('');
+        listEl.innerHTML = tasks.map((t, idx) => `<li class="cosmic-task-item"><span style="${t.completed ? 'text-decoration: line-through; opacity: 0.6;' : 'font-weight: 600;'}">${t.text}</span><div style="display: flex; gap: 8px;"><button onclick="toggleCosmicTask(${idx})" style="padding:4px 8px;">✓</button><button onclick="deleteCosmicTask(${idx})" class="btn-warn" style="padding:4px 8px;">✕</button></div></li>`).join('');
     }
 
     function addCosmicTask() {
@@ -1470,83 +1359,83 @@
         const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || [];
         tasks.push({ text: input.value.trim(), completed: false });
         localStorage.setItem('cosmic_tasks', JSON.stringify(tasks));
-        input.value = '';
-        loadCosmicTasks();
+        input.value = ''; loadCosmicTasks();
     }
+    function toggleCosmicTask(idx) { const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || []; tasks[idx].completed = !tasks[idx].completed; localStorage.setItem('cosmic_tasks', JSON.stringify(tasks)); loadCosmicTasks(); }
+    function deleteCosmicTask(idx) { const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || []; tasks.splice(idx, 1); localStorage.setItem('cosmic_tasks', JSON.stringify(tasks)); loadCosmicTasks(); }
 
-    function toggleCosmicTask(idx) {
-        const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || [];
-        if(tasks[idx]) tasks[idx].completed = !tasks[idx].completed;
-        localStorage.setItem('cosmic_tasks', JSON.stringify(tasks));
-        loadCosmicTasks();
-    }
-
-    function deleteCosmicTask(idx) {
-        const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || [];
-        tasks.splice(idx, 1);
-        localStorage.setItem('cosmic_tasks', JSON.stringify(tasks));
-        loadCosmicTasks();
-    }
-
+    // 🕒 هذه هي الدالة المكتملة لربط الوقت والتاريخ الكوني بالواجهة
     function updateRealtimeCalculations() {
-        const now = new Date(); const s = calculateCosmicTime(now);
+        const now = new Date(); 
+        const s = calculateCosmicTime(now);
         
-        document.getElementById('clock').innerText = config.clockFormat === "24" ? now.toLocaleTimeString('en-GB') : now.toLocaleTimeString('ar', { hour12: true });
-        document.getElementById('sDayName').innerText = "دورة " + s.dName;
-        document.getElementById('sMainDay').innerText = s.day.toLocaleString('en');
-        document.getElementById('sMonthYear').innerText = `قطاع ${s.month} ، حقبة ${s.year}`;
+        // 1. تحديث الساعة
+        if (document.getElementById('clock')) {
+            document.getElementById('clock').innerText = config.clockFormat === "24" ? now.toLocaleTimeString('en-GB') : now.toLocaleTimeString('ar', { hour12: true });
+        }
 
+        // 2. تحديث التاريخ الكوني الذي كان يظهر 0 0
+        if (document.getElementById('sMainDay')) document.getElementById('sMainDay').innerText = s.day < 10 ? '0' + s.day : s.day;
+        if (document.getElementById('sMonthYear')) document.getElementById('sMonthYear').innerText = `قطاع ${s.month} ، حقبة ${s.year}`;
+        if (document.getElementById('sDayName')) document.getElementById('sDayName').innerText = "دورة " + s.dName;
+
+        // 3. تحديث مسار اليوم (الشريط)
         const cSec = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
-        const dP = (cSec / 86400) * 100;
-        document.getElementById('dayFlowFill').style.width = dP + "%";
-        document.getElementById('dayFlowPerc').innerText = `انقضى ${Math.floor(dP)}%`;
-        document.getElementById('dayFlowHours').innerText = `متبقي ${24 - now.getHours()} ساعة فضائية`;
+        const dP = ((cSec / 86400) * 100).toFixed(1);
+        if (document.getElementById('dayFlowFill')) document.getElementById('dayFlowFill').style.width = dP + "%";
+        if (document.getElementById('dayFlowPerc')) document.getElementById('dayFlowPerc').innerText = `انقضى ${Math.floor(dP)}%`;
+        if (document.getElementById('dayFlowHours')) document.getElementById('dayFlowHours').innerText = `متبقي ${24 - now.getHours()} ساعة فضائية`;
 
+        // 4. تحديث الدورة السنوية
         const st = new Date(now.getFullYear(), 0, 23); if (now < st) st.setFullYear(now.getFullYear() - 1);
         const en = new Date(st.getFullYear() + 1, 0, 23);
         const dL = Math.floor((en - now) / 86400000); const p = ((now - st) / (en - st)) * 100;
-
-        document.getElementById('daysLeft').innerText = dL + " يوم متبقي";
-        document.getElementById('percVal').innerText = p.toFixed(1) + "%";
-        document.getElementById('yearPerc').innerText = Math.floor(p) + "%";
+        if (document.getElementById('daysLeft')) document.getElementById('daysLeft').innerText = dL + " يوم متبقي";
+        if (document.getElementById('percVal')) document.getElementById('percVal').innerText = p.toFixed(1) + "%";
+        if (document.getElementById('yearPerc')) document.getElementById('yearPerc').innerText = Math.floor(p) + "%";
         
+        // 5. تحديث الأجندة والأحداث
         let currentEpoch = config.savedEpochYear !== undefined ? config.savedEpochYear : 2012;
-        document.getElementById('totalDaysCalc').innerText = Math.floor((now - new Date(currentEpoch, 0, 23)) / 86400000).toLocaleString('en');
+        if (document.getElementById('totalDaysCalc')) document.getElementById('totalDaysCalc').innerText = Math.floor((now - new Date(currentEpoch, 0, 23)) / 86400000).toLocaleString('en');
 
         const setCd = (id, dStr, nStr, nId) => {
-            if(!dStr) { document.getElementById(id).innerText = "--"; return; }
+            if(!dStr) return;
             const diff = Math.ceil((new Date(dStr) - now) / 86400000);
-            document.getElementById(nId).innerText = (nStr || 'حدث مبرمج') + ":";
-            document.getElementById(id).innerText = diff >= 0 ? diff + " يوم" : "مضى وانقضى";
+            if (document.getElementById(nId)) document.getElementById(nId).innerText = (nStr || 'حدث مبرمج') + ":";
+            if (document.getElementById(id)) document.getElementById(id).innerText = diff >= 0 ? diff + " يوم" : "مضى وانقضى";
         };
         setCd('cd1', config.h1D, config.h1N, 'lblH1'); setCd('cd2', config.h2D, config.h2N, 'lblH2'); setCd('cd3', config.h3D, config.h3N, 'lblH3');
         
+        // 6. تحديث القمر والطاقة والطقس الكوني
         updateMoonAndEnergy(now);
-
         const calculatedSpeed = Math.floor(380 + (Math.sin(now.getSeconds() * 0.15) * 45) + (now.getMinutes() * 1.5));
-        document.getElementById('solarWindSpeed').innerText = calculatedSpeed + " كم/ث";
+        if (document.getElementById('solarWindSpeed')) document.getElementById('solarWindSpeed').innerText = calculatedSpeed + " كم/ث";
         
-        let stormRating = "مستقر G0"; let stormColor = "#00E676"; let auroraStatus = "شفق خفيف مرئي عند الأقطاب العليا فقط";
+        let stormRating = "مستقر G0", stormColor = "#00E676", auroraStatus = "شفق خفيف مرئي عند الأقطاب العليا فقط";
         if (calculatedSpeed > 440) { stormRating = "شديدة G3"; stormColor = "#FF1744"; auroraStatus = "انفجار أورورا أحمر مبهر! مرئي بالعين المجردة بكثافة"; } 
         else if (calculatedSpeed > 410) { stormRating = "متوسطة G2"; stormColor = "#FF9100"; auroraStatus = "نشاط شفق أخضر متطور ممتد للقطاعات المتوسطة"; } 
         else if (calculatedSpeed > 395) { stormRating = "خفيفة G1"; stormColor = "#FFEA00"; auroraStatus = "مؤشرات جيدة لظهور حزم ضوئية خضراء متقطعة"; }
         
-        document.getElementById('geomagneticStorm').innerText = stormRating;
-        document.getElementById('geomagneticStorm').style.color = stormColor;
-        document.getElementById('auroraVisibility').innerText = auroraStatus;
+        if (document.getElementById('geomagneticStorm')) {
+            document.getElementById('geomagneticStorm').innerText = stormRating;
+            document.getElementById('geomagneticStorm').style.color = stormColor;
+        }
+        if (document.getElementById('auroraVisibility')) document.getElementById('auroraVisibility').innerText = auroraStatus;
 
+        // 7. تحديث عداد الزوار العشوائي (كل 6 ثوانٍ)
         if (now.getSeconds() % 6 === 0) {
             let baseU = config.usersCount !== undefined ? config.usersCount : 15;
             if (baseU > 0) {
                 let currentU = baseU + (Math.floor(Math.random() * 5) - 2);
-                document.getElementById('liveUsersCount').innerText = (currentU > 0 ? currentU : 1).toLocaleString('en');
-            } else { document.getElementById('liveUsersCount').innerText = "0"; }
+                if(document.getElementById('liveUsersCount')) document.getElementById('liveUsersCount').innerText = (currentU > 0 ? currentU : 1).toLocaleString('en');
+            } else { if(document.getElementById('liveUsersCount')) document.getElementById('liveUsersCount').innerText = "0"; }
         }
     }
 
-    document.getElementById('modalPasswordIn').addEventListener('keyup', function(e) { if (e.key === 'Enter') { submitAdminPassword(); } });
+    document.getElementById('modalPasswordIn').addEventListener('keyup', function(e) { if (e.key === 'Enter') submitAdminPassword(); });
     document.getElementById('cosmicTaskInput').addEventListener('keyup', function(e) { if(e.key === 'Enter') addCosmicTask(); });
 
+    // تشغيل الدالة كل ثانية لربط التحديثات
     setInterval(updateRealtimeCalculations, 1000);
 </script>
 

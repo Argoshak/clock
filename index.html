@@ -709,12 +709,12 @@
     const traditionalDaysAr = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
     const traditionalMonthsAr = ["يناير (1)", "فبراير (2)", "مارس (3)", "أبريل (4)", "مايو (5)", "يونيو (6)", "يوليو (7)", "أغسطس (8)", "سبتمبر (9)", "أكتوبر (10)", "نوفمبر (11)", "ديسمبر (12)"];
 
-    // بناء شبكة المدخلات برمجياً
+    // بناء شبكة المدخلات برمجياً (تم إصلاح الخطأ المطبعي هنا)
     document.getElementById('monthsInputsGrid').innerHTML = defaultMonths.map((m, i) => `<div class="admin-box"><label>الشهر ${i+1}:</label><input type="text" id="mIn_${i}"></div>`).join('');
-    document.getElementById('daysInputsGrid').innerHTML = defaultDays.map((d, i) => `<div class="admin-box"><label>اليوم ${i+1}:</label><input type="text id="dIn_${i}"></div>`).join('');
+    document.getElementById('daysInputsGrid').innerHTML = defaultDays.map((d, i) => `<div class="admin-box"><label>اليوم ${i+1}:</label><input type="text" id="dIn_${i}"></div>`).join('');
     document.getElementById('zodiacInputsGrid').innerHTML = defaultZodiacs.map((z, i) => `<div class="admin-box"><div style="display:flex; gap:6px;"><input type="text" id="zSymIn_${i}" style="width:60px;" placeholder="رمز"><input type="text" id="zIn_${i}" placeholder="الاسم"></div></div>`).join('');
 
-    // إعدادات Firebase الخاصة بقاعدة البيانات مع إضافة الـ authDomain وما يلزم لتشغيل جوجل
+    // إعدادات Firebase الخاصة بقاعدة البيانات
     const firebaseConfig = {
         apiKey: "AIzaSyAmXr7haZsHNSefR6AHwPTO98tvLLJXBFA",
         authDomain: "cosmic-clock-13345.firebaseapp.com",

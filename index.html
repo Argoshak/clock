@@ -109,23 +109,34 @@
         .broadcast-ticker { display: inline-block; padding-right: 100%; animation: ticker 28s linear infinite; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(100%); } }
 
-        /* ⚙️ أزرار البوابات والأجواء الثابتة الدائرية والمعاصرة */
+        /* 🚀 حاوية الأزرار العلوية المدمجة (إصلاح تداخل الإدارة مع الحساب) */
+        .top-global-nav-bar {
+            position: fixed;
+            top: 20px;
+            left: 24px;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            direction: ltr; /* لترتيب العناصر تلقائيا بشكل أفقي ممتاز */
+        }
+
         .admin-gate-btn {
-            position: fixed; top: 20px; left: 24px; width: auto !important; padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: center;
+            position: relative; /* إزالة fixed لتتناسق داخل الحاوية */
+            width: auto !important; padding: 12px 24px;
             background: rgba(10, 10, 20, 0.85); border: 1px solid rgba(0, 229, 255, 0.4); color: var(--primary);
-            border-radius: 50px; font-size: 0.95rem; cursor: pointer; z-index: 999999; font-weight: 700;
+            border-radius: 50px; font-size: 0.95rem; cursor: pointer; font-weight: 700;
             box-shadow: 0 8px 25px rgba(0,0,0,0.5), inset 0 0 10px rgba(0, 229, 255, 0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
         }
         .admin-gate-btn:hover { background: var(--primary); color: #040408; box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); transform: translateY(-2px); }
 
-        /* حاوية أزرار الحساب الذكية في الأعلى */
         .auth-nav-container {
-            position: fixed; top: 20px; left: 140px; z-index: 999999; height: 48px;
-            display: flex; gap: 10px; align-items: center; justify-content: center;
+            position: relative; /* إزالة fixed */
+            display: flex; gap: 10px; align-items: center;
         }
         .auth-nav-btn {
-            width: auto !important; padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 700;
+            width: auto !important; padding: 12px 24px; font-size: 0.95rem; font-weight: 700;
             border-radius: 50px; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.5);
         }
@@ -137,14 +148,12 @@
             position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer;
             border-radius: 50%; padding: 2.5px; background: linear-gradient(135deg, var(--primary), var(--secondary));
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.25), inset 0 0 8px rgba(255,255,255,0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            height: 48px; width: 48px;
         }
         .user-avatar-wrapper:hover { transform: scale(1.06); box-shadow: 0 0 25px var(--primary), 0 0 12px var(--secondary); }
-        .avatar-img-circle { width: 100%; height: 100%; border-radius: 50%; border: 2px solid #05050d; object-fit: cover; display: block; }
-        .avatar-letter-circle { width: 100%; height: 100%; border-radius: 50%; background: #0d0d1a; color: #ffffff; font-weight: 900; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; border: 2px solid #05050d; text-shadow: 0 0 8px var(--primary); }
+        .avatar-img-circle { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #05050d; object-fit: cover; display: block; }
+        .avatar-letter-circle { width: 44px; height: 44px; border-radius: 50%; background: #0d0d1a; color: #ffffff; font-weight: 900; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; border: 2px solid #05050d; text-shadow: 0 0 8px var(--primary); }
         
-        .user-dropdown-menu { position: absolute; top: 60px; left: 0; background: rgba(8, 8, 18, 0.97); border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 16px; width: 220px; padding: 8px; box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 20px rgba(0, 229, 255, 0.1); display: none; flex-direction: column; gap: 4px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: modalFadeIn 0.25s ease; z-index: 1000001; }
-        .user-dropdown-menu.show { display: flex !important; }
+        .user-dropdown-menu { position: absolute; top: 56px; left: 0; background: rgba(8, 8, 18, 0.97); border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 16px; width: 220px; padding: 8px; box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 20px rgba(0, 229, 255, 0.1); display: none; flex-direction: column; gap: 4px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: modalFadeIn 0.25s ease; z-index: 1000001; }
         .dropdown-user-info { padding: 10px 14px; font-size: 0.88rem; color: #fff; font-weight: 700; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px; background: rgba(255,255,255,0.03); border-radius: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .dropdown-item { padding: 10px 14px; text-align: right; color: white; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
         .dropdown-item:hover { background: rgba(0, 229, 255, 0.12); color: var(--primary); }
@@ -257,7 +266,6 @@
             -webkit-backdrop-filter: none !important;
         }
         
-        /* البطاقة الرئيسية (أصفر فاقع) */
         body.neubrutalism .hero-card {
             background-color: #FFD800 !important;
             border: 4px solid #000000 !important;
@@ -290,7 +298,6 @@
             transform: translate(4px, 4px) !important; box-shadow: 0px 0px 0px #000000 !important;
         }
         
-        /* شريط التقدم (سماوي فاقع) */
         body.neubrutalism .flow-bar-fill, body.neubrutalism .energy-bar-fill {
             background: #4DEEEA !important; border-radius: 0 !important; border-right: 4px solid #000 !important;
         }
@@ -305,7 +312,7 @@
         body.neubrutalism .users-table th { border-bottom: 4px solid #000 !important; background: #bcff6f !important; }
         body.neubrutalism .users-table td { border-bottom: 2px solid #000 !important; }
         
-        /* 🚨 إصلاحات شكل صورة الحساب والرسالة العلوية والقائمة في النيوبروتاليزم 🚨 */
+        /* 🚨 إصلاحات الرسالة العلوية والقائمة في النيوبروتاليزم 🚨 */
         body.neubrutalism .sticky-admin-alert-marquee {
             background: #FF3366 !important; color: #ffffff !important;
             border: 3px solid #000 !important; box-shadow: 4px 4px 0px #000 !important; 
@@ -320,7 +327,7 @@
         body.neubrutalism .ambient-btn { border-radius: 50% !important; }
         body.neubrutalism .day-flow { border-radius: 8px !important; border: 4px solid #000 !important; box-shadow: 4px 4px 0 #000 !important; background: #fff !important; }
 
-        /* تخصيص القائمة المنسدلة في النيوبروتاليزم لتظهر بوضوح */
+        /* 👈 تخصيص القائمة المنسدلة في النيوبروتاليزم لتظهر بوضوح ولا تختفي كتاباتها */
         body.neubrutalism .user-dropdown-menu {
             background: #ffffff !important; border: 4px solid #000 !important; box-shadow: 6px 6px 0px #000 !important; border-radius: 0px !important; padding: 10px !important;
         }
@@ -459,8 +466,13 @@
             .big-day { font-size: 5rem; }
             .month-year { font-size: 1.5rem; }
             #clock { font-size: 1.8rem !important; }
-            .admin-gate-btn { top: auto !important; bottom: 30px !important; left: 24px !important; padding: 0 24px !important; border-radius: 50px !important; box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3) !important; font-size: 0.9rem; }
-            .auth-nav-container { top: auto !important; bottom: 30px !important; left: 145px !important; }
+            
+            /* تعديلات الهواتف لتفادي التداخل في الأسفل */
+            .top-global-nav-bar {
+                top: auto !important;
+                bottom: 30px !important;
+                left: 24px !important;
+            }
             .ambient-btn { bottom: 30px !important; right: 24px !important; width: 54px; height: 54px; font-size: 1.4rem; }
             .stat-grid { grid-template-columns: 1fr; gap: 12px; }
             .theme-btn-grid { grid-template-columns: repeat(2, 1fr); }
@@ -488,9 +500,10 @@
     <div class="island-text-wrapper"><div id="marqueeText" class="marquee-content"></div></div>
 </div>
 
-<button class="admin-gate-btn" onclick="triggerAdminAccess()">⚙️ الإدارة</button>
-
-<div id="authNavContainer" class="auth-nav-container"></div>
+<div class="top-global-nav-bar">
+    <button class="admin-gate-btn" onclick="triggerAdminAccess()">⚙️ الإدارة</button>
+    <div id="authNavContainer" class="auth-nav-container"></div>
+</div>
 
 <button id="soundToggle" class="ambient-btn" title="تشغيل الأجواء الصوتية الفضائية" onclick="toggleAudio()">🎵</button>
 
@@ -808,12 +821,10 @@
     const traditionalDaysAr = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
     const traditionalMonthsAr = ["يناير (1)", "فبراير (2)", "مارس (3)", "أبريل (4)", "مايو (5)", "يونيو (6)", "يوليو (7)", "أغسطس (8)", "سبتمبر (9)", "أكتوبر (10)", "نوفمبر (11)", "ديسمبر (12)"];
 
-    // بناء شبكة المدخلات برمجياً
     document.getElementById('monthsInputsGrid').innerHTML = defaultMonths.map((m, i) => `<div class="admin-box"><label>الشهر ${i+1}:</label><input type="text" id="mIn_${i}"></div>`).join('');
     document.getElementById('daysInputsGrid').innerHTML = defaultDays.map((d, i) => `<div class="admin-box"><label>اليوم ${i+1}:</label><input type="text" id="dIn_${i}"></div>`).join('');
     document.getElementById('zodiacInputsGrid').innerHTML = defaultZodiacs.map((z, i) => `<div class="admin-box"><div style="display:flex; gap:6px;"><input type="text" id="zSymIn_${i}" style="width:60px;" placeholder="رمز"><input type="text" id="zIn_${i}" placeholder="الاسم"></div></div>`).join('');
 
-    // إعدادات Firebase الخاصة بقاعدة البيانات
     const firebaseConfig = {
         apiKey: "AIzaSyAmXr7haZsHNSefR6AHwPTO98tvLLJXBFA",
         authDomain: "cosmic-clock-13345.firebaseapp.com",
@@ -876,7 +887,7 @@
                 if(!uData) {
                     if (isRegisteringUser) return;
                     auth.signOut().then(() => {
-                        alert("تم إزالة حسابك بشكل نهائي من السجلات. يمكنك إنشاء حساب جديد ببياناتك الآن بحرية تامة.");
+                        alert("تم إزالة حسابك بشكل نهائي من السجلات.");
                         window.location.reload();
                     });
                     return;
@@ -909,7 +920,7 @@
                 }
 
                 authNavContainer.innerHTML = `
-                    <div class="user-avatar-wrapper" id="userAvatarBtn" onclick="toggleUserDropdown(event)">
+                    <div class="user-avatar-wrapper" onclick="toggleUserDropdown(event)">
                         ${avatarHTML}
                         <div id="userDropdownMenu" class="user-dropdown-menu">
                             <div class="dropdown-user-info">${currentName}</div>
@@ -987,7 +998,7 @@
         }
     }
 
-    // الطريقة البرمجية المضمونة والمستقرة لإظهار وإخفاء القائمة المنسدلة
+    // الطريقة البرمجية المضمونة لإظهار وإخفاء القائمة المنسدلة للأفتار
     function toggleUserDropdown(event) {
         event.stopPropagation();
         const menu = document.getElementById('userDropdownMenu');
@@ -1121,7 +1132,6 @@
         if (config.bgImage && config.bgImage.trim() !== "") document.body.style.backgroundImage = `url('${config.bgImage}')`; 
         else document.body.style.backgroundImage = 'none';
 
-        // 🟩 تطبيق أو إزالة النيوبروتاليزم من القاعدة مباشرة
         if(config.neoMode === 'on') {
             document.body.classList.add('neubrutalism');
             if(document.getElementById('adminNeoBtn')) document.getElementById('adminNeoBtn').innerText = 'إلغاء ستايل Neubrutalism 🛑';
@@ -1130,7 +1140,6 @@
             if(document.getElementById('adminNeoBtn')) document.getElementById('adminNeoBtn').innerText = 'تفعيل ستايل Neubrutalism ✨';
         }
 
-        // 🍏 تطبيق أو إزالة الزجاجيات
         if(config.glassMode === 'on') { document.body.classList.add('glass-enabled'); document.body.classList.remove('glass-disabled'); } 
         else { document.body.classList.add('glass-disabled'); document.body.classList.remove('glass-enabled'); }
 
@@ -1145,7 +1154,6 @@
 
         document.getElementById('liveUsersCount').innerText = (config.usersCount !== undefined ? config.usersCount : 15).toLocaleString('en');
 
-        // ملء إعدادات الإدارة
         if(document.getElementById('adminTitleIn')) document.getElementById('adminTitleIn').value = config.savedTitle;
         if(document.getElementById('adminPassIn')) document.getElementById('adminPassIn').value = config.currentPassword;
         if(document.getElementById('adminNoticeIn')) document.getElementById('adminNoticeIn').value = config.savedNotice;
@@ -1181,7 +1189,6 @@
         updateRealtimeCalculations();
     }
 
-    // 🟩 دالة تبديل النيوبروتاليزم عالمياً وحفظها بقاعدة البيانات
     function toggleNeoStyleGlobal() {
         const newState = config.neoMode === 'on' ? 'off' : 'on';
         db.update({ neoMode: newState }).then(() => {
@@ -1235,6 +1242,8 @@
             activeTbody.innerHTML = ''; bannedTbody.innerHTML = ''; 
             let hasActive = false, hasBanned = false;
             
+            let usersData = snapshot.val(); // تم إصلاح استخدام المتغير بدقة
+            
             if (!snapshot.exists()) {
                 activeTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px;">لا يوجد مواطنين حالياً.</td></tr>`;
                 bannedTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px;">قائمة الحظر فارغة.</td></tr>`;
@@ -1254,10 +1263,14 @@
                 } else {
                     hasActive = true;
                     tr.innerHTML = `<td>${uid}</td><td>${name}</td><td>${email}</td><td style="color: #00E676;">${pass}</td>
-                    <td><button class="btn-user-action btn-user-view" onclick="viewUserDetails('${uid}')">👁️ عرض</button> <button class="btn-user-action btn-user-ban" onclick="banUser('${uid}', '${name}')">🚫 حظر</button> <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح</button></td>`;
+                    <td><button class="btn-user-action btn-user-view" onclick="viewDetailedUserLogs('${uid}')">👁️ عرض</button> <button class="btn-user-action btn-user-ban" onclick="banUser('${uid}', '${name}')">🚫 حظر</button> <button class="btn-user-action btn-user-delete" onclick="deleteUserAccount('${uid}', '${name}')">🗑️ مسح</button></td>`;
                     activeTbody.appendChild(tr);
                 }
             });
+            
+            // تمرير مصفوفة المستخدمين للبيئة الشاملة حتى يقرأها زر الاستعراض لاحقاً
+            window.allUsersDataForAdmin = usersData; 
+            
             if (!hasActive) activeTbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">لا يوجد مواطنين نشطين حالياً.</td></tr>`;
             if (!hasBanned) bannedTbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">قائمة الحظر فارغة.</td></tr>`;
         });
@@ -1271,21 +1284,22 @@
         }
     }
 
-    function viewUserDetails(uid) {
-        firebase.database().ref('users/' + uid).once('value').then((snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                let htmlContent = `<div style="margin-bottom: 15px; color: var(--primary); font-weight: bold; border-bottom: 1px dashed rgba(0,229,255,0.2); padding-bottom: 8px;">UID: ${uid}</div>`;
-                for (let key in data) {
-                    let label = key, value = data[key];
-                    if (key === 'isBanned') value = value ? 'محظور 🚫' : 'نشط وسليم ✅';
-                    htmlContent += `<div class="user-detail-row"><strong>✨ ${label}:</strong> <span style="direction: ltr;">${value}</span></div>`;
-                }
-                document.getElementById('userDetailsBody').innerHTML = htmlContent;
-                document.getElementById('userDetailsModal').style.display = 'flex';
+    function viewDetailedUserLogs(uid) {
+        if (window.allUsersDataForAdmin && window.allUsersDataForAdmin[uid]) {
+            const u = window.allUsersDataForAdmin[uid];
+            let htmlContent = `<div style="margin-bottom: 15px; color: var(--primary); font-weight: bold; border-bottom: 1px dashed rgba(0,229,255,0.2); padding-bottom: 8px;">UID: ${uid}</div>`;
+            for (let key in u) {
+                let label = key, value = u[key];
+                if (key === 'isBanned') value = value ? 'محظور 🚫' : 'نشط وسليم ✅';
+                htmlContent += `<div class="user-detail-row"><strong>✨ ${label}:</strong> <span style="direction: ltr;">${value}</span></div>`;
             }
-        });
+            document.getElementById('userDetailsBody').innerHTML = htmlContent;
+            document.getElementById('userDetailsModal').style.display = 'flex';
+        } else {
+            alert("خطأ: تعذر استدعاء تفاصيل هذا المستخدم من المصفوفة المؤقتة.");
+        }
     }
+    
     function closeDetailsModal() { document.getElementById('userDetailsModal').style.display = 'none'; }
 
     function saveAdminChanges() {
@@ -1393,29 +1407,24 @@
     function toggleCosmicTask(idx) { const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || []; tasks[idx].completed = !tasks[idx].completed; localStorage.setItem('cosmic_tasks', JSON.stringify(tasks)); loadCosmicTasks(); }
     function deleteCosmicTask(idx) { const tasks = JSON.parse(localStorage.getItem('cosmic_tasks')) || []; tasks.splice(idx, 1); localStorage.setItem('cosmic_tasks', JSON.stringify(tasks)); loadCosmicTasks(); }
 
-    // 🕒 هذه هي الدالة المكتملة لربط الوقت والتاريخ الكوني بالواجهة
     function updateRealtimeCalculations() {
         const now = new Date(); 
         const s = calculateCosmicTime(now);
         
-        // 1. تحديث الساعة
         if (document.getElementById('clock')) {
             document.getElementById('clock').innerText = config.clockFormat === "24" ? now.toLocaleTimeString('en-GB') : now.toLocaleTimeString('ar', { hour12: true });
         }
 
-        // 2. تحديث التاريخ الكوني الذي كان يظهر 0 0
         if (document.getElementById('sMainDay')) document.getElementById('sMainDay').innerText = s.day < 10 ? '0' + s.day : s.day;
         if (document.getElementById('sMonthYear')) document.getElementById('sMonthYear').innerText = `قطاع ${s.month} ، حقبة ${s.year}`;
         if (document.getElementById('sDayName')) document.getElementById('sDayName').innerText = "دورة " + s.dName;
 
-        // 3. تحديث مسار اليوم (الشريط)
         const cSec = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
         const dP = ((cSec / 86400) * 100).toFixed(1);
         if (document.getElementById('dayFlowFill')) document.getElementById('dayFlowFill').style.width = dP + "%";
         if (document.getElementById('dayFlowPerc')) document.getElementById('dayFlowPerc').innerText = `انقضى ${Math.floor(dP)}%`;
         if (document.getElementById('dayFlowHours')) document.getElementById('dayFlowHours').innerText = `متبقي ${24 - now.getHours()} ساعة فضائية`;
 
-        // 4. تحديث الدورة السنوية
         const st = new Date(now.getFullYear(), 0, 23); if (now < st) st.setFullYear(now.getFullYear() - 1);
         const en = new Date(st.getFullYear() + 1, 0, 23);
         const dL = Math.floor((en - now) / 86400000); const p = ((now - st) / (en - st)) * 100;
@@ -1423,7 +1432,6 @@
         if (document.getElementById('percVal')) document.getElementById('percVal').innerText = p.toFixed(1) + "%";
         if (document.getElementById('yearPerc')) document.getElementById('yearPerc').innerText = Math.floor(p) + "%";
         
-        // 5. تحديث الأجندة والأحداث
         let currentEpoch = config.savedEpochYear !== undefined ? config.savedEpochYear : 2012;
         if (document.getElementById('totalDaysCalc')) document.getElementById('totalDaysCalc').innerText = Math.floor((now - new Date(currentEpoch, 0, 23)) / 86400000).toLocaleString('en');
 
@@ -1435,7 +1443,6 @@
         };
         setCd('cd1', config.h1D, config.h1N, 'lblH1'); setCd('cd2', config.h2D, config.h2N, 'lblH2'); setCd('cd3', config.h3D, config.h3N, 'lblH3');
         
-        // 6. تحديث القمر والطاقة والطقس الكوني
         updateMoonAndEnergy(now);
         const calculatedSpeed = Math.floor(380 + (Math.sin(now.getSeconds() * 0.15) * 45) + (now.getMinutes() * 1.5));
         if (document.getElementById('solarWindSpeed')) document.getElementById('solarWindSpeed').innerText = calculatedSpeed + " كم/ث";
@@ -1451,7 +1458,6 @@
         }
         if (document.getElementById('auroraVisibility')) document.getElementById('auroraVisibility').innerText = auroraStatus;
 
-        // 7. تحديث عداد الزوار العشوائي (كل 6 ثوانٍ)
         if (now.getSeconds() % 6 === 0) {
             let baseU = config.usersCount !== undefined ? config.usersCount : 15;
             if (baseU > 0) {
@@ -1464,7 +1470,6 @@
     document.getElementById('modalPasswordIn').addEventListener('keyup', function(e) { if (e.key === 'Enter') submitAdminPassword(); });
     document.getElementById('cosmicTaskInput').addEventListener('keyup', function(e) { if(e.key === 'Enter') addCosmicTask(); });
 
-    // تشغيل الدالة كل ثانية لربط التحديثات
     setInterval(updateRealtimeCalculations, 1000);
 </script>
 

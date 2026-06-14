@@ -245,15 +245,27 @@
             background-image: none !important;
             color: #000 !important;
         }
-        body.neubrutalism .card, body.neubrutalism .hero-card, body.neubrutalism .admin-panel, body.neubrutalism .modal-auth-box {
+        body.neubrutalism .card, body.neubrutalism .admin-panel, body.neubrutalism .modal-auth-box {
             background-color: #ffffff !important;
             border: 4px solid #000000 !important;
-            border-radius: 0px !important;
+            border-radius: 8px !important;
             box-shadow: 8px 8px 0px #000000 !important;
             color: #000 !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
         }
+        
+        /* البطاقة الرئيسية (أصفر فاقع) */
+        body.neubrutalism .hero-card {
+            background-color: #FFD800 !important;
+            border: 4px solid #000000 !important;
+            border-radius: 8px !important;
+            box-shadow: 8px 8px 0px #000000 !important;
+            color: #000 !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
         body.neubrutalism * {
             text-shadow: none !important;
         }
@@ -276,7 +288,7 @@
             background-color: #bcff6f !important;
             color: #000000 !important;
             border: 3px solid #000000 !important;
-            border-radius: 0px !important;
+            border-radius: 8px !important;
             box-shadow: 4px 4px 0px #000000 !important;
             font-weight: 900 !important;
             transition: transform 0.1s, box-shadow 0.1s !important;
@@ -285,20 +297,24 @@
             transform: translate(4px, 4px) !important;
             box-shadow: 0px 0px 0px #000000 !important;
         }
+        
+        /* شريط التقدم (سماوي فاقع) */
         body.neubrutalism .flow-bar-fill, body.neubrutalism .energy-bar-fill {
-            background: #000 !important;
+            background: #4DEEEA !important;
             border-radius: 0 !important;
+            border-right: 4px solid #000 !important;
         }
         body.neubrutalism .flow-bar-bg, body.neubrutalism .energy-bar-bg {
-            border: 2px solid #000 !important;
+            border: 4px solid #000 !important;
             border-radius: 0 !important;
             background: #fff !important;
             box-shadow: 4px 4px 0px #000000 !important;
+            height: 25px !important; 
         }
         body.neubrutalism .progress-circle {
             border: 6px solid #000 !important;
-            border-top: 6px solid #bcff6f !important;
-            border-radius: 0 !important;
+            border-top: 6px solid #FFD800 !important;
+            border-radius: 50% !important;
             background: #fff !important;
             box-shadow: 6px 6px 0 #000 !important;
         }
@@ -308,6 +324,42 @@
         }
         body.neubrutalism .users-table td {
             border-bottom: 2px solid #000 !important;
+        }
+        
+        /* 🚨 إصلاحات شكل صورة الحساب والرسالة العلوية في النيوبروتاليزم 🚨 */
+        body.neubrutalism .sticky-admin-alert-marquee {
+            background: #FF3366 !important; /* وردي فاقع */
+            color: #ffffff !important;
+            border: 3px solid #000 !important;
+            box-shadow: 4px 4px 0px #000 !important; /* ظل صلب */
+            border-radius: 50px !important;
+            backdrop-filter: none !important;
+            z-index: 999999 !important;
+        }
+        body.neubrutalism .island-text-wrapper * {
+            color: #ffffff !important; 
+        }
+        
+        body.neubrutalism .user-avatar-wrapper {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+        body.neubrutalism .avatar-img-circle, body.neubrutalism .avatar-letter-circle {
+            border: 3px solid #000 !important;
+            box-shadow: 4px 4px 0px #000 !important; /* ظل صلب ومتناسق */
+            border-radius: 50% !important;
+        }
+        
+        body.neubrutalism .ambient-btn {
+            border-radius: 50% !important;
+        }
+        
+        body.neubrutalism .day-flow {
+            border-radius: 8px !important;
+            border: 4px solid #000 !important;
+            box-shadow: 4px 4px 0 #000 !important;
+            background: #fff !important;
         }
         /* ======================================================= */
 
@@ -491,7 +543,7 @@
         <div class="admin-section-title">🔒 أمن النظام والمظهر العام 
             <button onclick="toggleLightDarkMode()" style="width:auto; font-size:0.8rem; padding:6px 14px; margin:0;" class="btn-dark">🌓 تبديل المظهر السريع</button>
         </div>
-        
+
         <div class="admin-grid" style="margin-bottom: 20px;">
             <div class="admin-box" style="grid-column: 1 / -1; background: rgba(255,23,68,0.1); border-color: var(--accent);">
                 <label style="color: var(--accent); font-size: 1rem;">🎨 التحكم في ستايل الموقع الشامل (Neubrutalism):</label>

@@ -111,7 +111,7 @@
 
         /* ⚙️ أزرار البوابات والأجواء الثابتة الدائرية والمعاصرة */
         .admin-gate-btn {
-            position: fixed; top: 20px; left: 24px; width: auto !important; padding: 12px 24px;
+            position: fixed; top: 20px; left: 24px; width: auto !important; padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: center;
             background: rgba(10, 10, 20, 0.85); border: 1px solid rgba(0, 229, 255, 0.4); color: var(--primary);
             border-radius: 50px; font-size: 0.95rem; cursor: pointer; z-index: 999999; font-weight: 700;
             box-shadow: 0 8px 25px rgba(0,0,0,0.5), inset 0 0 10px rgba(0, 229, 255, 0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -121,11 +121,11 @@
 
         /* حاوية أزرار الحساب الذكية في الأعلى */
         .auth-nav-container {
-            position: fixed; top: 20px; left: 140px; z-index: 999999;
-            display: flex; gap: 10px; align-items: center;
+            position: fixed; top: 20px; left: 140px; z-index: 999999; height: 48px;
+            display: flex; gap: 10px; align-items: center; justify-content: center;
         }
         .auth-nav-btn {
-            width: auto !important; padding: 12px 24px; font-size: 0.95rem; font-weight: 700;
+            width: auto !important; padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 700;
             border-radius: 50px; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.5);
         }
@@ -137,12 +137,14 @@
             position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer;
             border-radius: 50%; padding: 2.5px; background: linear-gradient(135deg, var(--primary), var(--secondary));
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.25), inset 0 0 8px rgba(255,255,255,0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 48px; width: 48px;
         }
         .user-avatar-wrapper:hover { transform: scale(1.06); box-shadow: 0 0 25px var(--primary), 0 0 12px var(--secondary); }
-        .avatar-img-circle { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #05050d; object-fit: cover; display: block; }
-        .avatar-letter-circle { width: 44px; height: 44px; border-radius: 50%; background: #0d0d1a; color: #ffffff; font-weight: 900; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; border: 2px solid #05050d; text-shadow: 0 0 8px var(--primary); }
+        .avatar-img-circle { width: 100%; height: 100%; border-radius: 50%; border: 2px solid #05050d; object-fit: cover; display: block; }
+        .avatar-letter-circle { width: 100%; height: 100%; border-radius: 50%; background: #0d0d1a; color: #ffffff; font-weight: 900; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; border: 2px solid #05050d; text-shadow: 0 0 8px var(--primary); }
         
-        .user-dropdown-menu { position: absolute; top: 56px; left: 0; background: rgba(8, 8, 18, 0.97); border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 16px; width: 220px; padding: 8px; box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 20px rgba(0, 229, 255, 0.1); display: none; flex-direction: column; gap: 4px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: modalFadeIn 0.25s ease; z-index: 1000001; }
+        .user-dropdown-menu { position: absolute; top: 60px; left: 0; background: rgba(8, 8, 18, 0.97); border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 16px; width: 220px; padding: 8px; box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 20px rgba(0, 229, 255, 0.1); display: none; flex-direction: column; gap: 4px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: modalFadeIn 0.25s ease; z-index: 1000001; }
+        .user-dropdown-menu.show { display: flex !important; }
         .dropdown-user-info { padding: 10px 14px; font-size: 0.88rem; color: #fff; font-weight: 700; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px; background: rgba(255,255,255,0.03); border-radius: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .dropdown-item { padding: 10px 14px; text-align: right; color: white; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
         .dropdown-item:hover { background: rgba(0, 229, 255, 0.12); color: var(--primary); }
@@ -241,7 +243,7 @@
         /* 🟩 ستايل النيوبروتاليزم العالمي (Neubrutalism Global) 🟩 */
         /* ======================================================= */
         body.neubrutalism, body.neubrutalism.glass-enabled {
-            background-color: #ffdeeb !important; /* لون فاقع للخلفية */
+            background-color: #ffdeeb !important; 
             background-image: none !important;
             color: #000 !important;
         }
@@ -266,100 +268,70 @@
             -webkit-backdrop-filter: none !important;
         }
 
-        body.neubrutalism * {
-            text-shadow: none !important;
-        }
+        body.neubrutalism * { text-shadow: none !important; }
         body.neubrutalism h2, body.neubrutalism h3, body.neubrutalism h4, body.neubrutalism p, body.neubrutalism span, body.neubrutalism label, body.neubrutalism div {
             color: #000 !important;
         }
         body.neubrutalism input, body.neubrutalism select, body.neubrutalism textarea {
-            background: #ffffff !important;
-            color: #000 !important;
-            border: 3px solid #000000 !important;
-            border-radius: 0px !important;
-            box-shadow: 4px 4px 0px #000000 !important;
-            font-weight: 800;
+            background: #ffffff !important; color: #000 !important;
+            border: 3px solid #000000 !important; border-radius: 0px !important;
+            box-shadow: 4px 4px 0px #000000 !important; font-weight: 800;
         }
         body.neubrutalism input:focus, body.neubrutalism select:focus {
-            transform: translate(-2px, -2px) !important;
-            box-shadow: 6px 6px 0px #000000 !important;
+            transform: translate(-2px, -2px) !important; box-shadow: 6px 6px 0px #000000 !important;
         }
         body.neubrutalism button, body.neubrutalism .btn-google, body.neubrutalism .admin-gate-btn {
-            background-color: #bcff6f !important;
-            color: #000000 !important;
-            border: 3px solid #000000 !important;
-            border-radius: 8px !important;
-            box-shadow: 4px 4px 0px #000000 !important;
-            font-weight: 900 !important;
+            background-color: #bcff6f !important; color: #000000 !important;
+            border: 3px solid #000000 !important; border-radius: 8px !important;
+            box-shadow: 4px 4px 0px #000000 !important; font-weight: 900 !important;
             transition: transform 0.1s, box-shadow 0.1s !important;
         }
         body.neubrutalism button:active, body.neubrutalism .btn-google:active, body.neubrutalism .admin-gate-btn:active {
-            transform: translate(4px, 4px) !important;
-            box-shadow: 0px 0px 0px #000000 !important;
+            transform: translate(4px, 4px) !important; box-shadow: 0px 0px 0px #000000 !important;
         }
         
         /* شريط التقدم (سماوي فاقع) */
         body.neubrutalism .flow-bar-fill, body.neubrutalism .energy-bar-fill {
-            background: #4DEEEA !important;
-            border-radius: 0 !important;
-            border-right: 4px solid #000 !important;
+            background: #4DEEEA !important; border-radius: 0 !important; border-right: 4px solid #000 !important;
         }
         body.neubrutalism .flow-bar-bg, body.neubrutalism .energy-bar-bg {
-            border: 4px solid #000 !important;
-            border-radius: 0 !important;
-            background: #fff !important;
-            box-shadow: 4px 4px 0px #000000 !important;
-            height: 25px !important; 
+            border: 4px solid #000 !important; border-radius: 0 !important; background: #fff !important;
+            box-shadow: 4px 4px 0px #000000 !important; height: 25px !important; 
         }
         body.neubrutalism .progress-circle {
-            border: 6px solid #000 !important;
-            border-top: 6px solid #FFD800 !important;
-            border-radius: 50% !important;
-            background: #fff !important;
-            box-shadow: 6px 6px 0 #000 !important;
+            border: 6px solid #000 !important; border-top: 6px solid #FFD800 !important; border-radius: 50% !important;
+            background: #fff !important; box-shadow: 6px 6px 0 #000 !important;
         }
-        body.neubrutalism .users-table th {
-            border-bottom: 4px solid #000 !important;
-            background: #bcff6f !important;
-        }
-        body.neubrutalism .users-table td {
-            border-bottom: 2px solid #000 !important;
-        }
+        body.neubrutalism .users-table th { border-bottom: 4px solid #000 !important; background: #bcff6f !important; }
+        body.neubrutalism .users-table td { border-bottom: 2px solid #000 !important; }
         
-        /* 🚨 إصلاحات شكل صورة الحساب والرسالة العلوية في النيوبروتاليزم 🚨 */
+        /* 🚨 إصلاحات شكل صورة الحساب والرسالة العلوية والقائمة في النيوبروتاليزم 🚨 */
         body.neubrutalism .sticky-admin-alert-marquee {
-            background: #FF3366 !important; /* وردي فاقع */
-            color: #ffffff !important;
-            border: 3px solid #000 !important;
-            box-shadow: 4px 4px 0px #000 !important; /* ظل صلب */
-            border-radius: 50px !important;
-            backdrop-filter: none !important;
-            z-index: 999999 !important;
+            background: #FF3366 !important; color: #ffffff !important;
+            border: 3px solid #000 !important; box-shadow: 4px 4px 0px #000 !important; 
+            border-radius: 50px !important; backdrop-filter: none !important; z-index: 999999 !important;
         }
-        body.neubrutalism .island-text-wrapper * {
-            color: #ffffff !important; 
-        }
+        body.neubrutalism .island-text-wrapper * { color: #ffffff !important; }
         
-        body.neubrutalism .user-avatar-wrapper {
-            background: transparent !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-        }
+        body.neubrutalism .user-avatar-wrapper { background: transparent !important; box-shadow: none !important; padding: 0 !important; }
         body.neubrutalism .avatar-img-circle, body.neubrutalism .avatar-letter-circle {
-            border: 3px solid #000 !important;
-            box-shadow: 4px 4px 0px #000 !important; /* ظل صلب ومتناسق */
-            border-radius: 50% !important;
+            border: 3px solid #000 !important; box-shadow: 4px 4px 0px #000 !important; border-radius: 50% !important;
         }
-        
-        body.neubrutalism .ambient-btn {
-            border-radius: 50% !important;
+        body.neubrutalism .ambient-btn { border-radius: 50% !important; }
+        body.neubrutalism .day-flow { border-radius: 8px !important; border: 4px solid #000 !important; box-shadow: 4px 4px 0 #000 !important; background: #fff !important; }
+
+        /* تخصيص القائمة المنسدلة في النيوبروتاليزم لتظهر بوضوح */
+        body.neubrutalism .user-dropdown-menu {
+            background: #ffffff !important; border: 4px solid #000 !important; box-shadow: 6px 6px 0px #000 !important; border-radius: 0px !important; padding: 10px !important;
         }
-        
-        body.neubrutalism .day-flow {
-            border-radius: 8px !important;
-            border: 4px solid #000 !important;
-            box-shadow: 4px 4px 0 #000 !important;
-            background: #fff !important;
+        body.neubrutalism .dropdown-user-info {
+            background: #bcff6f !important; color: #000 !important; border: 2px solid #000 !important; border-radius: 0px !important; font-weight: 900 !important;
+        }
+        body.neubrutalism .dropdown-item {
+            color: #000 !important; font-weight: 800 !important; border-radius: 0px !important; border: 2px solid transparent !important;
+        }
+        body.neubrutalism .dropdown-item:hover {
+            background: #ffdeeb !important; border: 2px solid #000 !important; box-shadow: 2px 2px 0px #000 !important; transform: translate(-2px, -2px) !important;
         }
         /* ======================================================= */
 
@@ -487,7 +459,7 @@
             .big-day { font-size: 5rem; }
             .month-year { font-size: 1.5rem; }
             #clock { font-size: 1.8rem !important; }
-            .admin-gate-btn { top: auto !important; bottom: 30px !important; left: 24px !important; padding: 14px 24px !important; border-radius: 50px !important; box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3) !important; font-size: 0.9rem; }
+            .admin-gate-btn { top: auto !important; bottom: 30px !important; left: 24px !important; padding: 0 24px !important; border-radius: 50px !important; box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3) !important; font-size: 0.9rem; }
             .auth-nav-container { top: auto !important; bottom: 30px !important; left: 145px !important; }
             .ambient-btn { bottom: 30px !important; right: 24px !important; width: 54px; height: 54px; font-size: 1.4rem; }
             .stat-grid { grid-template-columns: 1fr; gap: 12px; }
@@ -937,7 +909,7 @@
                 }
 
                 authNavContainer.innerHTML = `
-                    <div class="user-avatar-wrapper" onclick="toggleUserDropdown(event)">
+                    <div class="user-avatar-wrapper" id="userAvatarBtn" onclick="toggleUserDropdown(event)">
                         ${avatarHTML}
                         <div id="userDropdownMenu" class="user-dropdown-menu">
                             <div class="dropdown-user-info">${currentName}</div>
@@ -1015,15 +987,20 @@
         }
     }
 
+    // الطريقة البرمجية المضمونة والمستقرة لإظهار وإخفاء القائمة المنسدلة
     function toggleUserDropdown(event) {
         event.stopPropagation();
         const menu = document.getElementById('userDropdownMenu');
-        if (menu) menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+        if (menu) {
+            menu.classList.toggle('show');
+        }
     }
 
     window.addEventListener('click', () => {
         const menu = document.getElementById('userDropdownMenu');
-        if (menu) menu.style.display = 'none';
+        if (menu && menu.classList.contains('show')) {
+            menu.classList.remove('show');
+        }
     });
 
     function handleUserLogout() { auth.signOut().catch(err => alert('خطأ: ' + err.message)); }
